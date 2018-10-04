@@ -13,7 +13,6 @@ class InstructorCard extends Component {
         return categories;
     }
     render() {
-        console.log(this.props.image);
         return (
             <div className={this.props.isSlideItem ? "col-lg-3 col-md-6" : "col-10"}>
                 <div className="team_item">

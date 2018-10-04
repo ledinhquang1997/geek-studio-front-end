@@ -1,8 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:300,400,500,700,900");
 @import url(~slick-carousel/slick/slick.css);
 @import url(~slick-carousel/slick/slick-theme.css);
+.login-block {
+  background: #DE6262;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #FFB88C, #DE6262);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  float: left;
+  width: 100%;
+  padding: 50px 0; }
+
 .jumbotron__background {
-  background-image: url("../../images/back.jpg");
+  background-image: url("../../assets/images-system/back.jpg");
   background-size: cover; }
 
 .jumbotron__position {
@@ -103,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 15px; }
 
 .course {
-  height: 430px;
+  height: 440px;
   width: 100%;
   border-radius: 6px;
   background: #FFFFFF;
@@ -133,9 +144,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .course_body {
   padding-top: 22px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 23px; }
+
+.course_title {
+  height: 30px; }
 
 .course_title a {
   font-family: 'Roboto Slab', serif;
@@ -154,7 +168,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 15px;
   font-weight: 400;
   color: #384158;
-  margin-top: 6px; }
+  margin-top: 6px;
+  height: 40px; }
 
 .course_text {
   margin-top: 13px;
@@ -237,7 +252,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: -1px -1px 4px 0px rgba(0, 0, 0, 0.75); }
 
 .jumbotron_middle {
-  background-image: url("../../images/surfman.jpg");
+  background-image: url("../../assets/images-system/surfman.jpg");
   background-size: cover; }
 
 .features {
@@ -271,6 +286,9 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   font-size: 20px;
   margin-top: 23px; }
+
+.feature_text {
+  height: 75px; }
 
 .trans_200 {
   -webkit-transition: all 200ms ease;
@@ -413,7 +431,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 70%; }
 
 .instructorSection__background {
-  background-image: url("../../images/building.jpg");
+  background-image: url("../../assets/images-system/building.jpg");
   background-size: cover; }
 
 .jumbotron__animation-dna {
@@ -431,5 +449,5 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important; } }
 
 .bestseller-background {
-  background-image: url("../../images/backgound1.jpg");
+  background-image: url("../../assets/images-system/backgound1.jpg");
   background-size: contain; }

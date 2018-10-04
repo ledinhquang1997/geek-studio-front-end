@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
-
 class Course extends Component {
+
+    //////////////////////////////////
+    ////////////////////////////////////
+    ////////RENDER SECTION/////////////
+    renderInstructorNames = () => {
+        var instructors = "";
+        this.props.instructors.forEach((value, index) => {
+            if (index === this.props.instructors.length - 1)
+                instructors += value.name;
+            else if (index === this.props.instructors.length - 2)
+                instructors += value.name + " & ";
+            else
+                instructors += value.name + ", ";
+        });
+        return instructors;
+    }
     render() {
-        
         return (
-            <div className={this.props.isSliderCourse?"":"col-lg-4 col-md-6 mb-5 col-xl-3"}>
-                <div className={this.props.isSliderCourse?"course course_slider":"course"}>
-                    <div className="course_image_frame"><img className="course_image" src={require("../assets/images/"+this.props.image)} alt=""/></div>
+            <div className={this.props.isSliderCourse ? "" : "mb-5 mt-3 col-md-6 col-lg-4 col-xl-3"}>
+                <div className={this.props.isSliderCourse ? "course course_slider" : "course"}>
+                    <div className="course_image_frame"><img className="course_image" src={require("../assets/images/" + this.props.image)} alt="" /></div>
                     <div className="course_body">
-                        <h3 className="course_title"><a href="">{this.props.name}</a></h3>
-                        <div className="course_teacher">Mr. John Taylor</div>
+                        <div className="course_title"><a href="">{this.props.name}</a></div>
+                        <div className="course_teacher">{this.renderInstructorNames()}</div>
                         <div className="course_text">
                             <p>{this.props.description}</p>
                         </div>
@@ -32,5 +46,4 @@ class Course extends Component {
         );
     }
 }
-
 export default Course;

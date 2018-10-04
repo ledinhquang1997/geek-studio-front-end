@@ -10,4 +10,21 @@ export function* fetchBestSellerCourses() {
         yield put(CourseActions.getBestSellerFailed())
     }
 }
+export function* fetchTopRatingCourse() {
+    try {
+        const data = yield call(CourseServices.getTopRatingCourses);
+        yield put(CourseActions.getTopRatingSucess(data));
+    } catch (err){
+        yield put(CourseActions.getTopRatingFailed())
+    }
+}
 
+export function* fetchTop6CoursesByCategoryId(action) {
+    try {
+       const id = yield action.payload;
+        const data = yield call(CourseServices.getTop6CoursesByCategoryId,id);
+        yield put(CourseActions.getTop6CoursesByCategorySuccess(data));
+    } catch (err){
+        yield put(CourseActions.getTop6CoursesByCategoryFailed())
+    }
+}

@@ -2,8 +2,51 @@ import React, { Component } from 'react';
 import Slider from "react-slick";
 import Course from '../Course';
 import { connect } from "react-redux";
+import lottie from 'lottie-web';
+import animation from "../../assets/animations/5_stars.json";
+import animation1 from "../../assets/animations/trophy.json";
+
+import { CourseActions } from '../../actions';
+import { VariableConstants } from '../../constants';
 
 class BestSellerSection extends Component {
+    constructor(props) {
+        super(props);
+        this.animation = {
+
+        };
+        this.animation1 = {};
+
+    }
+
+    componentDidMount() {
+        this.props.getBestSellers();
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.highlightCourses.filter !== prevProps.highlightCourses.filter) {
+            if (this._el) {
+                if (this.props.highlightCourses.filter === VariableConstants.RATING) {
+                    lottie.loadAnimation({
+                        container: this._el, // the dom element that will contain the animation
+                        renderer: "svg",
+                        loop: true,
+                        autoplay: true,
+                        animationData: animation,
+                        
+                    });
+                }
+                else {
+                    lottie.loadAnimation({
+                        container: this._el, // the dom element that will contain the animation
+                        renderer: "svg",
+                        loop: true,
+                        autoplay: true,
+                        animationData: animation1
+                    });
+                }
+            }
+        }
+    }
     next = () => {
         this.slider.slickNext();
     }
@@ -11,28 +54,56 @@ class BestSellerSection extends Component {
         this.slider.slickPrev();
     }
 
+    changeFilter = (filter) => {
+        if (filter === VariableConstants.BEST_SELLER) {
+            this.props.getBestSellers();
+        }
+        else if (filter === VariableConstants.RATING) {
+            this.props.getTopRating();
+        }
+    }
+
     ////////////////////////////
     ////////////////////////////
     ///////RENDER SECTION///////
 
     renderBestSellers = () => {
-        return this.props.bestSellerCourses.map((course, index) => {
+        return this.props.highlightCourses.courses.map((course, index) => {
             return (
                 <Course key={course.id} isSliderCourse={true}
                     name={course.name} description={course.description}
                     cost={course.cost} image={course.image}
-                    amountStudent={course.amountStudent} rating={course.rating} />
+                    amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors} />
             )
         })
+    }
+    renderFilter = () => {
+        if (this.props.highlightCourses.filter === VariableConstants.RATING) {
+            return "Top Rating"
+        }
+        else if (this.props.highlightCourses.filter === VariableConstants.BEST_SELLER) {
+            return "Best Sellers"
+        }
+    }
+    renderFilterImage = () => {
+        if (this.props.highlightCourses.filter === VariableConstants.RATING) {
+            return <div style={{ width: "100px" }} ref={el => (this._el = el)}></div>
+        }
+        else if (this.props.highlightCourses.filter === VariableConstants.BEST_SELLER) {
+            return <img src={require('../../assets/images-system/bestseller.png')} style={{ width: "40px" }} alt="" />
+            // return <div style={{ width: "60px" }} ref={el => (this._el = el)}></div>
+
+        }
     }
 
     render() {
         var settings = {
             dots: true,
             speed: 500,
+            infinite: true,
             slidesToShow: 3,
             slidesToScroll: 1,
-            autoplay:true,
+            autoplay: true,
         };
         var responsiveSetting = [{
             breakpoint: 10000,
@@ -50,27 +121,61 @@ class BestSellerSection extends Component {
             breakpoint: 768,
             settings: { slidesToShow: 1 }
         }]
+        // var settings = {
+        //     dots: true,
+        //     infinite: true,
+        //     speed: 500,
+        //     slidesToShow: 3,
+        //     slidesToScroll: 1,
+        // };
+        // var responsiveSetting = [{
+        //     breakpoint: 1200,
+        //     settings: { slidesToShow: 3 }
+        // },
+        // {
+        //     breakpoint: 992,
+        //     settings: { slidesToShow: 2 }
+        // },
+        // {
+        //     breakpoint: 768,
+        //     settings: { slidesToShow: 1 }
+        // }]
         return (
             <div className="container-fluid mb-5 bestseller-background">
                 <div className="row">
                     <div className="col">
                         <div className="section_title_container text-center">
-                            <h2 className="section_title">BEST SELLER <img src={require('../../images/bestseller.png')} style={{ width: "40px" }} alt="" /></h2>
+                            <h2 className="section_title d-flex align-items-center justify-content-center flex-wrap">
+                                <div className="dropdown d-inline high__zindex">
+                                    <button className="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        <button className="dropdown-item" onClick={() => this.changeFilter(VariableConstants.BEST_SELLER)} type="button">Best Seller</button>
+                                        <button className="dropdown-item" onClick={() => this.changeFilter(VariableConstants.RATING)} type="button">Rating</button>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                {this.renderFilter()} &nbsp;{this.renderFilterImage()}
+
+                            </h2>
+
                             <div className="section_subtitle"><p className="lead">The most popular courses in this month is right below</p></div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="container col-1 d-flex align-items-center">
-                        <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
+                        <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
                     </div>
                     <div className="col-10">
-                        <Slider className="pb-2" responsive={responsiveSetting} arrows={false} lazyLoad={true} ref={c => (this.slider = c)} {...settings}>
+                        {/* <Slider className="pb-2" responsive={responsiveSetting} arrows={false} ref={c => (this.slider = c)} {...settings}>
+                            {this.renderBestSellers()}
+                        </Slider> */}
+                        <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
                             {this.renderBestSellers()}
                         </Slider>
                     </div>
                     <div className="col-1 d-flex align-items-center">
-                        <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center" onClick={this.next}><i className="material-icons">skip_next</i></button>
+                        <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.next}><i className="material-icons">skip_next</i></button>
                     </div>
                 </div>
             </div>
@@ -80,12 +185,17 @@ class BestSellerSection extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        bestSellerCourses: state.bestSellerCourses
+        highlightCourses: state.highlightCourses,
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-
+        getBestSellers: () => {
+            dispatch(CourseActions.getBestSellerCourses())
+        },
+        getTopRating: () => {
+            dispatch(CourseActions.getTopRating())
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BestSellerSection)

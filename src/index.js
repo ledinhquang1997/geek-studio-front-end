@@ -18,7 +18,6 @@ const store = createStore(
 store.subscribe(()=>console.log(store.getState()));
 sagaMiddleware.run(rootSaga);
 
-store.dispatch({type:"GET_BEST_SELLER_COURSE"});
 ReactDOM.render(
     <Provider store={store}>
     <App />

@@ -27,8 +27,7 @@ class InstructorsSection extends Component {
         })
     }
     render() {
-        console.log(Array.isArray(this.props.instructors));
-        console.log(this.props.instructors);
+    
 
         var settings = {
             dots: true,
@@ -57,8 +56,8 @@ class InstructorsSection extends Component {
                         <div className="row">
                             <div className="col">
                                 <div className="section_title_container text-center">
-                                    <h2 className="section_title">The Best Tutors in Town</h2>
-                                    <div className="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+                                    <h2 className="section_title">Best instructors around the world</h2>
+                                    <div className="section_subtitle"><p>Our Instructor Support Team is here for you 24/7 to help you through your course creation needs</p></div>
                                 </div>
                             </div>
                         </div>
