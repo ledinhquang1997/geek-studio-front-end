@@ -115,31 +115,13 @@ class BestSellerSection extends Component {
         },
         {
             breakpoint: 992,
-            settings: { slidesToShow: 2 }
+            settings: { slidesToShow: 3 }
         },
         {
             breakpoint: 768,
             settings: { slidesToShow: 1 }
         }]
-        // var settings = {
-        //     dots: true,
-        //     infinite: true,
-        //     speed: 500,
-        //     slidesToShow: 3,
-        //     slidesToScroll: 1,
-        // };
-        // var responsiveSetting = [{
-        //     breakpoint: 1200,
-        //     settings: { slidesToShow: 3 }
-        // },
-        // {
-        //     breakpoint: 992,
-        //     settings: { slidesToShow: 2 }
-        // },
-        // {
-        //     breakpoint: 768,
-        //     settings: { slidesToShow: 1 }
-        // }]
+   
         return (
             <div className="container-fluid mb-5 bestseller-background">
                 <div className="row">
@@ -163,18 +145,15 @@ class BestSellerSection extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="container col-1 d-flex align-items-center">
+                    <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
                         <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
                     </div>
-                    <div className="col-10">
-                        {/* <Slider className="pb-2" responsive={responsiveSetting} arrows={false} ref={c => (this.slider = c)} {...settings}>
-                            {this.renderBestSellers()}
-                        </Slider> */}
+                    <div className="col-lg-10 col-md-12 col-sm-12">
                         <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
                             {this.renderBestSellers()}
                         </Slider>
                     </div>
-                    <div className="col-1 d-flex align-items-center">
+                    <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
                         <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.next}><i className="material-icons">skip_next</i></button>
                     </div>
                 </div>

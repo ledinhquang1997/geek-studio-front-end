@@ -3,7 +3,7 @@ import { fetchBestSellerCourses, fetchTop6CoursesByCategoryId, fetchTopRatingCou
 import { takeEvery } from 'redux-saga/effects'
 import { InstructorConstants, CourseConstant, CategoryConstants, LoginConstants } from '../constants';
 import { fetchAllCategories } from './CategorySagas';
-import { login } from './LoginSagas';
+import { login,goToHomePage } from './LoginSagas';
 
 export default function* rootSaga() {
     yield takeEvery(InstructorConstants.GET_ALL_INSTRUCTORS, fetchInstructorList)
@@ -12,4 +12,5 @@ export default function* rootSaga() {
     yield takeEvery(CourseConstant.GET_TOP_6_COURSES_BY_CATEGORY, fetchTop6CoursesByCategoryId)
     yield takeEvery(CourseConstant.GET_TOP_RATING_COURSE, fetchTopRatingCourse)
     yield takeEvery(LoginConstants.LOGIN,login)
+    yield takeEvery(LoginConstants.LOGIN_SUCCESS,goToHomePage)
 }

@@ -4,5 +4,7 @@ export const VariableConstants = {
     LOCAL_IMAGE_URL:"../assets/images-system/",
     BEST_SELLER:"BEST_SELLER",
     RATING:"RATING",
-    
+    TOKEN: "TOKEN",
+    LOGIN_INFO: "LOGIN INFO",
+
 }

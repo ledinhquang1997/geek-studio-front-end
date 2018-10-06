@@ -519,6 +519,14 @@ h1, h2, h3, h4, h5, h6
     }
 }
 
+
+@media screen and (max-width: 992px) {
+   
+.slider-btn-arrow{
+	display: none !important
+}
+}
+
 .bestseller-background{
 	background-image: url('../../assets/images-system/backgound1.jpg');
 	background-size: contain
