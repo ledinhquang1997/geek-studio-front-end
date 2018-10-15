@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
-import Course from '../Course';
+import Course from '../../Common/Course';
 import { connect } from "react-redux";
 import lottie from 'lottie-web';
-import animation from "../../assets/animations/5_stars.json";
-import animation1 from "../../assets/animations/trophy.json";
+import animation from "../../../assets/animations/5_stars.json";
+import animation1 from "../../../assets/animations/trophy.json";
 
-import { CourseActions } from '../../actions';
-import { VariableConstants } from '../../constants';
+import { CourseActions } from '../../../actions';
+import { VariableConstants } from '../../../constants';
 
 class BestSellerSection extends Component {
     constructor(props) {
@@ -90,7 +90,7 @@ class BestSellerSection extends Component {
             return <div style={{ width: "100px" }} ref={el => (this._el = el)}></div>
         }
         else if (this.props.highlightCourses.filter === VariableConstants.BEST_SELLER) {
-            return <img src={require('../../assets/images-system/bestseller.png')} style={{ width: "40px" }} alt="" />
+            return <img src={require('../../../assets/images-system/bestseller.png')} style={{ width: "40px" }} alt="" />
             // return <div style={{ width: "60px" }} ref={el => (this._el = el)}></div>
 
         }
@@ -104,6 +104,7 @@ class BestSellerSection extends Component {
             slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: true,
+            pauseOnHover:true,
         };
         var responsiveSetting = [{
             breakpoint: 10000,
@@ -114,13 +115,17 @@ class BestSellerSection extends Component {
             settings: { slidesToShow: 4 }
         },
         {
-            breakpoint: 992,
+            breakpoint: 1250,
             settings: { slidesToShow: 3 }
         },
         {
             breakpoint: 768,
+            settings: { slidesToShow: 2 }
+        }, {
+            breakpoint: 550,
             settings: { slidesToShow: 1 }
-        }]
+        }
+    ]
    
         return (
             <div className="container-fluid mb-5 bestseller-background">
@@ -129,17 +134,15 @@ class BestSellerSection extends Component {
                         <div className="section_title_container text-center">
                             <h2 className="section_title d-flex align-items-center justify-content-center flex-wrap">
                                 <div className="dropdown d-inline high__zindex">
-                                    <button className="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <button className="dropdown-item" onClick={() => this.changeFilter(VariableConstants.BEST_SELLER)} type="button">Best Seller</button>
-                                        <button className="dropdown-item" onClick={() => this.changeFilter(VariableConstants.RATING)} type="button">Rating</button>
+                                    <button className="btn btn-outline-success dropdown-toggle" type="button"></button>
+                                    <div className="dropdown-content">
+                                        <a className="lead" onClick={() => this.changeFilter(VariableConstants.BEST_SELLER)} >Best Seller</a>
+                                        <a className="lead" onClick={() => this.changeFilter(VariableConstants.RATING)}>Rating</a>
                                     </div>
                                 </div>
                                 &nbsp;
                                 {this.renderFilter()} &nbsp;{this.renderFilterImage()}
-
                             </h2>
-
                             <div className="section_subtitle"><p className="lead">The most popular courses in this month is right below</p></div>
                         </div>
                     </div>
@@ -148,8 +151,8 @@ class BestSellerSection extends Component {
                     <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
                         <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
                     </div>
-                    <div className="col-lg-10 col-md-12 col-sm-12">
-                        <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
+                    <div className="col-lg-10 col-md-12 col-sm-12 m-auto">
+                        <Slider  responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
                             {this.renderBestSellers()}
                         </Slider>
                     </div>

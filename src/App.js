@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import HomePage from './components/Home/HomePage';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import { PrivateRoute } from './components/private-route';
+import Login from './components/Common/Login';
+import ClientSide from './components/ClientSide/ClientSide';
+
 class App extends Component {
   render() {
     return (
@@ -10,9 +10,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/login" component={Login} />
-            <PrivateRoute exact path="/" component={HomePage} requiredRoles={"ROLE_ADMIN"} />
+            <Route path="/" component={ClientSide}/>
           </Switch>
-          {/* <HomePage/> */}
         </BrowserRouter>
       </div>
     );

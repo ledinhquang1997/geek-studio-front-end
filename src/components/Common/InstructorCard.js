@@ -14,9 +14,9 @@ class InstructorCard extends Component {
     }
     render() {
         return (
-            <div className={this.props.isSlideItem ? "col-lg-3 col-md-6" : "col-10"}>
+            <div className={this.props.isSlideItem ? "col-lg-3 col-md-6" : "col-10 m-auto"}>
                 <div className="team_item">
-                    <div className="team_image"><img src={require("../assets/images/"+this.props.image+".jpg")} alt="" /></div>
+                    <div className="team_image"><img src={require("../../assets/images/"+this.props.image+".jpg")} alt="" /></div>
                     <div className="team_body">
                         <div className="team_title"><a href="">{this.props.name}</a></div>
                         <div className="team_subtitle">{this.renderCategories()}</div>

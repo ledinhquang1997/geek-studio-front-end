@@ -1,4 +1,4 @@
-import { VariableConstants } from '../constants';
+import { VariableConstants } from '../../constants';
 import cookies from 'react-cookies';
 
 // Apply new URL without reloading

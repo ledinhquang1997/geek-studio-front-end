@@ -20,7 +20,7 @@ class Course extends Component {
         return (
             <div className={this.props.isSliderCourse ? "" : "mb-5 mt-3 col-md-6 col-lg-4 col-xl-3"}>
                 <div className={this.props.isSliderCourse ? "course course_slider" : "course"}>
-                    <div className="course_image_frame"><img className="course_image" src={require("../assets/images/" + this.props.image)} alt="" /></div>
+                    <div className="course_image_frame"><img className="course_image" src={require("../../assets/images/" + this.props.image)} alt="" /></div>
                     <div className="course_body">
                         <div className="course_title"><a href="">{this.props.name}</a></div>
                         <div className="course_teacher">{this.renderInstructorNames()}</div>

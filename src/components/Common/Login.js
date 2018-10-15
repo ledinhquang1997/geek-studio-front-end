@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {LoginActions} from '../actions';
+import {LoginActions} from '../../actions';
 import {connect} from 'react-redux';
 class Login extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class Login extends Component {
     render() {
         console.log(this.state)
         return (
-            <div className="login-block">
+            <div className="login-block d-flex align-items-center">
                 <div className="container container-login">
                     <div className="row">
                         <div className="col-md-4 login-sec">

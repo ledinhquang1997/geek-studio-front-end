@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Course from '../Course';
+import Course from '../../Common/Course';
 import { connect } from 'react-redux';
-import Category from '../Category';
-import { CategoryActions, CourseActions } from '../../actions';
+import Category from '../../Common/Category';
+import { CategoryActions, CourseActions } from '../../../actions';
 class CategoriesSection extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +50,7 @@ class CategoriesSection extends Component {
                 <div className="jumbotron jumbotron-fluid jumbotron jumbotron_middle">
                     <div className="container">
                         <h2 className="section-title">EXPLORE COURSES</h2>
-                        <p className="lead">Learning never be easier with <img src={require('../../assets/images-system/logo-geek.png')} alt="" style={{ width: "40px" }} /></p>
+                        <p className="lead">Learning never be easier with <img src={require('../../../assets/images-system/logo-geek.png')} alt="" style={{ width: "40px" }} /></p>
                         <hr className="my-2" />
                     </div>
                     <div className="container">

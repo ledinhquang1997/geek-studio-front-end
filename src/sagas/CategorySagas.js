@@ -11,3 +11,12 @@ export function* fetchAllCategories() {
     }
 }
 
+export function* getcurrentCategoryWithTopics(action){
+    try {
+        const categoryId= yield action.payload;
+        const data = yield call(CategoryServices.getcurrentCategoryWithTopics,categoryId);
+        yield put(CategoryActions.getCurrentCategoryWithTopicsSuccess(data));
+    } catch (err){
+        yield put(CategoryActions.getCurrentCategoryAndTopicFailed(action.payload))
+    }
+}

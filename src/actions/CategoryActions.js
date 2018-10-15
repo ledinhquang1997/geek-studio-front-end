@@ -29,7 +29,20 @@ function changeDisplayCategory(name){
     return {type:CategoryConstants.CHANGE_CATEGORY_TO_DIPLAY, payload:name}
 }
 
+function getCurrentCategoryWithTopics(categoryId){
+    return {type:CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS, payload:categoryId}
+}
+
+function getCurrentCategoryWithTopicsSuccess(data){
+    return {type:CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS_SUCCESS, payload:data}
+}
+
+function getCurrentCategoryWithTopicsFailed(categoryId){
+    return {type:CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS_FAILED, payload:categoryId}
+}
+
 export const CategoryActions = {
     getAllCategories, getAllCategoriesSuccess, getAllCategoriesFailed,
-    displayProgramming,displayBusiness,displayEngineering, displayMarketing,changeDisplayCategory
+    displayProgramming,displayBusiness,displayEngineering, displayMarketing,changeDisplayCategory,
+    getCurrentCategoryWithTopics,getCurrentCategoryWithTopicsSuccess,getCurrentCategoryWithTopicsFailed
 }

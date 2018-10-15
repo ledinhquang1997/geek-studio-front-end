@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import InstructorCard from '../InstructorCard';
+import InstructorCard from '../../Common/InstructorCard';
 import Slider from "react-slick";
 import { connect } from 'react-redux';
-import { InstructorActions } from '../../actions'
+import { InstructorActions } from '../../../actions'
 
 class InstructorsSection extends Component {
     componentDidMount() {
@@ -16,18 +16,18 @@ class InstructorsSection extends Component {
     previous = () => {
         this.slider.slickPrev();
     }
-    /////////////////////////////////
+    /////////////////////////////////s
     ////////////////////////////////
     ////RENDER SECTION
     renderInstructorCards = () => {
         return this.props.instructors.map((value, index) => {
             return (
-                    <InstructorCard key={value.id} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company}/>
+                <InstructorCard key={index} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company} />
             )
         })
     }
     render() {
-    
+
 
         var settings = {
             dots: true,
@@ -37,15 +37,19 @@ class InstructorsSection extends Component {
             slidesToScroll: 1,
         };
         var responsiveSetting = [{
-            breakpoint: 1200,
+            breakpoint: 10000,
+            settings: { slidesToShow: 4 }
+        }
+            , {
+            breakpoint: 1400,
             settings: { slidesToShow: 3 }
         },
         {
-            breakpoint: 992,
+            breakpoint: 800,
             settings: { slidesToShow: 2 }
         },
         {
-            breakpoint: 768,
+            breakpoint: 530,
             settings: { slidesToShow: 1 }
         }]
         return (
@@ -61,17 +65,30 @@ class InstructorsSection extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="container col-1 d-flex align-items-center">
+                        {/* <div className="row">
+                            <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
                                 <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
                             </div>
-                            <div className="col-10">
+                            <div className="col-lg-10 col-md-12 col-sm-12">
                                 <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} {...settings}>
                                     {this.renderInstructorCards()}
                                 </Slider>
                             </div>
-                            <div className="col-1 d-flex align-items-center">
+                            <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
                                 <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center" onClick={this.next}><i className="material-icons">skip_next</i></button>
+                            </div>
+                        </div> */}
+                        <div className="row">
+                            <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
+                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
+                            </div>
+                            <div className="col-lg-10 col-md-12 col-sm-12 m-auto">
+                                <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
+                                    {this.renderInstructorCards()}
+                                </Slider>
+                            </div>
+                            <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
+                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.next}><i className="material-icons">skip_next</i></button>
                             </div>
                         </div>
                     </div>

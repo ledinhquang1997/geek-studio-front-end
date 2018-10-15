@@ -23,3 +23,17 @@ export const categorytToDisplay = (state = categoryToDisplayInitialState, action
             return state
     }
 }
+
+const currentCategoryWithTopicsInitialState = {}
+export const currentCategoryWithTopics = (state = currentCategoryWithTopicsInitialState, action) => {
+    switch (action.type) {
+        case CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS:
+            return state
+        case CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS_SUCCESS:
+            return { ...state, data: action.payload }
+        case CategoryConstants.GET_CURRENT_CATEGORY_WITH_TOPICS_FAILED:
+            return { ...state, msg: "Category " + action.payload + " not found" }
+        default:
+            return state
+    }
+}

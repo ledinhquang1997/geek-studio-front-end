@@ -3,7 +3,7 @@ import { LoginServices } from '../services';
 import { LoginActions } from '../actions';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../constants';
-import { forwardToNewPathname } from '../components/utilities';
+import { forwardToNewPathname } from '../components/Common/utilities';
 
 export function* login(action) {
     try {

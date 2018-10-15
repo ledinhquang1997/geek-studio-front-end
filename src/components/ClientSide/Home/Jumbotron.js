@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import lottie from "lottie-web";
-import animation from "../../assets/animations/dna_like_loader.json";
-import animation2 from "../../assets/animations/the_final_frontier.json"
+import animation from "../../../assets/animations/dna_like_loader.json";
+import animation2 from "../../../assets/animations/the_final_frontier.json"
 
 class Jumbotron extends Component {
     componentDidMount() {
@@ -29,7 +29,7 @@ class Jumbotron extends Component {
             <div className="jumbotron jumbotron__background jumbotron__position">
                 <div className="row">
                     <div className="col-lg-4 d-flex justify-content-center">
-                        <img src={require('../../assets/images-system/logo-geek.png')} alt={"perfect"} style={{ width: "280px", height: "350px" }} />
+                        <img src={require('../../../assets/images-system/logo-geek.png')} alt={"perfect"} style={{ width: "280px", height: "350px" }} />
                     </div>
                     <div className="col-lg-8 d-flex align-self-center justify-content-center flex-wrap high__zindex">
                         <div className="jumbotron__animation-planet" ref={lo => (this._lo = lo)}></div>

@@ -5,6 +5,6 @@ export const VariableConstants = {
     BEST_SELLER:"BEST_SELLER",
     RATING:"RATING",
     TOKEN: "TOKEN",
-    LOGIN_INFO: "LOGIN INFO",
+    LOGIN_INFO: "LOGIN_INFO",
 
 }
