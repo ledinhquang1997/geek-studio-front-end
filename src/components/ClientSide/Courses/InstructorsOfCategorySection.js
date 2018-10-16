@@ -25,7 +25,6 @@ class InstructorsOfCategorySection extends Component {
     }
     render() {
 
-
         var settings = {
             dots: true,
             infinite: true,
@@ -52,7 +51,7 @@ class InstructorsOfCategorySection extends Component {
         return (
             <div className="jumbotron jumbotron-fluid instructorSection--category__background">
                 <div className="team">
-                    <div className="team_background parallax-window" data-parallax="scroll" data-image-src="images/team_background.jpg" data-speed="0.8" />
+                    <div className="team_background parallax-window"/>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col">

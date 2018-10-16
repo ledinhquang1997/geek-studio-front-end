@@ -3,7 +3,20 @@ import Course from "../../Common/Course";
 import { CourseActions } from '../../../actions';
 import { connect } from 'react-redux';
 import { VariableConstants } from '../../../constants';
+import ReactDOM from 'react-dom';
+
 class CoursesSection extends Component {
+    constructor(props) {
+        super(props);
+        this.myRef = React.createRef();
+
+    }
+    
+    componentDidUpdate(prevProps, prevState) {
+        const domNode = ReactDOM.findDOMNode(this.myRef.current)
+            domNode.scrollIntoView({ behavior:"smooth",block: 'start' })
+    }
+    
     componentDidMount() {
         if (this.props.courses.length === 0) {
             console.log("dispatch action get current courses by category filter page");
@@ -20,7 +33,7 @@ class CoursesSection extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container" ref={this.myRef}>
                 <div className="row courses_row d-flex justify-content-center">
 
                     {this.renderCourses()}
