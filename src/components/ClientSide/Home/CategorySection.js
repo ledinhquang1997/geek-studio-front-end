@@ -11,6 +11,7 @@ class CategoriesSection extends Component {
     }
 
     componentDidMount() {
+        if(this.props.categories.length===0)
         this.props.getAllCategories();
     }
     onCategoryClick = (id, name) => {

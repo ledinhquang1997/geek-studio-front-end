@@ -28,3 +28,17 @@ export function* fetchTop6CoursesByCategoryId(action) {
         yield put(CourseActions.getTop6CoursesByCategoryFailed())
     }
 }
+
+export function* getCoursesByCategoryFilterPage(action){
+    try {
+        const category = yield action.payload.category;
+        const filter = yield action.payload.filter;
+        const page = yield action.payload.page;
+        
+         const data = yield call(CourseServices.getCoursesByCategoryFilterPage,category,filter,page);
+
+         yield put(CourseActions.getCurrentCoursesByCategorySuccess(data));
+     } catch (err){
+         yield put(CourseActions.getCurrentCoursesByCategoryFailed("Error"))
+     }
+}

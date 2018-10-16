@@ -1,5 +1,5 @@
 import { CourseConstant } from '../constants'
-
+//BEST SELLER
 function getBestSellerCourses() {
     return { type: CourseConstant.GET_BEST_SELLER_COURSE }
 }
@@ -12,6 +12,7 @@ function getBestSellerFailed() {
     return { type: CourseConstant.GET_BEST_SELLER_COURSE_FAILED }
 }
 
+//HIGHLIGHT COURSES FOR HOME PAGE
 function getTop6CoursesByCategory(id) {
     return { type: CourseConstant.GET_TOP_6_COURSES_BY_CATEGORY, payload: id }
 }
@@ -23,7 +24,7 @@ function getTop6CoursesByCategorySuccess(courses) {
 function getTop6CoursesByCategoryFailed() {
     return { type: CourseConstant.GET_TOP_6_COURSES_BY_CATEGORY_FAILED }
 }
-
+//RATING COURSES
 function getTopRating() {
     return { type: CourseConstant.GET_TOP_RATING_COURSE }
 }
@@ -35,7 +36,46 @@ function getTopRatingSucess(courses) {
 function getTopRatingFailed() {
     return { type: CourseConstant.GET_TOP_RATING_COURSE_FAILED }
 }
+// COURSES FOR CATEGORY-COURSE PAGE
+function getCurrentCoursesByCategory(category, filter, page) {
+    const data=  {
+        category: category,
+        filter: filter,
+        page: page
+    }
+    return {
+        type: CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY,
+        payload:data
+    }
+}
+
+function getCurrentCoursesByCategorySuccess(data) {
+    return {
+        type: CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY_SUCCESS,
+        payload: data
+    }
+}
+
+function getCurrentCoursesByCategoryFailed(msg) {
+    return {
+        type: CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY_FAILED,
+        payload: msg
+    }
+}
 export const CourseActions = {
-    getBestSellerCourses, getBestSellerSuccess, getBestSellerFailed, getTop6CoursesByCategory
-    , getTop6CoursesByCategorySuccess, getTop6CoursesByCategoryFailed, getTopRating, getTopRatingSucess, getTopRatingFailed
+    getBestSellerCourses,
+    getBestSellerSuccess,
+    getBestSellerFailed,
+
+    getTop6CoursesByCategory,
+    getTop6CoursesByCategorySuccess,
+    getTop6CoursesByCategoryFailed,
+
+    getTopRating,
+    getTopRatingSucess,
+    getTopRatingFailed,
+
+    getCurrentCoursesByCategorySuccess,
+    getCurrentCoursesByCategory,
+    getCurrentCoursesByCategoryFailed
 }

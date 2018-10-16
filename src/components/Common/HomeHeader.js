@@ -4,15 +4,15 @@ import animation from "../../assets/animations/lego_loader.json";
 import { connect } from 'react-redux';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
-import {Link} from 'react-router-dom';
-import { CategoryActions } from '../../actions';
+import { Link } from 'react-router-dom';
+import { CategoryActions, CourseActions } from '../../actions';
 
 class HomeHeader extends Component {
-    
+
     componentWillMount() {
         this.props.getAllCategories()
     }
-    
+
     componentDidMount() {
         if (this.headerAnimationRefs) {
             lottie.loadAnimation({
@@ -24,12 +24,22 @@ class HomeHeader extends Component {
             });
         }
     }
+
+
+    onCategoryClick = (categoryId) => {
+        if (this.props.currentCategoryWithTopics)
+            if (this.props.currentCategoryWithTopics.id === categoryId) {
+                return;
+            }
+        this.props.getCurrentCategoryWithTopics(categoryId);
+        this.props.getCurrentCoursesByCategory(categoryId, VariableConstants.POPULAR, 0);
+    }
     ///////////////////////////////////
     ///////////////////////////////////
     ////////RENDER SECTION/////////////
 
     renderCategories = () => {
-        return this.props.categories.map(category => <Link key={category.id} to={{pathname:"/courses/"+category.name.toLowerCase(),categoryId:category.id}}><a key={category.id} onClick={()=>this.props.getCurrentCategoryWithTopics(category.id)} href="">{category.name}</a></Link>)
+        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.name.toLowerCase(), categoryId: category.id }}><a key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
     }
     renderAccount = () => {
         return cookies.load(VariableConstants.LOGIN_INFO) ?
@@ -92,16 +102,21 @@ class HomeHeader extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        categories: state.categories
+        categories: state.categories,
+        courses: state.currentCoursesByCategory,
+        currentCategoryWithTopics: state.currentCategoryWithTopics.data,
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getAllCategories: () => {
             dispatch(CategoryActions.getAllCategories())
-        },getCurrentCategoryWithTopics: (categoryId) => {
+        }, getCurrentCategoryWithTopics: (categoryId) => {
             dispatch(CategoryActions.getCurrentCategoryWithTopics(categoryId))
+        },
+        getCurrentCoursesByCategory: (category, filter, page) => {
+            dispatch(CourseActions.getCurrentCoursesByCategory(category, filter, page))
         }
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(HomeHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader)

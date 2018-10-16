@@ -6,6 +6,8 @@ class TopicSection extends Component {
 
     componentDidMount() {
         if (!this.props.categoryWithTopics) {
+            console.log("dispatch current category with topics");
+            
             this.props.getCurrentCategoryWithTopics(this.props.categoryName);
         }
     }
@@ -28,7 +30,6 @@ class TopicSection extends Component {
             })
     }
     render() {
-        console.log("Re render");
         return (
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

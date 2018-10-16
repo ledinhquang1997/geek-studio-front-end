@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {CourseActions } from '../../../actions';
 class Pagination extends Component {
+
+    onPageClick=(page,event)=>{
+        event.preventDefault();
+        if(this.props.currentCoursesByCategory.currentPage!==page){
+            this.props.getCurrentCoursesByCategory(this.props.data.name,this.props.currentCoursesByCategory.filter,page);
+        }
+    }
+
     renderPagination = () => {
         if (this.props.data) {
             var pageList=[];
             for (var i = 1; i <= this.props.data.totalPage; i++) {
                 pageList=[...pageList,i]
             }
-            console.log(pageList);
-            return pageList.map(value=><li className="page-item"><a className="page-link">{value}</a></li>)
-
+            return pageList.map(value=><li className={this.props.currentCoursesByCategory.currentPage===value-1?"page-item active":"page-item"} onClick={(event)=>this.onPageClick(value-1,event)}><a className="page-link" href="">{value}</a></li>)
         }
-        
-
     }
     render() {
-        if(this.props.data)
-        console.log(this.props.data);
-        
         return (
             <div className="container">
                     <ul className="pagination justify-content-center">
                         <li className="page-item disabled">
-                            <a className="page-link" href="#" tabIndex={-1}>Previous</a>
+                            <a className="page-link" href="" tabIndex={-1}>Previous</a>
                         </li>
                        {this.renderPagination()}
                         <li className="page-item">
-                            <a className="page-link" href="#">Next</a>
+                            <a className="page-link" href="">Next</a>
                         </li>
                     </ul>
             </div>
@@ -35,7 +37,16 @@ class Pagination extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        data: state.currentCategoryWithTopics.data
+        data: state.currentCategoryWithTopics.data,
+        currentCoursesByCategory: state.currentCoursesByCategory
+
     }
 }
-export default connect(mapStateToProps)(Pagination)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getCurrentCoursesByCategory: (category, filter, page) => {
+            dispatch(CourseActions.getCurrentCoursesByCategory(category, filter, page))
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Pagination)

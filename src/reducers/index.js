@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import {listInstructors} from './InstructorReducers';
-import {highlightCourses ,top6CoursesByCategory} from './CourseReducers';
+import {highlightCourses ,top6CoursesByCategory, currentCoursesByCategory} from './CourseReducers';
 import {listCategories, categorytToDisplay, currentCategoryWithTopics} from './CategoryReducer'
 import {filter} from './SystemReducer';
 import {login} from './LoginReducer';
@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
     categoryToDisplay:categorytToDisplay,
     filter:filter,
     login:login,
-    currentCategoryWithTopics:currentCategoryWithTopics
+    currentCategoryWithTopics:currentCategoryWithTopics,
+    currentCoursesByCategory:currentCoursesByCategory
 })
 
 export default rootReducer;

@@ -30,6 +30,16 @@ function getBestSellerCourses() {
     })
   }
 
+  function getCoursesByCategoryFilterPage(category,filter,page) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `http://localhost:8080/courses/by-category/${category}/${filter}/${page}`,
+        method: "GET",
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
+
   export const CourseServices = {
-    getBestSellerCourses,getTop6CoursesByCategoryId,getTopRatingCourses
+    getBestSellerCourses,getTop6CoursesByCategoryId,getTopRatingCourses,getCoursesByCategoryFilterPage
   }
