@@ -71,7 +71,7 @@ class BestSellerSection extends Component {
     renderBestSellers = () => {
         return this.props.highlightCourses.courses.map((course, index) => {
             return (
-                <Course key={course.id} isSliderCourse={true}
+                <Course key={course.id} id={course.id} isSliderCourse={true}
                     name={course.name} description={course.description}
                     cost={course.cost} image={course.image}
                     amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors} />
@@ -153,7 +153,7 @@ class BestSellerSection extends Component {
                         <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
                     </div>
                     <div className="col-lg-10 col-md-12 col-sm-12 m-auto">
-                        <Slider  responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
+                        <Slider draggable={true} responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
                             {this.renderBestSellers()}
                         </Slider>
                     </div>

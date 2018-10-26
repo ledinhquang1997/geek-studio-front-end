@@ -7,7 +7,7 @@ class TopicSection extends Component {
     componentDidMount() {
         if (!this.props.categoryWithTopics) {
             console.log("dispatch current category with topics");
-            
+
             this.props.getCurrentCategoryWithTopics(this.props.categoryName);
         }
     }
@@ -20,7 +20,7 @@ class TopicSection extends Component {
             if (this.props.categoryWithTopics.image) categoryImage = this.props.categoryWithTopics.image;
         }
         return (
-            <Link to={window.URL}><div className="navbar-brand" href=""><img src={require('../../../assets/images-system/' + categoryImage)} style={{ width: "30px" }} alt="" /> {categoryName}</div></Link>
+            <Link to={window.URL}><div className="navbar-brand" href=""><img src={categoryImage} style={{ width: "30px" }} alt="" /> {categoryName}</div></Link>
         )
     }
     renderTopics = () => {
@@ -29,20 +29,32 @@ class TopicSection extends Component {
                 return <a className="nav-item nav-link" >{topic.name}</a>
             })
     }
+    renderTopicsToCards = () => {
+        if (this.props.categoryWithTopics)
+            return this.props.categoryWithTopics.topics.map((topic, index) => {
+                return (<div className="topic-section__topic-card d-flex align-items-center">
+                    <div className="p-1 lead text-left text-secondary">{topic.name}</div>
+                </div>)
+            })
+    }
+
     render() {
         return (
             <React.Fragment>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-sm navbar-light bg-light">
                     {this.renderCategoryLogo()}
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div>
                         <div className="navbar-nav">
                             {this.renderTopics()}
                         </div>
                     </div>
                 </nav>
+                <div className="topic-section__container">
+                    <div class="topic-section__row p-2">
+                        {this.renderTopicsToCards()}
+                    </div>
+
+                </div>
             </React.Fragment>
         );
     }

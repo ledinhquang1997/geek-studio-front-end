@@ -38,14 +38,14 @@ function getTopRatingFailed() {
 }
 // COURSES FOR CATEGORY-COURSE PAGE
 function getCurrentCoursesByCategory(category, filter, page) {
-    const data=  {
+    const data = {
         category: category,
         filter: filter,
         page: page
     }
     return {
         type: CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY,
-        payload:data
+        payload: data
     }
 }
 
@@ -62,6 +62,19 @@ function getCurrentCoursesByCategoryFailed(msg) {
         payload: msg
     }
 }
+
+function getCourseDetail(courseId) {
+    return { type: CourseConstant.GET_COURSE_DETAIL, payload: { courseId: courseId } }
+}
+
+function getCourseDetailSuccess(data) {
+    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: { data:data} }
+}
+
+function getCourseDetailFail(error) {
+    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: {error:error} }
+}
+
 export const CourseActions = {
     getBestSellerCourses,
     getBestSellerSuccess,
@@ -77,5 +90,9 @@ export const CourseActions = {
 
     getCurrentCoursesByCategorySuccess,
     getCurrentCoursesByCategory,
-    getCurrentCoursesByCategoryFailed
+    getCurrentCoursesByCategoryFailed,
+
+    getCourseDetail,
+    getCourseDetailSuccess,
+    getCourseDetailFail
 }

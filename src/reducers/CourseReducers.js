@@ -34,15 +34,37 @@ export const top6CoursesByCategory = (state = top6CoursesByCategoryInitialState,
     }
 }
 
-const currentCoursesByCategoryInitialState = { filter: VariableConstants.POPULAR, courses: [], msg:"",currentPage:1}
+const currentCoursesByCategoryInitialState = { filter: VariableConstants.POPULAR, courses: [], msg: "", currentPage: 1 }
 export const currentCoursesByCategory = (state = currentCoursesByCategoryInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY:
-            return { ...state, filter: action.payload.filter, currentPage:action.payload.page}
+            return { ...state, filter: action.payload.filter, currentPage: action.payload.page }
         case CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY_SUCCESS:
             return { ...state, courses: action.payload }
         case CourseConstant.GET_CURRENT_COURSES_BY_CATEGORY_FAILED:
-            return {...state,courses:[],msg:action.payload}
+            return { ...state, courses: [], msg: action.payload }
+        default:
+            return state
+    }
+}
+
+const courseDetailInitialState = { err: "", data: {} }
+export const courseDetail = (state = courseDetailInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_COURSE_DETAIL:
+            return state;
+        case CourseConstant.GET_COURSE_DETAIL_SUCCESS:
+            return {
+                ...state,
+                data: action.payload.data,
+                err: ""
+            }
+        case CourseConstant.GET_COURSE_DETAIL_SUCCESS_FAIL:
+            return {
+                ...state,
+                data: {},
+                err: action.payload.error
+            }
         default:
             return state
     }

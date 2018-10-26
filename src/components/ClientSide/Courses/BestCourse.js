@@ -34,10 +34,10 @@ class BestCourse extends Component {
         if (this.props.categoryWithTopics) {
             if (this.props.categoryWithTopics.popularCourse) {
                 const {popularCourse} = this.props.categoryWithTopics
-                return <div className="best-course container">
+                return <div className="best-course rounded container">
                     <div className="row">
                         <div className="col-lg-5 col-md-6 col-sm-6">
-                            <img className="rounded best-course__image" src={require("../../../assets/images/"+popularCourse.image)} />
+                            <img className="rounded best-course__image" src={popularCourse.image} alt={"Popular course"} />
                         </div>
                         <div className="col-lg-7 col-lg-6 col-sm-6">
                             <div className="best-course__content">

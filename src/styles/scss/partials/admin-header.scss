@@ -1,0 +1,69 @@
+@import "./base.scss";
+
+.sidenav{
+    height:100%;
+    width: 200px;
+    position: fixed;
+    top:0;
+    left: 0;
+
+    // background: #C9D6FF;  /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to top, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(to top, rgb(241, 239, 239), rgb(216, 225, 255)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: rgb(248, 249, 250);
+    overflow: hidden;
+    padding-top: 70px;
+    @include shadow;
+    a {
+        text-align: left;
+        padding:10px 20px 10px;
+        display: block;
+        color: rgb(37, 29, 29);
+        opacity: 0.8;
+        font-weight: 500;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+            background: rgb(188, 233, 202);
+            -webkit-box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+            -moz-box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+            box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+        }
+    }
+}
+
+.sidenav-active{
+    background: rgba(136, 159, 172, 0.747);
+    color: rgb(255, 255, 255);
+}
+
+.sidenav-info{
+    width: 100%;
+    height:150px;
+    @include shadow2;
+    margin-bottom: 3px;
+    background: rgb(253, 253, 253);
+    display: flex;
+}
+
+.sidenav-avatar{
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(202, 165, 165);
+    border-radius: 50%;
+    -webkit-box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+        -moz-box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+        box-shadow: -2px 7px 102px -22px rgba(0,0,0,0.75);
+        margin: auto
+}
+
+.admin-header__dashboardtitle{
+    margin-bottom: 0px;
+    position: absolute;
+    left: 70px;
+}
+.admin-header__title{
+    margin-bottom: 0px;
+    margin: auto;
+}

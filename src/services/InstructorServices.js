@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { VariableConstants } from '../constants';
 
 function getAllInstructors() {
     return new Promise((resolve, reject) => {
       axios({
-        url: `http://localhost:8080/instructors/`,
+        url:  VariableConstants.URL+`instructors/`,
         method: "GET",
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });

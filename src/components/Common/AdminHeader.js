@@ -9,7 +9,7 @@ import { CategoryActions, CourseActions } from '../../actions';
 import { slide as Menu } from 'react-burger-menu'
 
 
-class HomeHeader extends Component {
+class AdminHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,19 +22,19 @@ class HomeHeader extends Component {
         this.props.getAllCategories()
     }
 
-    handleStateChange=(state)=> {
+    handleStateChange = (state) => {
         this.setState({ isOpenMenu: state.isOpen })
     }
 
-    closeMenu= ()=> {
-        this.setState({isOpenMenu: false})
-      }
+    closeMenu = () => {
+        this.setState({ isOpenMenu: false })
+    }
     openMenu = () => {
         this.setState({
             isOpenMenu: true
         });
     }
-    toggleMenu=()=> {
+    toggleMenu = () => {
         this.setState({ isOpenMenu: !this.state.isOpenMenu })
     }
 
@@ -60,7 +60,7 @@ class HomeHeader extends Component {
         this.props.getCurrentCoursesByCategory(categoryId, VariableConstants.POPULAR, 0);
     }
 
-   
+
 
     ///////////////////////////////////
     ///////////////////////////////////
@@ -88,13 +88,13 @@ class HomeHeader extends Component {
             </React.Fragment>
     }
 
-    renderSideMenuItems=()=>{
+    renderSideMenuItems = () => {
         return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.name.toLowerCase(), categoryId: category.id }}><a className="menu-item text-white" key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
 
     }
 
     renderSideMenu = () => {
-        return <Menu onStateChange={(state) => this.handleStateChange(state)} right customBurgerIcon={false} isOpen={this.state.isOpenMenu} pageWrapId={"clientSide"} width={"300px"}>
+        return <Menu onStateChange={(state) => this.handleStateChange(state)} left customBurgerIcon={false} isOpen={true} pageWrapId={"clientSide"} width={"300px"}>
             {this.renderSideMenuItems()}
         </Menu>
     }
@@ -102,40 +102,21 @@ class HomeHeader extends Component {
         console.log(this.state.isOpenMenu);
         return (
             <React.Fragment>
-                {this.renderSideMenu()}
-
                 <header>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow">
+                    <nav className="navbar navbar-light bg-light nav__gradient high__zindex nav__shadow">
+                        <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px" }} alt="" /></div></Link>
+                        <p className="lead admin-header__dashboardtitle">Geek Dashboard</p>
+                        <p className="lead admin-header__title">LEARNER EDIT</p>
 
-                        <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px", margin:"auto" }} alt="" /></div></Link>
-                        <button className="navbar-toggler" type="button" onClick={this.toggleMenu}>
-                            <span className="navbar-toggler-icon" />
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item">
-                                    <div className="dropdown">
-                                        <div className="nav-link d-flex align-items-center h6 dropbtn" href=""><div style={{ width: "50px" }} ref={el => (this.headerAnimationRefs = el)}></div>&nbsp; Categories</div>
-                                        <div className="dropdown-content">
-                                            {this.renderCategories()}
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                            <ul className="navbar-nav d-flex align-items-center">
-                                <li className="nav-item mr-1">
-                                    <a className="nav-link d-flex align-items-center"><i className="material-icons">shopping_cart</i></a>
-                                </li>
-                                {this.renderAccount()}
-                            </ul>
-                        </div>
                     </nav>
                 </header>
+                <div className="sidenav">
+                    <a href="" className="lead sidenav-active"><i class="fas fa-chalkboard-teacher"></i> Learner </a>
+                    <a href="" className="lead"><i class="fas fa-th"></i> Category </a>
+                    <a href="" className="lead"><i class="fas fa-book-reader"></i> Course</a>
+                    <a href="" className="lead"><i class="fas fa-book-open"></i> Lesson</a>
+
+                </div>
             </React.Fragment>
         );
     }
@@ -159,4 +140,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminHeader)

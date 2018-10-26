@@ -13,8 +13,10 @@ class CoursesPage extends Component {
                 <BestCourse/>
                 <FilterTab categoryName={this.props.match.params.name}/>
                 <CoursesSection categoryName={this.props.match.params.name}/>
+
                 <Pagination/>
                 <InstructorsOfCategorySection/>
+
             </React.Fragment>
             );
     }

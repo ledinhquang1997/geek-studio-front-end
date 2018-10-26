@@ -46,7 +46,7 @@ class InstructorsOfCategorySection extends Component {
         },
         {
             breakpoint: 530,
-            settings: { slidesToShow:  this.props.data?this.props.data.instructors.length >= 3 ? 1 : this.props.data.instructors.length:0 }
+            settings: { slidesToShow:  1}
         }]
         return (
             <div className="jumbotron jumbotron-fluid instructorSection--category__background">

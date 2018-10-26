@@ -11,21 +11,22 @@ class CoursesSection extends Component {
         this.myRef = React.createRef();
 
     }
-    
+
     componentDidUpdate(prevProps, prevState) {
+        if(this.props.currentCoursesByCategory.currentPage!==prevProps.currentCoursesByCategory.currentPage){
         const domNode = ReactDOM.findDOMNode(this.myRef.current)
-            domNode.scrollIntoView({ behavior:"smooth",block: 'start' })
+            domNode.scrollIntoView({ behavior:"smooth",block: 'start' })}
     }
-    
+
     componentDidMount() {
-        if (this.props.courses.length === 0) {
+        if (this.props.currentCoursesByCategory.courses.length === 0) {
             console.log("dispatch action get current courses by category filter page");
             this.props.getCurrentCoursesByCategory(this.props.categoryName, VariableConstants.POPULAR, 0);
         }
     }
     renderCourses = () => {
-        return this.props.courses.map((course, index) => {
-            return <Course key={course.id} isSliderCourse={false}
+        return this.props.currentCoursesByCategory.courses.map((course, index) => {
+            return <Course key={course.id} id={course.id} isSliderCourse={false}
                 name={course.name} description={course.description}
                 cost={course.cost} image={course.image}
                 amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors} />
@@ -33,12 +34,14 @@ class CoursesSection extends Component {
     }
     render() {
         return (
-            <div className="container" ref={this.myRef}>
-                <div className="row courses_row d-flex justify-content-center">
+            <React.Fragment>
+                <div className="container" ref={this.myRef}>
+                    <div className="row courses_row d-flex justify-content-center">
 
-                    {this.renderCourses()}
+                        {this.renderCourses()}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
@@ -51,7 +54,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        courses: state.currentCoursesByCategory.courses
+        currentCoursesByCategory: state.currentCoursesByCategory
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesSection)

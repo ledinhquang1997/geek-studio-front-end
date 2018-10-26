@@ -3,6 +3,11 @@
 @import "./partials/login.scss";
 @import "./partials/header.scss";
 @import "./partials/best-course.scss";
+@import "./partials/course-detail.scss";
+@import "./partials/burger-menu.scss";
+@import "./partials/topic-section.scss";
+@import "./partials/admin-header.scss";
+@import "./partials/management.scss";
 
 @import "./vendors/slick.scss";
 @import "./vendors/font-roboto.scss";
@@ -126,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .course {
+  max-width: 300px;
   height: 440px;
   width: 100%;
   border-radius: 6px;
@@ -402,6 +408,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .team_body {
   width: 100%;
+  max-width: 300px;
+  margin: auto;
   height: 400px;
   padding-top: 108px;
   padding-bottom: 24px;

@@ -27,7 +27,7 @@ class CategoriesSection extends Component {
     renderCoursesByCategory = () => {
         return this.props.courses.map((course, index) => {
             return (
-                <Course key={course.id} isSliderCourse={false}
+                <Course key={course.id} id={course.id} isSliderCourse={false}
                     name={course.name} description={course.description}
                     cost={course.cost} image={course.image}
                     amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors} />
@@ -79,7 +79,6 @@ class CategoriesSection extends Component {
                             </div>
                         </div> : ""}
                         <hr className="my-3" />
-
                 </div>
             </div>
 

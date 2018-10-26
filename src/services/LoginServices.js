@@ -10,7 +10,7 @@ function login(username, password) {
     formData.append('password', password);
 
     axios({
-      url: `http://localhost:8080/login`,
+      url:  VariableConstants.URL+`login`,
       method: "POST",
       config: { headers: { 'Content-Type': 'multipart/form-data' } }
       ,
