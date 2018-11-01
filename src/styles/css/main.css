@@ -438,6 +438,253 @@
   height: 40px;
   background: rgba(155, 171, 179, 0.1); }
 
+.instructor-jumbotron {
+  height: 120px;
+  background: #d53369;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #cbad6d, #d53369);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #cbad6d, #d53369);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75); }
+
+.instructor_image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -86px;
+  z-index: 5;
+  -webkit-box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75); }
+  .instructor_image img {
+    max-width: 100%; }
+
+.instructor_body {
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  height: auto;
+  padding-top: 108px;
+  padding-bottom: 24px;
+  border-radius: 6px;
+  box-shadow: 0px 1px 10px rgba(29, 34, 47, 0.1);
+  text-align: center;
+  background: #ffe259;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #ffa751, #ffe259);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #cbad6d, #fffffe);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+
+.instructor {
+  position: relative;
+  top: -90px; }
+
+.instructor-biography {
+  width: 95%;
+  height: auto;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75); }
+
+.instructor-courses-section {
+  background: linear-gradient(to bottom, #fffffe, #e3eece, #c3f5a7, #fffffe);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+
+@media screen and (max-width: 375px) {
+  .instructor-biography {
+    flex: 100%;
+    max-width: 100%; }
+  .instructor {
+    position: relative;
+    top: 0px;
+    flex: 100%;
+    max-width: 100%; } }
+
+.user-course {
+  margin-top: 20px;
+  width: 80%;
+  background: white;
+  min-height: 200px;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75); }
+
+.user-course__image {
+  width: 90%;
+  height: 200px;
+  padding: 15px;
+  margin: auto; }
+
+.user-course__content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 210px;
+  padding: 10px; }
+
+@media screen and (max-width: 991px) {
+  .user-course {
+    min-height: 300px; }
+  .user-course__image {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 260px; }
+  .user-course__jumbotron {
+    height: 490px; }
+  .user-course__content {
+    margin-bottom: 10px; }
+    .user-course__content h2 {
+      font-size: 2rem; } }
+
+@media screen and (max-width: 768px) {
+  .user-course__image {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 230px; }
+  .user-course__jumbotron {
+    height: 470px; }
+  .user-course__content {
+    margin-bottom: 10px; }
+    .user-course__content h2 {
+      font-size: 1.5rem; }
+    .user-course__content p {
+      font-size: 0.8rem; }
+    .user-course__content h4 {
+      font-size: 1rem; } }
+
+@media screen and (max-width: 576px) {
+  .user-course {
+    width: 70%; }
+  .user-course__image {
+    height: 200px;
+    width: 100%;
+    padding: 5px; }
+  .user-course__jumbotron {
+    height: 660px; }
+  .user-course__content {
+    margin-top: 0px;
+    margin-bottom: 10px; } }
+
+.list-lesson {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 30px; }
+
+.studypage__jumbotron {
+  height: 200px;
+  background: #3d2b47;
+  display: flex; }
+
+.studypage__container {
+  width: 95%;
+  margin: auto; }
+
+.studypage__row {
+  display: flex;
+  flex-wrap: wrap; }
+
+.studypage__jumbotron--image {
+  flex: 30%;
+  max-width: 30%;
+  -webkit-box-shadow: 1px -1px 20px 0px #e4e9f5;
+  -moz-box-shadow: 1px -1px 20px 0px #e4e9f5;
+  box-shadow: 1px -1px 20px 0px #e4e9f5; }
+
+.studypage__jumbotron--title {
+  flex: 70%;
+  max-width: 70%; }
+
+.studypage-navbar {
+  height: 50px;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 20px;
+  line-height: 50px;
+  vertical-align: middle; }
+
+.studypage-navbar__item {
+  font-weight: 500; }
+
+.studypage-content {
+  height: 90vh;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 20px;
+  overflow: auto;
+  padding: 10px; }
+
+/* Steps */
+.stepper {
+  padding: 10px;
+  margin: auto;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  min-height: 100vh; }
+
+.step {
+  position: relative;
+  min-height: 1em;
+  color: gray; }
+  .step + .step {
+    margin-top: 1.5em; }
+  .step > div:first-child {
+    position: static;
+    height: 0; }
+  .step > div:not(:first-child) {
+    margin-left: 1.5em;
+    padding-left: 1em; }
+  .step.step-active {
+    color: #4285f4; }
+    .step.step-active .circle {
+      background-color: #4285f4; }
+
+/* Circle */
+.circle {
+  background: gray;
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  border-radius: 100%;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 0 3px #fff; }
+  .circle:after {
+    content: " ";
+    position: absolute;
+    display: block;
+    top: 1px;
+    right: 50%;
+    bottom: 1px;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    transform: scale(1, 2);
+    transform-origin: 50% -100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: -1; }
+
+/* Vertical Line */
+.step:last-child .circle:after {
+  display: none; }
+
+/* Stepper Titles */
+.title {
+  line-height: 1.5em;
+  font-weight: bold; }
+
+.caption {
+  font-size: 0.8em; }
+
 .jumbotron__background {
   background-image: url("../../assets/images-system/back.jpg");
   background-size: cover; }
@@ -892,3 +1139,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .border-box {
   box-sizing: border-box; }
+
+.page-content {
+  margin-top: 75px; }

@@ -8,9 +8,14 @@
 @import "./partials/topic-section.scss";
 @import "./partials/admin-header.scss";
 @import "./partials/management.scss";
+@import "./partials/instructor.scss";
+@import "./partials/user-course.scss";
+@import "./partials/study.scss";
+@import "./partials/stepper.scss";
 
 @import "./vendors/slick.scss";
 @import "./vendors/font-roboto.scss";
+
 
 .jumbotron__background {
   background-image: url("../../assets/images-system/back.jpg");
@@ -575,3 +580,13 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
 }
 
+.navbar-sticky{
+  // position: fixed;
+  // top:0;
+  // width: 100%;
+  // z-index: 2000;
+}
+
+.page-content{
+  margin-top:75px;
+}

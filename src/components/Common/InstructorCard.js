@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 class InstructorCard extends Component {
     renderCategories = () => {
         var categories = "";
@@ -16,9 +17,11 @@ class InstructorCard extends Component {
         return (
             <div className={this.props.isSlideItem ? "col-lg-3 col-md-6" : "col-10 m-auto"}>
                 <div className="team_item">
-                    <div className="team_image"><img src={"https://res.cloudinary.com/quanglibrary/image/upload/s--dgh_pQof--/v1540525886/geek/electonic_klhzef.jpg"} alt="" /></div>
+                    <div className="team_image"><img src={this.props.image} alt="" /></div>
                     <div className="team_body">
+                    <Link to={"/instructor/"+this.props.username}>
                         <div className="team_title"><a href="">{this.props.name}</a></div>
+                        </Link>
                         <div className="team_subtitle">{this.renderCategories()}</div>
                         <div className="team_subtitle h6 mt-2">from: {this.props.company}</div>
                         <div className="social_list d-flex justify-content-center">

@@ -1,0 +1,56 @@
+@import "./base.scss";
+
+.list-lesson{
+    width: 80%;
+    margin: auto;
+    // @include shadow;
+    margin-bottom:30px;
+}
+
+.studypage__jumbotron{
+    height: 200px;
+    background: #3d2b47;
+    display: flex;
+}
+
+.studypage__container{
+    width: 95%;
+    margin: auto;
+}
+
+.studypage__row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.studypage__jumbotron--image{
+    flex: 30%;
+    max-width: 30%;
+    -webkit-box-shadow: 1px -1px 20px 0px rgba(228,233,245,1);
+-moz-box-shadow: 1px -1px 20px 0px rgba(228,233,245,1);
+box-shadow: 1px -1px 20px 0px rgba(228,233,245,1);
+}
+
+.studypage__jumbotron--title{
+    flex: 70%;
+    max-width: 70%;
+}
+.studypage-navbar{
+    height: 50px;
+    @include shadow2;
+    margin-bottom: 20px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+.studypage-navbar__item{
+    font-weight: 500;
+}
+
+.studypage-content{
+    height: 90vh;
+    @include shadow2;
+    margin-bottom: 20px;
+    overflow: auto;
+    padding:10px;
+}

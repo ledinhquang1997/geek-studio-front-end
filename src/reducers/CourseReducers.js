@@ -69,3 +69,17 @@ export const courseDetail = (state = courseDetailInitialState, action) => {
             return state
     }
 }
+
+const currentCoursesByInstructorInitialState = { courses: [], err: false, currentPage: 1}
+export const currentCoursesByInstructor = (state = currentCoursesByInstructorInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_COURSES_BY_INSTRUCTOR:
+            return { ...state, currentPage: action.payload.page }
+        case CourseConstant.GET_COURSES_BY_INSTRUCTOR_SUCCESS:
+            return { ...state, courses: action.payload.data, err: false }
+        case CourseConstant.GET_COURSES_BY_INSTRUCTOR_FAIL:
+            return { ...state, courses:[], err: true }
+        default:
+            return { ...state, courses: [], err: false }
+    }
+}

@@ -55,3 +55,16 @@ export function* getCourseDetail(action) {
         yield put(CourseActions.getCourseDetailFail("Can not get course detail"))
     }
 }
+
+export function* getCoursesByInstructor(action) {
+    try {
+        const username = yield action.payload.username;
+        const page = yield action.payload.page;
+
+        const data = yield call(CourseServices.getCoursesByInstructor, username,page);
+
+        yield put(CourseActions.getCoursesByInstructorSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getCoursesByInstructorFail())
+    }
+}

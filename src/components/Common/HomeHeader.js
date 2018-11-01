@@ -17,7 +17,6 @@ class HomeHeader extends Component {
         }
     }
 
-
     componentWillMount() {
         this.props.getAllCategories()
     }
@@ -67,7 +66,7 @@ class HomeHeader extends Component {
     ////////RENDER SECTION/////////////
 
     renderCategories = () => {
-        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.name.toLowerCase(), categoryId: category.id }}><a key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
+        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><a key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
     }
     renderAccount = () => {
         return cookies.load(VariableConstants.LOGIN_INFO) ?
@@ -89,7 +88,7 @@ class HomeHeader extends Component {
     }
 
     renderSideMenuItems=()=>{
-        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.name.toLowerCase(), categoryId: category.id }}><a className="menu-item text-white" key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
+        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><a className="menu-item text-white" key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
 
     }
 
@@ -105,7 +104,7 @@ class HomeHeader extends Component {
                 {this.renderSideMenu()}
 
                 <header>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow">
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow navbar-sticky">
 
                         <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px", margin:"auto" }} alt="" /></div></Link>
                         <button className="navbar-toggler" type="button" onClick={this.toggleMenu}>

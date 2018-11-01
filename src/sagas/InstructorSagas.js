@@ -11,3 +11,12 @@ export function* fetchInstructorList() {
     }
 }
 
+export function* getInstructorDetail(action) {
+    try {
+        const username = yield action.payload.username;
+        const data = yield call(InstructorServices.getInstructorDetail,username);
+        yield put(InstructorActions.getInstructorDetailSuccess(data));
+    } catch (err){
+        yield put(InstructorActions.getInstructorDetailFailed())
+    }
+}

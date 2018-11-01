@@ -19,7 +19,7 @@ class InstructorsOfCategorySection extends Component {
         if (this.props.data)
             return this.props.data.instructors.map((value, index) => {
                 return (
-                    <InstructorCard key={index} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company} />
+                    <InstructorCard key={index} username={value.username} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company} />
                 )
             })
     }

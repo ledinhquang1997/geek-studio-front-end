@@ -34,7 +34,7 @@ class Course extends Component {
                 {this.state.isRedirect ? <Redirect to={"/course/" + this.props.id} /> : ""}
                 <div className={this.props.isSliderCourse ? "" : "mb-5 mt-3 col-md-6 col-lg-4 col-xl-3"} onClick={this.redirect}>
                     <div className={this.props.isSliderCourse ? "course course_slider" : "course"}>
-                        <div className="course_image_frame" ><img className="course_image" src={"https://res.cloudinary.com/quanglibrary/image/upload/s--dgh_pQof--/v1540525886/geek/electonic_klhzef.jpg"} alt="" /></div>
+                        <div className="course_image_frame" ><img className="course_image" src={this.props.image} alt="" /></div>
                         <div className="course_body">
                             <div className="course_title"><a>{this.props.name}</a></div>
                             <div className="course_teacher">{this.renderInstructorNames()}</div>

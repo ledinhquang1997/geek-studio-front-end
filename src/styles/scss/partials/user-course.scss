@@ -1,0 +1,95 @@
+@import "./base.scss";
+
+.user-course{
+    margin-top: 20px;
+    width: 80%;
+    background: white;
+    min-height:200px;
+    @include shadow2
+    // position: absolute;
+    // top:320px;
+    // left:
+}
+
+.user-course__image{
+    width:90%;
+    height: 200px;
+    padding: 15px;
+   
+    margin: auto;
+}
+.user-course__content{
+    margin-top:5px;
+    margin-bottom: 5px;
+    height: 210px;
+    padding: 10px;
+}
+
+@media screen and (max-width:991px){
+    .user-course{
+        min-height: 300px;
+    }
+    .user-course__image{
+        padding-top:20px;
+        padding-bottom: 20px;
+        height: 260px;
+        
+    }
+    .user-course__jumbotron{
+        height:490px
+    }
+    .user-course__content{
+        h2{
+            font-size: 2rem
+        }
+        margin-bottom: 10px
+
+    }
+}
+
+@media screen and (max-width:768px){
+    .user-course{
+        // min-height: 270px;
+    }
+    .user-course__image{
+        margin-top:30px;
+        margin-bottom: 20px;
+        height: 230px;
+        
+    }
+    .user-course__jumbotron{
+        height:470px
+    }
+    .user-course__content{
+        h2{
+            font-size: 1.5rem
+        }
+        p{
+            font-size: 0.8rem
+        }
+        h4{
+            font-size: 1rem
+        }
+        margin-bottom: 10px
+
+    }
+}
+
+@media screen and (max-width:576px){
+    .user-course{
+        // min-height: 520px;
+       width: 70%
+    }
+    .user-course__image{
+        height: 200px;
+        width: 100%;
+        padding:5px
+    }
+    .user-course__jumbotron{
+        height:660px
+    }
+    .user-course__content{
+        margin-top: 0px;
+        margin-bottom: 10px
+    }
+}

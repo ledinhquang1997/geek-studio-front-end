@@ -2,7 +2,6 @@
   "name": "geek-studio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
   "dependencies": {
     "axios": "^0.18.0",
     "cloudinary-react": "^1.0.6",

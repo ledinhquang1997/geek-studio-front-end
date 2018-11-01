@@ -23,7 +23,7 @@ class InstructorsSection extends Component {
     renderInstructorCards = () => {
         return this.props.instructors.map((value, index) => {
             return (
-                <InstructorCard key={index} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company} />
+                <InstructorCard key={index} username={value.username} name={value.name} quote={value.quote} image={value.image} categories={value.categories} company={value.company} />
             )
         })
     }
