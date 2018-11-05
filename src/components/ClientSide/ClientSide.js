@@ -20,7 +20,7 @@ class ClientSide extends Component {
                 <Route exact path="/study/:courseId" component={Lessons}/>
                 <Route exact path="/courses/:name" component={CoursesPage}/>
                 <Route exact path="/course/:id" component={CourseDetailPage}/>
-                <Route exact path="/profile/" component={UserProfilePage}/>
+                <Route exact path="/profile" component={UserProfilePage}/>
                 <Route exact path="/instructor/:username" component={InstructorPage}/>
                 <Footer />
             </div>

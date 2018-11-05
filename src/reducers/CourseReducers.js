@@ -70,7 +70,7 @@ export const courseDetail = (state = courseDetailInitialState, action) => {
     }
 }
 
-const currentCoursesByInstructorInitialState = { courses: [], err: false, currentPage: 1}
+const currentCoursesByInstructorInitialState = { courses: [], err: false, currentPage: 1 }
 export const currentCoursesByInstructor = (state = currentCoursesByInstructorInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_COURSES_BY_INSTRUCTOR:
@@ -78,8 +78,22 @@ export const currentCoursesByInstructor = (state = currentCoursesByInstructorIni
         case CourseConstant.GET_COURSES_BY_INSTRUCTOR_SUCCESS:
             return { ...state, courses: action.payload.data, err: false }
         case CourseConstant.GET_COURSES_BY_INSTRUCTOR_FAIL:
-            return { ...state, courses:[], err: true }
+            return { ...state, courses: [], err: true }
         default:
             return { ...state, courses: [], err: false }
+    }
+}
+
+const CoursesOfStudentInitialState = { data: [], err: false }
+export const CoursesOfStudent = (state = CoursesOfStudentInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_COURSES_OF_STUDENT:
+            return state
+        case CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS:
+            return { ...state, data: action.payload.data }
+        case CourseConstant.GET_COURSES_OF_STUDENT_FAIL:
+            return { ...state, data: [],err:true }
+        default:
+            return state
     }
 }

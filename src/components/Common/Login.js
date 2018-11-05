@@ -28,7 +28,7 @@ class Login extends Component {
         }
       }
     render() {
-        console.log(this.state)
+        console.log(this.props.login)
         return (
             <div className="login-block d-flex align-items-center">
                 <div className="container container-login">
@@ -51,6 +51,8 @@ class Login extends Component {
                                     </label>
                                     <button type="submit" className="btn btn-login float-right" onClick={this.handleLogin}>Submit</button>
                                 </div>
+                                <div className="mt-4"><p className="lead text-center text-danger">{this.props.loginData.msg}</p></div>
+
                             </form>
                             <div className="copy-text h6">You do not have account? <a href="">Sign up</a></div>
                         </div>
@@ -71,6 +73,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
+        loginData:state.login
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

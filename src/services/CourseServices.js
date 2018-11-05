@@ -60,11 +60,24 @@ function getBestSellerCourses() {
     })
   }
 
+  function getCoursesOfStudent(username){
+    return new Promise((resolve, reject) => {
+      axios({
+        url:  VariableConstants.URL+`user/courses/${username}`,
+        method: "GET",
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
+
+  
+
   export const CourseServices = {
     getBestSellerCourses,
     getTop6CoursesByCategoryId,
     getTopRatingCourses,
     getCoursesByCategoryFilterPage,
     getCourseDetail,
-    getCoursesByInstructor
+    getCoursesByInstructor,
+    getCoursesOfStudent
   }

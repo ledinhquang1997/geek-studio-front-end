@@ -10,17 +10,22 @@ export function* login(action) {
         yield console.log(action);
 
         const data = yield call(LoginServices.login, action.payload.username, action.payload.password);
+
+        const userInfo = yield JSON.parse(data.userinfo);
+   
         yield cookies.remove(VariableConstants.TOKEN, { path: "/" });
         yield cookies.remove(VariableConstants.LOGIN_INFO, { path: "/" });
-        yield cookies.save(VariableConstants.TOKEN, data.authorization, { path: "/"});       
 
-        const currentUser = yield call(LoginServices.getCurrentUser,action.payload.username);
-        yield cookies.save(VariableConstants.LOGIN_INFO, currentUser, { path: "/"});        
+        yield cookies.save(VariableConstants.TOKEN, data.authorization, { path: "/"});       
+        yield cookies.save(VariableConstants.LOGIN_INFO, userInfo, { path: "/"});        
+
+        yield console.log(data);
+        
         yield put(LoginActions.loginSuccess(data.authorization));
     } catch (err) {
-        yield put(LoginActions.loginFail())
+        yield put(LoginActions.loginFail("Username not exist or wrong password"))
     }
-}
+} 
 
 export function* goToHomePage(action) {
     try {

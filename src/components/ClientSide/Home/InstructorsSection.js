@@ -69,7 +69,7 @@ class InstructorsSection extends Component {
                        
                         <div className="row">
                             <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
-                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="material-icons">skip_previous</i></button>
+                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.previous}><i className="fas fa-backward"></i></button>
                             </div>
                             <div className="col-lg-10 col-md-12 col-sm-12 m-auto">
                                 <Slider responsive={responsiveSetting} ref={c => (this.slider = c)} arrows={false} {...settings}>
@@ -77,7 +77,7 @@ class InstructorsSection extends Component {
                                 </Slider>
                             </div>
                             <div className="container col-1 d-flex align-items-center justify-content-center slider-btn-arrow">
-                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.next}><i className="material-icons">skip_next</i></button>
+                                <button className="btn btn-circle mr-3 d-flex justify-content-center align-items-center high__zindex" onClick={this.next}><i className="fas fa-forward"></i></button>
                             </div>
                         </div>
                     </div>

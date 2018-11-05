@@ -7,8 +7,8 @@ function login(username, password) {
 function loginSuccess(accessToken) {
     return { type: LoginConstants.LOGIN_SUCCESS, payload:accessToken };
 }
-function loginFail() {
-    return { type: LoginConstants.LOGIN_FAILURE };
+function loginFail(msg) {
+    return { type: LoginConstants.LOGIN_FAILURE, payload:{msg:msg}};
 }
 export const LoginActions = {
     login, loginSuccess, loginFail

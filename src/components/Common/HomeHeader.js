@@ -21,19 +21,19 @@ class HomeHeader extends Component {
         this.props.getAllCategories()
     }
 
-    handleStateChange=(state)=> {
+    handleStateChange = (state) => {
         this.setState({ isOpenMenu: state.isOpen })
     }
 
-    closeMenu= ()=> {
-        this.setState({isOpenMenu: false})
-      }
+    closeMenu = () => {
+        this.setState({ isOpenMenu: false })
+    }
     openMenu = () => {
         this.setState({
             isOpenMenu: true
         });
     }
-    toggleMenu=()=> {
+    toggleMenu = () => {
         this.setState({ isOpenMenu: !this.state.isOpenMenu })
     }
 
@@ -59,7 +59,7 @@ class HomeHeader extends Component {
         this.props.getCurrentCoursesByCategory(categoryId, VariableConstants.POPULAR, 0);
     }
 
-   
+
 
     ///////////////////////////////////
     ///////////////////////////////////
@@ -72,8 +72,15 @@ class HomeHeader extends Component {
         return cookies.load(VariableConstants.LOGIN_INFO) ?
             <React.Fragment>
                 <hr className="vertical-hr" />
+                <Link to="/profile">
+                    <li className="nav-item mr-1">
+                        <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; My courses</a>
+                    </li>
+                </Link>
+                <hr className="vertical-hr" />
+
                 <li className="nav-item mr-1">
-                    <a className="nav-link d-flex align-items-center"><i className="material-icons">account_circle</i> &nbsp; {cookies.load(VariableConstants.LOGIN_INFO).username}</a>
+                    <a className="nav-link d-flex align-items-center"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.LOGIN_INFO).username}</a>
                 </li>
             </React.Fragment>
             :
@@ -87,7 +94,7 @@ class HomeHeader extends Component {
             </React.Fragment>
     }
 
-    renderSideMenuItems=()=>{
+    renderSideMenuItems = () => {
         return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><a className="menu-item text-white" key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
 
     }
@@ -106,7 +113,7 @@ class HomeHeader extends Component {
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow navbar-sticky">
 
-                        <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px", margin:"auto" }} alt="" /></div></Link>
+                        <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px", margin: "auto" }} alt="" /></div></Link>
                         <button className="navbar-toggler" type="button" onClick={this.toggleMenu}>
                             <span className="navbar-toggler-icon" />
                         </button>
@@ -128,7 +135,7 @@ class HomeHeader extends Component {
                         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <ul className="navbar-nav d-flex align-items-center">
                                 <li className="nav-item mr-1">
-                                    <a className="nav-link d-flex align-items-center"><i className="material-icons">shopping_cart</i></a>
+                                    <a className="nav-link d-flex align-items-center"><i className="fas fa-shopping-cart fa-lg"></i></a>
                                 </li>
                                 {this.renderAccount()}
                             </ul>

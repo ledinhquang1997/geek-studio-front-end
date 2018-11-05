@@ -68,3 +68,16 @@ export function* getCoursesByInstructor(action) {
         yield put(CourseActions.getCoursesByInstructorFail())
     }
 }
+
+export function* getCoursesOfStudent(action) {
+    try {
+        const username = yield action.payload.username;
+
+        const data = yield call(CourseServices.getCoursesOfStudent, username);
+
+        yield put(CourseActions.getCoursesOfStudentSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getCoursesOfStudentFail())
+    }
+}
+
