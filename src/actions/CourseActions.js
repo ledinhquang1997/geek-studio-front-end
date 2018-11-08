@@ -95,6 +95,20 @@ function getCoursesOfStudentSuccess(data){
 function getCoursesOfStudentFail(){
     return {type:CourseConstant.GET_COURSES_OF_STUDENT_FAIL}
 }
+
+
+function getUserCourseLessons(courseId){
+    return {type:CourseConstant.GET_USER_COURSE_LESSONS, payload:{courseId:courseId}}
+}
+
+function getUserCourseLessonsSuccess(data){
+    return {type:CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS, payload:{data:data}}
+}
+
+function getUserCourseLessonsFail(){
+    return {type:CourseConstant.GET_USER_COURSE_LESSONS_FAIL}
+}
+
 export const CourseActions = {
     getBestSellerCourses,
     getBestSellerSuccess,
@@ -122,5 +136,9 @@ export const CourseActions = {
 
     getCoursesOfStudent,
     getCoursesOfStudentSuccess,
-    getCoursesOfStudentFail
+    getCoursesOfStudentFail,
+
+    getUserCourseLessons,
+    getUserCourseLessonsSuccess,
+    getUserCourseLessonsFail
 }

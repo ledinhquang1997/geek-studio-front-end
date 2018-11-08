@@ -8,6 +8,9 @@ import { forwardToNewPathname } from '../../Common/utilities';
 
 class Instructor extends Component {
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
     componentWillMount() {
 
         if (Object.keys(this.props.instructorDetail.data).length === 0 || this.props.instructorDetail.data.username !== this.props.match.params.username)

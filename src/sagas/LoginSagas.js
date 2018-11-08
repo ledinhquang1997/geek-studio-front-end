@@ -11,15 +11,20 @@ export function* login(action) {
 
         const data = yield call(LoginServices.login, action.payload.username, action.payload.password);
 
-        const userInfo = yield JSON.parse(data.userinfo);
    
         yield cookies.remove(VariableConstants.TOKEN, { path: "/" });
-        yield cookies.remove(VariableConstants.LOGIN_INFO, { path: "/" });
+        yield cookies.remove(VariableConstants.USERNAME, { path: "/" });
+        yield cookies.remove(VariableConstants.ROLES, { path: "/" });
+        yield cookies.remove(VariableConstants.EMAIL, { path: "/" });
+        yield cookies.remove(VariableConstants.IMAGE, { path: "/" });
 
-        yield cookies.save(VariableConstants.TOKEN, data.authorization, { path: "/"});       
-        yield cookies.save(VariableConstants.LOGIN_INFO, userInfo, { path: "/"});        
-
-        yield console.log(data);
+        yield cookies.save(VariableConstants.TOKEN, data.token, { path: "/"});       
+        yield cookies.save(VariableConstants.USERNAME, data.userinfo.username, { path: "/"});        
+        yield cookies.save(VariableConstants.ROLES, data.userinfo.roles, { path: "/"});   
+        yield cookies.save(VariableConstants.EMAIL, data.userinfo.email, { path: "/"});        
+        yield cookies.save(VariableConstants.IMAGE, data.userinfo.image, { path: "/"});        
+     
+        yield console.log(cookies.loadAll());
         
         yield put(LoginActions.loginSuccess(data.authorization));
     } catch (err) {

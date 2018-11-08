@@ -7,5 +7,9 @@ export const VariableConstants = {
     RATING:"RATING", 
     TOKEN: "TOKEN",
     LOGIN_INFO: "LOGIN_INFO",
-    POPULAR:"POPULAR"
+    POPULAR:"POPULAR",
+    USERNAME:"USERNAME",
+    ROLES:"ROLES",
+    EMAIL:"EMAIL",
+    IMAGE:"IMAGE"
 }

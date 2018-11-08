@@ -92,7 +92,42 @@ export const CoursesOfStudent = (state = CoursesOfStudentInitialState, action) =
         case CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS:
             return { ...state, data: action.payload.data }
         case CourseConstant.GET_COURSES_OF_STUDENT_FAIL:
-            return { ...state, data: [],err:true }
+            return { ...state, data: [], err: true }
+        default:
+            return state
+    }
+}
+
+const UserCourseLessonsInitialState = { data: {
+    "id": "",
+    "name": "",
+    "description": "",
+    "cost": 0,
+    "rating": 0,
+    "amountStudent": 0,
+    "image": "https://res.cloudinary.com/quanglibrary/image/upload/s--QReFaFjw--/v1540525483/geek/nodejs1_miaox0.jpg",
+    "category": {
+        "id": "",
+        "name": "",
+        "description": "",
+        "image": ""
+    },
+    "instructors": [],
+    totalLesson: 3,
+    totalSection: 9,
+    lessonProgress: 0,
+    sectionProgress: 0,
+    learnerRating: null,
+    lessons: []
+}, err: false }
+export const UserCourseLessons = (state = UserCourseLessonsInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_USER_COURSE_LESSONS:
+            return state
+        case CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS:
+            return { ...state, data: action.payload.data, err: false }
+        case CourseConstant.GET_USER_COURSE_LESSONS_FAIL:
+            return { ...state, data: {}, err:true}
         default:
             return state
     }

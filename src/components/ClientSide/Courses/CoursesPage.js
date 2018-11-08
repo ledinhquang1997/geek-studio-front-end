@@ -6,6 +6,9 @@ import CoursesSection from './CoursesSection';
 import Pagination from './Pagination';
 import InstructorsOfCategorySection from './InstructorsOfCategorySection';
 class CoursesPage extends Component {
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
     render() {
         return (
             <React.Fragment>

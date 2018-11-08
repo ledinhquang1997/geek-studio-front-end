@@ -69,7 +69,7 @@ class HomeHeader extends Component {
         return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><a key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
     }
     renderAccount = () => {
-        return cookies.load(VariableConstants.LOGIN_INFO) ?
+        return cookies.load(VariableConstants.USERNAME) ?
             <React.Fragment>
                 <hr className="vertical-hr" />
                 <Link to="/profile">
@@ -80,7 +80,7 @@ class HomeHeader extends Component {
                 <hr className="vertical-hr" />
 
                 <li className="nav-item mr-1">
-                    <a className="nav-link d-flex align-items-center"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.LOGIN_INFO).username}</a>
+                    <a className="nav-link d-flex align-items-center"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.USERNAME)}</a>
                 </li>
             </React.Fragment>
             :
@@ -111,7 +111,7 @@ class HomeHeader extends Component {
                 {this.renderSideMenu()}
 
                 <header>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow navbar-sticky">
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow">
 
                         <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px", margin: "auto" }} alt="" /></div></Link>
                         <button className="navbar-toggler" type="button" onClick={this.toggleMenu}>

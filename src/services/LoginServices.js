@@ -15,7 +15,7 @@ function login(username, password) {
       config: { headers: { 'Content-Type': 'multipart/form-data' } }
       ,
       data: formData
-    }).then(r => { resolve(r.headers) },
+    }).then(r => { resolve({token:r.headers.authorization, userinfo:r.data}) },
       r => { reject(r.message) });
   })
 }
@@ -30,7 +30,7 @@ function getCurrentUser(username) {
         'Content-type': 'application/json',
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
-    }).then(r => { resolve(r.data) },
+    }).then(r => { resolve({token:r.headers.authorization, userinfo:r.data}) },
       r => { reject(r.message) });
   })
 }

@@ -346,7 +346,7 @@
 .sidenav {
   height: 100%;
   width: 200px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   background: #f8f9fa;
@@ -599,6 +599,7 @@
 .studypage__jumbotron--image {
   flex: 30%;
   max-width: 30%;
+  height: 178px;
   -webkit-box-shadow: 1px -1px 20px 0px #e4e9f5;
   -moz-box-shadow: 1px -1px 20px 0px #e4e9f5;
   box-shadow: 1px -1px 20px 0px #e4e9f5; }
@@ -1146,6 +1147,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .border-box {
   box-sizing: border-box; }
+
+.navbar-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000; }
 
 .page-content {
   margin-top: 75px; }

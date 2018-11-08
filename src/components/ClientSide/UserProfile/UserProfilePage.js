@@ -7,11 +7,13 @@ import cookies from "react-cookies";
 import { VariableConstants } from '../../../constants';
 
 class UserProfilePage extends Component {
-
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
     componentWillMount() {
         if (this.props.coursesOfStudent.err) forwardToNewPathname("/404.html");
         if (this.props.coursesOfStudent.data.length === 0) {
-            this.props.getCoursesOfStudent(cookies.load(VariableConstants.LOGIN_INFO).username);
+            this.props.getCoursesOfStudent(cookies.load(VariableConstants.USERNAME));
         }
     }
 
@@ -20,13 +22,14 @@ class UserProfilePage extends Component {
             <UserCourse key={course.id} id={course.id} isSliderCourse={true}
             name={course.name} description={course.description}
             cost={course.cost} image={course.image}
-            amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors} />
+            amountStudent={course.amountStudent} rating={course.rating} instructors={course.instructors}
+            totalSection={course.totalSection}  sectionProgress={course.sectionProgress}/>
         )
     }
 
     render() {
         return (
-            <div>
+            <div style={{height:"100%"}}>
                 <div className="sidenav">
                     <a href="" className="lead sidenav-active mt-3"><i class="fas fa-chalkboard-teacher"></i> Courses</a>
                     <a href="" className="lead"><i class="fas fa-th"></i> Account </a>

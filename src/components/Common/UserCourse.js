@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class UserCourse extends Component {
     renderInstructorNames = () => {
@@ -13,6 +14,28 @@ class UserCourse extends Component {
         });
         return instructors;
     }
+
+    renderProgressBar = () => {
+        let progress = 0;
+
+        if (this.props.totalSection !== 0) {
+            progress = this.props.sectionProgress / this.props.totalSection;
+        }
+        return <div className="progress">
+            <div className="progress-bar progress-bar-striped" role="progressbar" style={{ width: progress + "%" }} aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    }
+
+    renderProgress = () => {
+        let progress = 0;
+
+        if (this.props.totalSection !== 0) {
+            progress = this.props.sectionProgress / this.props.totalSection;
+        }
+
+        return progress;
+    }
+
     render() {
         return (
             <div className="user-course rounded container">
@@ -37,17 +60,16 @@ class UserCourse extends Component {
 
 
                             <p className="mt-2">{this.props.description}</p>
-                            <div className="progress">
-                                <div className="progress-bar progress-bar-striped" role="progressbar" style={{ width: "10%" }} aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                            {this.renderProgressBar()}
 
                             <div className="course_info float-left mr-4 mb-3 mt-3" >
-                                <button className="btn btn-primary btn-lg">Continue</button>
-
+                                <Link to={"/study/"+this.props.id}>
+                                    <button className="btn btn-primary btn-lg">Continue</button>
+                                </Link>
                             </div>
                             <div className="course_info float-right mr-4 mb-3 mt-3" >
 
-                                <span className="lead font-weight-bold text-success">30%</span>
+                                <span className="lead font-weight-bold text-success">{this.renderProgress()}%</span>
                             </div>
                         </div>
                     </div>

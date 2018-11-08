@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { VariableConstants } from '../constants';
+import cookies from 'react-cookies';
 
 function getBestSellerCourses() {
     return new Promise((resolve, reject) => {
@@ -65,12 +66,29 @@ function getBestSellerCourses() {
       axios({
         url:  VariableConstants.URL+`user/courses/${username}`,
         method: "GET",
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': cookies.load(VariableConstants.TOKEN)
+        }
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });
     })
   }
 
-  
+  function getUserCourseLessons(courseId){
+    return new Promise((resolve, reject) => {
+      axios({
+        url:  VariableConstants.URL+`course/course-lessons/${courseId}`,
+        method: "GET",
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': cookies.load(VariableConstants.TOKEN)
+        }
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
+
 
   export const CourseServices = {
     getBestSellerCourses,
@@ -79,5 +97,6 @@ function getBestSellerCourses() {
     getCoursesByCategoryFilterPage,
     getCourseDetail,
     getCoursesByInstructor,
-    getCoursesOfStudent
+    getCoursesOfStudent,
+    getUserCourseLessons
   }

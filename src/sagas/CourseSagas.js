@@ -81,3 +81,14 @@ export function* getCoursesOfStudent(action) {
     }
 }
 
+export function* getUserCourseLessons(action) {
+    try {
+        const courseId = yield action.payload.courseId;
+
+        const data = yield call(CourseServices.getUserCourseLessons, courseId);
+
+        yield put(CourseActions.getUserCourseLessonsSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getUserCourseLessonsFail())
+    }
+}
