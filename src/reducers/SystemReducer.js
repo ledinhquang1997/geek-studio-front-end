@@ -11,3 +11,15 @@ export const filter = (state = filterInitialState, action) => {
             return state
     }
 }
+
+const alertInitialState = {status:false, type:"", content:""}
+export const alert = (state = alertInitialState, action) => {
+    switch (action.type) {
+        case VariableConstants.ALERT_ON:
+            return {...state,status:true, type:action.payload.type, content:action.payload.content}
+        case VariableConstants.ALERT_OFF:
+            return {...state,status:false}
+        default:
+            return state
+    }
+}

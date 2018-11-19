@@ -91,7 +91,7 @@ class CourseDetailPage extends Component {
                     return (<div className="col-lg-6 col-md-12 mb-3 m-auto">
                         <div className="course-detail__instructor row">
                             <div className="col-4 d-flex align-items-center">
-                                <img src={instructor.image}></img>
+                                <img src={instructor.image} alt={instructor.name} ></img>
                             </div>
                             <div className="col-8 d-flex align-items-center">
                                 <div className="p-2">

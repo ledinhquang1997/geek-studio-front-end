@@ -4,7 +4,7 @@ import animation from "../../assets/animations/lego_loader.json";
 import { connect } from 'react-redux';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { CategoryActions, CourseActions } from '../../actions';
 import { slide as Menu } from 'react-burger-menu'
 
@@ -13,14 +13,37 @@ class HomeHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenMenu: false
+            isOpenMenu: false,
+            redirectToLogIn:false
         }
     }
 
     componentWillMount() {
         this.props.getAllCategories()
     }
+    componentDidMount() {
+        if (this.headerAnimationRefs) {
+            lottie.loadAnimation({
+                container: this.headerAnimationRefs, // the dom element that will contain the animation
+                renderer: "svg",
+                loop: true,
+                autoplay: true,
+                animationData: animation
+            });
+        }
+    }
 
+    handleLogOut = (event) => {
+        event.preventDefault();
+        cookies.remove(VariableConstants.TOKEN, { path: "/" });
+        cookies.remove(VariableConstants.USERNAME, { path: "/" });
+        cookies.remove(VariableConstants.ROLES, { path: "/" });
+        cookies.remove(VariableConstants.EMAIL, { path: "/" });
+        cookies.remove(VariableConstants.IMAGE, { path: "/" });
+        this.setState({
+            redirectToLogIn:true
+        });
+    }
     handleStateChange = (state) => {
         this.setState({ isOpenMenu: state.isOpen })
     }
@@ -35,18 +58,6 @@ class HomeHeader extends Component {
     }
     toggleMenu = () => {
         this.setState({ isOpenMenu: !this.state.isOpenMenu })
-    }
-
-    componentDidMount() {
-        if (this.headerAnimationRefs) {
-            lottie.loadAnimation({
-                container: this.headerAnimationRefs, // the dom element that will contain the animation
-                renderer: "svg",
-                loop: true,
-                autoplay: true,
-                animationData: animation
-            });
-        }
     }
 
 
@@ -66,28 +77,53 @@ class HomeHeader extends Component {
     ////////RENDER SECTION/////////////
 
     renderCategories = () => {
-        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><a key={category.id} onClick={() => this.onCategoryClick(category.id)} href="">{category.name}</a></Link>)
+        return this.props.categories.map(category => <Link key={category.id} to={{ pathname: "/courses/" + category.id, categoryId: category.id }}><div key={category.id} onClick={() => this.onCategoryClick(category.id)}>{category.name}</div></Link>)
     }
-    renderAccount = () => {
+    renderAccountNavLinks = () => {
+        const roles = cookies.load(VariableConstants.ROLES);
         return cookies.load(VariableConstants.USERNAME) ?
             <React.Fragment>
                 <hr className="vertical-hr" />
-                <Link to="/profile">
-                    <li className="nav-item mr-1">
-                        <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; My courses</a>
-                    </li>
-                </Link>
-                <hr className="vertical-hr" />
+                {roles.includes("ROLE_LEARNER")
+                    ?
+                    <React.Fragment>
+                        <Link to="/profile">
+                            <li className="nav-item mr-1">
+                                <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; My courses</a>
+                            </li>
+                        </Link>
+                        <hr className="vertical-hr" />
+                    </React.Fragment> : ""}
 
+                {roles.includes("ROLE_ADMIN")
+                    ?
+                    <React.Fragment>
+                        <Link to="/management">
+                            <li className="nav-item mr-1">
+                                <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; Management</a>
+                            </li>
+                        </Link>
+                        <hr className="vertical-hr" />
+                    </React.Fragment> : ""}
                 <li className="nav-item mr-1">
-                    <a className="nav-link d-flex align-items-center"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.USERNAME)}</a>
+                    <div className="dropdown">
+                        <div className="nav-link d-flex align-items-center dropbtn"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.USERNAME)}</div>
+                        <div className="dropdown-content  high__zindex">
+                            <a className="menu-item" href="">My profile</a>
+                            <a className="menu-item" href="" onClick={this.handleLogOut}>Log out</a>
+
+                        </div>
+                    </div>
+
                 </li>
             </React.Fragment>
             :
             <React.Fragment>
-                <li className="nav-item mr-1">
-                    <a className="nav-link d-flex align-items-center btn btn-sm btn-outline-danger"><i className="material-icons">vpn_key</i>&nbsp; Log in</a>
-                </li>
+                <Link to={"/login"}>
+                    <li className="nav-item mr-1">
+                        <a className="nav-link d-flex align-items-center btn btn-sm btn-outline-danger"><i className="material-icons">vpn_key</i>&nbsp; Log in</a>
+                    </li>
+                </Link>
                 <li className="nav-item">
                     <a className="nav-link d-flex align-items-center btn btn-sm btn-outline-info"><i className="material-icons">fiber_new</i>&nbsp; Sign up</a>
                 </li>
@@ -105,11 +141,11 @@ class HomeHeader extends Component {
         </Menu>
     }
     render() {
-        console.log(this.state.isOpenMenu);
+        console.log(cookies.load(VariableConstants.ROLES));
         return (
             <React.Fragment>
                 {this.renderSideMenu()}
-
+                {this.state.redirectToLogIn && <Redirect to={"/login"}/>}
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow">
 
@@ -137,7 +173,7 @@ class HomeHeader extends Component {
                                 <li className="nav-item mr-1">
                                     <a className="nav-link d-flex align-items-center"><i className="fas fa-shopping-cart fa-lg"></i></a>
                                 </li>
-                                {this.renderAccount()}
+                                {this.renderAccountNavLinks()}
                             </ul>
                         </div>
                     </nav>

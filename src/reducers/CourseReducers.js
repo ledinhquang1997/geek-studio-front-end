@@ -84,13 +84,13 @@ export const currentCoursesByInstructor = (state = currentCoursesByInstructorIni
     }
 }
 
-const CoursesOfStudentInitialState = { data: [], err: false }
+const CoursesOfStudentInitialState = { data: [], err: false, isLoading:false }
 export const CoursesOfStudent = (state = CoursesOfStudentInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_COURSES_OF_STUDENT:
-            return state
+            return {...state,isLoading:true}
         case CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS:
-            return { ...state, data: action.payload.data }
+            return { ...state, data: action.payload.data, isLoading:false}
         case CourseConstant.GET_COURSES_OF_STUDENT_FAIL:
             return { ...state, data: [], err: true }
         default:
@@ -98,37 +98,97 @@ export const CoursesOfStudent = (state = CoursesOfStudentInitialState, action) =
     }
 }
 
-const UserCourseLessonsInitialState = { data: {
-    "id": "",
-    "name": "",
-    "description": "",
-    "cost": 0,
-    "rating": 0,
-    "amountStudent": 0,
-    "image": "https://res.cloudinary.com/quanglibrary/image/upload/s--QReFaFjw--/v1540525483/geek/nodejs1_miaox0.jpg",
-    "category": {
+const UserCourseLessonsInitialState = {
+    data: {
         "id": "",
         "name": "",
         "description": "",
-        "image": ""
+        "cost": 0,
+        "rating": 0,
+        "amountStudent": 0,
+        "image": "https://res.cloudinary.com/quanglibrary/image/upload/s--QReFaFjw--/v1540525483/geek/nodejs1_miaox0.jpg",
+        "category": {
+            "id": "",
+            "name": "",
+            "description": "",
+            "image": ""
+        },
+        instructors: [],
+        totalLesson: 3,
+        totalSection: 9,
+        lessonProgress: 0,
+        sectionProgress: 0,
+        learnerRating: null,
+        lessons: []
     },
-    "instructors": [],
-    totalLesson: 3,
-    totalSection: 9,
-    lessonProgress: 0,
-    sectionProgress: 0,
-    learnerRating: null,
-    lessons: []
-}, err: false }
+    err: false,
+    isLoading:false
+
+}
+
 export const UserCourseLessons = (state = UserCourseLessonsInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_USER_COURSE_LESSONS:
-            return state
+            return {...state,isLoading:true}
         case CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS:
-            return { ...state, data: action.payload.data, err: false }
+            return { ...state, data: action.payload.data, err: false, isLoading:false }
         case CourseConstant.GET_USER_COURSE_LESSONS_FAIL:
-            return { ...state, data: {}, err:true}
+            return { ...state, data: {}, err: true}
+        case CourseConstant.CHANGE_CURRENT_LESSON:
+            return { ...state, data: { ...state.data, currentLesson: action.payload.lessonId } }
         default:
             return state
     }
 }
+
+const StudentCourseSectionListInitialState = {
+    data: {
+        id: "",
+        ordinalNumber: 0,
+        name: "",
+        description: "",
+        courseId: "",
+        courseName: "",
+        sectionProgress: 0,
+        sections: []
+    },
+    err:false,
+    isLoading:false
+}
+export const studentCourseSectionList = (state = StudentCourseSectionListInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST:
+            return {...state,isLoading:true}
+        case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS:
+            return { ...state, data: action.payload.data, err: false, isLoading:false }
+        case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_FAIL:
+            return { ...state, data: {}, err: true }
+        case CourseConstant.CHANGE_CURRENT_SECTION:
+            return { ...state, data: { ...state.data, currentSection: action.payload.sectionId } }
+        default:
+            return state
+    }
+}
+
+const SectionDetailInitialState = {
+    data: {
+        id: "",
+        ordinalNumber: 0,
+        description: "",
+        content: ""
+    }, err: false, isLoading:false
+}
+export const sectionDetail = (state = SectionDetailInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_SECTION_DETAIL:
+            return {...state, isLoading:true}
+        case CourseConstant.GET_SECTION_DETAIL_SUCCESS:
+            return { ...state, data: action.payload.data, err: false, isLoading:false}
+        case CourseConstant.GET_SECTION_DETAIL_FAIL:
+            return { ...state, data: {}, err: true }
+        default:
+            return state
+    }
+}
+
+

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StudentManagementActions } from '../../actions';
 
-class ManagementLearner extends Component {
+class ManagementCourse extends Component {
 
     componentWillMount() {
         this.props.getListStudents();
@@ -26,16 +26,16 @@ class ManagementLearner extends Component {
                 <table className="table table-hover">
                     <thead className="management-thead">
                         <tr>
-                            <th scope="col" className="lead" style={{ width: "250px" }} >Username</th>
-                            <th scope="col" className="lead" style={{ width: "150px" }}>Name</th>
-                            <th scope="col" className="lead" style={{ width: "150px" }}>School</th>
-                            <th scope="col" className="lead" style={{ width: "150px" }}>Email</th>
-                            <th scope="col" className="lead" style={{ width: "150px" }}>DOB</th>
+                            <th scope="col" className="lead" style={{ width: "150px" }}>ID</th>
+                            <th scope="col" className="lead" style={{ width: "250px" }} >Name</th>
+                            <th scope="col" className="lead" style={{ width: "150px" }}>Cost</th>
+                            <th scope="col" className="lead" style={{ width: "150px" }}>No.Student</th>
+                            <th scope="col" className="lead" style={{ width: "150px" }}>Rating</th>
                             <th scope="col" className="lead text-center" style={{ width: "200px" }}><i className="fas fa-plus fa-lg text-center"></i></th>
                         </tr>
                     </thead>
                     <tbody className="management-tbody">
-                       {this.renderListStudents()}
+                        {this.renderListStudents()}
                     </tbody>
                 </table>
             </div>
@@ -56,4 +56,4 @@ const mapStateToProps = (state, ownProps) => {
         listStudents: state.listStudents
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ManagementLearner)
+export default connect(mapStateToProps, mapDispatchToProps)(ManagementCourse)

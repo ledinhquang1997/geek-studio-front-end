@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
-import Lessons from './LessonsPage';
-import { Route } from 'react-router-dom';
 import renderHTML from 'react-render-html';
+import { CourseActions } from '../../../actions';
+import { connect } from "react-redux";
+import { forwardToNewPathname } from '../../Common/utilities';
+import {Link} from "react-router-dom";
 
 class StudyPage extends Component {
+    componentWillMount() {
+        if (this.props.studentCourseSectionList.err) forwardToNewPathname("/404.html");
+        if (this.props.studentCourseSectionList.data.id === "" || this.props.studentCourseSectionList.data.id !== this.props.match.params.lessonId)
+            this.props.getSectionList(this.props.match.params.lessonId);
+    }
+    sectionClickHandle=(sectionId)=>{
+        this.props.changeCurrentSection(sectionId);
+        this.props.getSectionDetail(sectionId);
+    }
+    renderSections = () => {
+        let learntSection= true;
+        return this.props.studentCourseSectionList.data.sections.map((section, index) => {
+            if(section.id===this.props.studentCourseSectionList.data.currentSection) learntSection=false;
+            return <div key={section.id} onClick={()=>this.sectionClickHandle(section.id)} className={this.props.studentCourseSectionList.data.currentSection===section.id?"step step-active":"step"}>
+                {/* <div className="step step-active"> */}
+                <div>
+                    {/* <div className="circle"><i className="fa fa-check" /></div> */}
+                    <div className="circle">{learntSection?<i className="fa fa-check" />:section.ordinalNumber}</div>
+                </div>
+                <div>
+                    <div className="title">{section.description}</div>
+                    {/* <div className="caption">Optional</div> */}
+                </div>
+            </div>
+        })
+    }
     render() {
         return (
             <div>
@@ -11,120 +39,16 @@ class StudyPage extends Component {
                     <div className="row">
                         <div className="col-2">
                             <div className="stepper rounded">
-                                <div className="step">
-                                    <div>
-                                        <div className="circle"><i className="fa fa-check" /></div>
-                                    </div>
-                                    <div>
-                                        <div className="title">First Step</div>
-                                        <div className="caption">Optional</div>
-                                    </div>
-                                </div>
-                                <div className="step step-active">
-                                    <div>
-                                        <div className="circle">2</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Second Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
-                                <div className="step">
-                                    <div>
-                                        <div className="circle">3</div>
-                                    </div>
-                                    <div>
-                                        <div className="title">Third Step</div>
-                                    </div>
-                                </div>
+                            <Link to={"/study/"+this.props.studentCourseSectionList.data.courseId}><div>Back</div></Link>
+                                {this.props.studentCourseSectionList.isLoading?<div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/bar.svg")} alt={"spinner"}/></div>:this.renderSections()}
                             </div>
                         </div>
                         <div className="col-10">
                             <div className="studypage-navbar rounded d-flex align-items-center justify-content-center">
-                                <h3 className="text-center lead studypage-navbar__item">Course content</h3>
+                                <h3 className="text-center lead studypage-navbar__item">{this.props.studentCourseSectionList.data.name}</h3>
                             </div>
                             <div className="studypage-content rounded">
-                                {renderHTML(`<div>Auto margins</div>
-<p>Flexbox can do some pretty awesome things when you mix flex alignments with auto margins. Shown below are three examples of controlling flex items via auto margins: default (no auto margin), pushing two items to the right (<code class="highlighter-rouge">.mr-auto</code>), and pushing two items to the left (<code class="highlighter-rouge">.ml-auto</code>).</p>
-<p><strong>Unfortunately, IE10 and IE11 do not properly support auto margins on flex items whose parent has a non-default&nbsp;<code class="highlighter-rouge">justify-content</code>&nbsp;value.</strong>&nbsp;<a href="https://stackoverflow.com/a/37535548">See this StackOverflow answer</a>&nbsp;for more details.</p>
-<div class="bd-example">
-<div class="d-flex bd-highlight mb-3">
-<div class="p-2 bd-highlight">Flex item</div>
-<div class="p-2 bd-highlight">Flex item</div>
-<div class="p-2 bd-highlight">Flex item</div>
-</div>
-<div class="d-flex bd-highlight mb-3">
-<div class="mr-auto p-2 bd-highlight">Flex item</div>
-<div class="p-2 bd-highlight">Flex item</div>
-<div class="p-2 bd-highlight">Flex item</div>
-</div>
-<div class="d-flex bd-highlight mb-3">
-<div class="p-2 bd-highlight">Flex item</div>
-<div class="p-2 bd-highlight">Flex item</div>
-<div class="ml-auto p-2 bd-highlight">Flex item</div>
-</div>
-</div>
-<div class="bd-clipboard"><button class="btn-clipboard" title="" data-original-title="Copy to clipboard">Copy</button></div>
-<div class="highlight">
-<pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"d-flex"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"d-flex"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"mr-auto p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"d-flex"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ml-auto p-2"</span><span class="nt">&gt;</span>Flex item<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span></code></pre>
-</div>
-<div>With align-items</div>
-<p>Vertically move one flex item to the top or bottom of a container by mixing&nbsp;<code class="highlighter-rouge">align-items</code>,&nbsp;<code class="highlighter-rouge">flex-direction: column</code>, and&nbsp;<code class="highlighter-rouge">margin-top: auto</code>&nbsp;or&nbsp;<code class="highlighter-rouge">margin-bottom: auto</code>.</p>`)}
+                            {this.props.sectionDetail.isLoading?<div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/ring.svg")} alt={"spinner"}/></div>:renderHTML(this.props.sectionDetail.data.content)}
 
 
                             </div>
@@ -143,5 +67,24 @@ class StudyPage extends Component {
         );
     }
 }
-
-export default StudyPage;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        studentCourseSectionList: state.studentCourseSectionList,
+        sectionDetail:state.sectionDetail,
+        currentSection:state.currentSection
+    }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getSectionList: (lessonId) => {
+            dispatch(CourseActions.getStudentCourseSectionListByLesson(lessonId));
+        },
+        getSectionDetail: (sectionId) => {
+            dispatch(CourseActions.getSectionDetail(sectionId));
+        },
+        changeCurrentSection:(sectionId)=>{
+            dispatch(CourseActions.changeCurrentSection(sectionId));
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(StudyPage)

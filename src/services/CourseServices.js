@@ -5,7 +5,7 @@ import cookies from 'react-cookies';
 function getBestSellerCourses() {
     return new Promise((resolve, reject) => {
       axios({
-        url:  VariableConstants.URL+`courses/bestsellers`,
+        url:  VariableConstants.URL+`course/bestsellers`,
         method: "GET",
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });
@@ -15,7 +15,7 @@ function getBestSellerCourses() {
   function getTopRatingCourses() {
     return new Promise((resolve, reject) => {
       axios({
-        url:  VariableConstants.URL+`courses/toprating`,
+        url:  VariableConstants.URL+`course/toprating`,
         method: "GET",
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });
@@ -25,7 +25,7 @@ function getBestSellerCourses() {
   function getTop6CoursesByCategoryId(id) {
     return new Promise((resolve, reject) => {
       axios({
-        url:  VariableConstants.URL+"courses/"+id,
+        url:  VariableConstants.URL+"course/top-by-category/"+id,
         method: "GET",
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });
@@ -35,7 +35,7 @@ function getBestSellerCourses() {
   function getCoursesByCategoryFilterPage(category,filter,page) {
     return new Promise((resolve, reject) => {
       axios({
-        url:  VariableConstants.URL+`courses/by-category/${category}/${filter}/${page}`,
+        url:  VariableConstants.URL+`course/by-category-filter-page/${category}/${filter}/${page}`,
         method: "GET",
       }).then(r => { resolve(r.data) },
         r => { reject(r.message) });
@@ -51,6 +51,9 @@ function getBestSellerCourses() {
         r => { reject(r.message) });
     })
   }
+
+  ///////////////////////////////////////
+  ///////////////////////////////////////
   function getCoursesByInstructor(username,page){
     return new Promise((resolve, reject) => {
       axios({
@@ -60,7 +63,8 @@ function getBestSellerCourses() {
         r => { reject(r.message) });
     })
   }
-
+//////////////Require Aurhentication///////////////
+/////////////////////////////////////////////////// 
   function getCoursesOfStudent(username){
     return new Promise((resolve, reject) => {
       axios({
@@ -78,7 +82,7 @@ function getBestSellerCourses() {
   function getUserCourseLessons(courseId){
     return new Promise((resolve, reject) => {
       axios({
-        url:  VariableConstants.URL+`course/course-lessons/${courseId}`,
+        url:  VariableConstants.URL+`user/course-lessons/${courseId}`,
         method: "GET",
         headers: {
           'Content-type': 'application/json',
@@ -89,6 +93,48 @@ function getBestSellerCourses() {
     })
   }
 
+  function getUserCourseSectionListByLesson(lessonId){
+    return new Promise((resolve, reject) => {
+      axios({
+        url:  VariableConstants.URL+`user/lesson-sections/${lessonId}`,
+        method: "GET",
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': cookies.load(VariableConstants.TOKEN)
+        }
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
+
+  function getSectionDetail(sectionId){
+    return new Promise((resolve, reject) => {
+      axios({
+        url:  VariableConstants.URL+`user/section/${sectionId}`,
+        method: "GET",
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': cookies.load(VariableConstants.TOKEN)
+        }
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
+
+  function changeCourseProgress(progress){
+    return new Promise((resolve, reject) => {
+      axios({
+        url:  VariableConstants.URL+`user/progress`,
+        method: "PATCH",
+        data:progress,
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': cookies.load(VariableConstants.TOKEN)
+        }
+      }).then(r => { resolve(r.data) },
+        r => { reject(r.message) });
+    })
+  }
 
   export const CourseServices = {
     getBestSellerCourses,
@@ -98,5 +144,8 @@ function getBestSellerCourses() {
     getCourseDetail,
     getCoursesByInstructor,
     getCoursesOfStudent,
-    getUserCourseLessons
+    getUserCourseLessons,
+    getUserCourseSectionListByLesson,
+    getSectionDetail,
+    changeCourseProgress
   }

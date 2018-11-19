@@ -16,7 +16,7 @@ class ClientSide extends Component {
             <div>
                 <HomeHeader />
                 <Route exact path="/" component={HomePage}/>
-                <Route exact path="/study/:courseId/:sectionId" component={StudyPage}/>
+                <Route exact path="/lesson/:lessonId" component={StudyPage}/>
                 <Route exact path="/study/:courseId" component={Lessons}/>
                 <Route exact path="/courses/:name" component={CoursesPage}/>
                 <Route exact path="/course/:id" component={CourseDetailPage}/>

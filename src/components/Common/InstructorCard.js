@@ -20,7 +20,7 @@ class InstructorCard extends Component {
                     <div className="team_image"><img src={this.props.image} alt="" /></div>
                     <div className="team_body">
                     <Link to={"/instructor/"+this.props.username}>
-                        <div className="team_title"><a href="">{this.props.name}</a></div>
+                        <div className="team_title"><a className="text-black">{this.props.name}</a></div>
                         </Link>
                         <div className="team_subtitle">{this.renderCategories()}</div>
                         <div className="team_subtitle h6 mt-2">from: {this.props.company}</div>

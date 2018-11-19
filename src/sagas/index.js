@@ -2,12 +2,15 @@ import { fetchInstructorList, getInstructorDetail } from './InstructorSagas';
 import {
     fetchBestSellerCourses, fetchTop6CoursesByCategoryId, fetchTopRatingCourse,
     getCoursesByCategoryFilterPage, getCourseDetail,
-    getCoursesByInstructor, getCoursesOfStudent, getUserCourseLessons
+    getCoursesByInstructor, getCoursesOfStudent, getUserCourseLessons,
+    getStudentCourseSectionListByLesson,getSectionDetail,changeProgress,
+    getStudentCourseSectionListByLessonSuccess
 } from './CourseSagas';
 import { takeEvery } from 'redux-saga/effects'
-import { InstructorConstants, CourseConstant, CategoryConstants, LoginConstants } from '../constants';
+import { InstructorConstants, CourseConstant, CategoryConstants, LoginConstants, StudentConstants } from '../constants';
 import { fetchAllCategories, getcurrentCategoryWithTopics } from './CategorySagas';
-import { login, goToHomePage } from './LoginSagas';
+import { login, goToHomePage ,register} from './LoginSagas';
+import {getListStudents} from './ManagementStudentSaga';
 
 export default function* rootSaga() {
     yield takeEvery(InstructorConstants.GET_ALL_INSTRUCTORS, fetchInstructorList)
@@ -24,4 +27,11 @@ export default function* rootSaga() {
     yield takeEvery(CourseConstant.GET_COURSES_BY_INSTRUCTOR, getCoursesByInstructor)
     yield takeEvery(CourseConstant.GET_COURSES_OF_STUDENT, getCoursesOfStudent)
     yield takeEvery(CourseConstant.GET_USER_COURSE_LESSONS, getUserCourseLessons)
+    yield takeEvery(CourseConstant.GET_STUDENT_COURSE_SECTION_LIST,getStudentCourseSectionListByLesson)
+    yield takeEvery(CourseConstant.GET_SECTION_DETAIL,getSectionDetail)
+    yield takeEvery(CourseConstant.CHANGE_CURRENT_LESSON,changeProgress)
+    yield takeEvery(CourseConstant.CHANGE_CURRENT_SECTION,changeProgress)
+    yield takeEvery(CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS,getStudentCourseSectionListByLessonSuccess)
+    yield takeEvery(StudentConstants.GET_LIST_STUDENTS,getListStudents)
+    yield takeEvery(LoginConstants.REGISTER_NEW_STUDENT_ACCOUNT,register)
 }

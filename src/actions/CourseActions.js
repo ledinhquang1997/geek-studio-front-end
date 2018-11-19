@@ -109,6 +109,38 @@ function getUserCourseLessonsFail(){
     return {type:CourseConstant.GET_USER_COURSE_LESSONS_FAIL}
 }
 
+function getStudentCourseSectionListByLesson(lessonId){
+    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST, payload:{lessonId:lessonId}}
+}
+
+function getStudentCourseSectionListByLessonSuccess(data,urlLesson){
+    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS, payload:{data:data, urlLesson:urlLesson}}
+}
+function getStudentCourseSectionListByLessonFail(){
+    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_FAIL}
+}
+
+function getSectionDetail(sectionId){
+    return {type:CourseConstant.GET_SECTION_DETAIL, payload:{sectionId:sectionId}}
+}
+
+
+function getSectionDetailSuccess(data){
+    return {type:CourseConstant.GET_SECTION_DETAIL_SUCCESS, payload:{data:data}}
+}
+
+
+function getSectionDetailFail(){
+    return {type:CourseConstant.GET_SECTION_DETAIL_FAIL}
+}
+
+function changeCurrentSection(sectionId){
+    return {type:CourseConstant.CHANGE_CURRENT_SECTION, payload :{sectionId:sectionId}}
+}
+
+function changeCurrentLesson(lessonId){
+    return {type:CourseConstant.CHANGE_CURRENT_LESSON, payload :{lessonId:lessonId}}
+}
 export const CourseActions = {
     getBestSellerCourses,
     getBestSellerSuccess,
@@ -140,5 +172,16 @@ export const CourseActions = {
 
     getUserCourseLessons,
     getUserCourseLessonsSuccess,
-    getUserCourseLessonsFail
+    getUserCourseLessonsFail,
+
+    getStudentCourseSectionListByLesson,
+    getStudentCourseSectionListByLessonSuccess,
+    getStudentCourseSectionListByLessonFail,
+
+    getSectionDetail,
+    getSectionDetailSuccess,
+    getSectionDetailFail,
+
+    changeCurrentSection,
+    changeCurrentLesson
 }

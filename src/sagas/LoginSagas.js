@@ -3,7 +3,6 @@ import { LoginServices } from '../services';
 import { LoginActions } from '../actions';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../constants';
-import { forwardToNewPathname } from '../components/Common/utilities';
 
 export function* login(action) {
     try {
@@ -23,9 +22,7 @@ export function* login(action) {
         yield cookies.save(VariableConstants.ROLES, data.userinfo.roles, { path: "/"});   
         yield cookies.save(VariableConstants.EMAIL, data.userinfo.email, { path: "/"});        
         yield cookies.save(VariableConstants.IMAGE, data.userinfo.image, { path: "/"});        
-     
-        yield console.log(cookies.loadAll());
-        
+             
         yield put(LoginActions.loginSuccess(data.authorization));
     } catch (err) {
         yield put(LoginActions.loginFail("Username not exist or wrong password"))
@@ -34,9 +31,21 @@ export function* login(action) {
 
 export function* goToHomePage(action) {
     try {
-        yield forwardToNewPathname("/");
+        // yield forwardToNewPathname("/");
     } catch (err) {
 
     }
 }
+
+export function* register(action) {
+    try {
+        yield console.log(action);
+
+        const data = yield call(LoginServices.registerNewStudentAccount, action.payload.newAccount)        
+        yield put(LoginActions.registerNewStudentAccountSuccess(data));
+    } catch (err) {
+        yield put(LoginActions.registerNewStudentAccountFail("Can not register new account. Please try again."))
+    }
+} 
+
 

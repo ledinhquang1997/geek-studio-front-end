@@ -11,5 +11,7 @@ export const VariableConstants = {
     USERNAME:"USERNAME",
     ROLES:"ROLES",
     EMAIL:"EMAIL",
-    IMAGE:"IMAGE"
+    IMAGE:"IMAGE",
+    ALERT_ON:"ALERT_ON",
+    ALERT_OFF:"ALERT_OFF"
 }

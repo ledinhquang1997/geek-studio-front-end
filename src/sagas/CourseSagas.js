@@ -61,7 +61,7 @@ export function* getCoursesByInstructor(action) {
         const username = yield action.payload.username;
         const page = yield action.payload.page;
 
-        const data = yield call(CourseServices.getCoursesByInstructor, username,page);
+        const data = yield call(CourseServices.getCoursesByInstructor, username, page);
 
         yield put(CourseActions.getCoursesByInstructorSuccess(data));
     } catch (err) {
@@ -86,9 +86,54 @@ export function* getUserCourseLessons(action) {
         const courseId = yield action.payload.courseId;
 
         const data = yield call(CourseServices.getUserCourseLessons, courseId);
-
         yield put(CourseActions.getUserCourseLessonsSuccess(data));
     } catch (err) {
         yield put(CourseActions.getUserCourseLessonsFail())
+    }
+}
+
+export function* getStudentCourseSectionListByLesson(action) {
+    try {
+        const lessonId = yield action.payload.lessonId;
+
+        const data = yield call(CourseServices.getUserCourseSectionListByLesson, lessonId);
+
+        yield put(CourseActions.getStudentCourseSectionListByLessonSuccess(data,lessonId));
+
+    } catch (err) {
+        yield put(CourseActions.getStudentCourseSectionListByLessonFail())
+    }
+}
+
+export function* getSectionDetail(action) {
+    try {
+        const sectionId = yield action.payload.sectionId;
+
+        const data = yield call(CourseServices.getSectionDetail, sectionId);
+        yield put(CourseActions.getSectionDetailSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getSectionDetailFail())
+    }
+}
+
+export function* changeProgress(action) {
+    const sectionId = yield action.payload.sectionId;
+    const lessonId = yield action.payload.lessonId;
+    yield call(CourseServices.changeCourseProgress, { sectionId: sectionId, lessonId: lessonId });
+}
+
+
+export function* getStudentCourseSectionListByLessonSuccess(action) {
+    const data = yield action.payload.data;
+    const lessonId = yield action.payload.urlLesson;
+    if (data.currentLesson === lessonId) {
+        const sectionDetail = yield call(CourseServices.getSectionDetail, data.currentSection);
+        yield put(CourseActions.getSectionDetailSuccess(sectionDetail))
+    }
+    else {
+        const sectionDetail = yield call(CourseServices.getSectionDetail, data.sections[0].id);
+
+        yield put(CourseActions.getSectionDetailSuccess(sectionDetail))
+        yield put(CourseActions.changeCurrentSection(data.sections[0].id))
     }
 }

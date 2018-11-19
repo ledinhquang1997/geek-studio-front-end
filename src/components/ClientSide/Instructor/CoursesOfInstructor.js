@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Course from "../../Common/Course";
 import { CourseActions } from '../../../actions';
 import { connect } from 'react-redux';
-import { VariableConstants } from '../../../constants';
 import { forwardToNewPathname } from '../../Common/utilities';
 
 class CoursesOfInstructor extends Component {

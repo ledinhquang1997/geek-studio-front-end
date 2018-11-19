@@ -24,7 +24,7 @@ function login(username, password) {
 function getCurrentUser(username) {
   return new Promise((resolve, reject) => {
     axios({
-      url: `http://localhost:8080/user/${username}`,
+      url: VariableConstants.URL+`user/${username}`,
       method: "GET",
       headers: {
         'Content-type': 'application/json',
@@ -36,6 +36,22 @@ function getCurrentUser(username) {
 }
 
 
+function registerNewStudentAccount(newAccount) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL+`management/student/add`,
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json',
+      },
+      data:newAccount
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.response) });
+  })
+}
+
+
+
 export const LoginServices = {
-  login, getCurrentUser
+  login, getCurrentUser,registerNewStudentAccount
 }

@@ -37,7 +37,7 @@ class UserProfilePage extends Component {
                     <a href="" className="lead"><i class="fas fa-book-open"></i> Lesson</a> */}
                 </div>
                 <div className="management pt-3">
-                    {this.renderUserCourses()}
+                    {this.props.coursesOfStudent.isLoading?<div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/bar.svg")} alt={"spinner"}/></div>:this.renderUserCourses()}
 
                 </div>
             </div>

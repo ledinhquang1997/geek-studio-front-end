@@ -10,6 +10,19 @@ function loginSuccess(accessToken) {
 function loginFail(msg) {
     return { type: LoginConstants.LOGIN_FAILURE, payload:{msg:msg}};
 }
+function registerNewStudentAccount(newAccount) {
+    return { type: LoginConstants.REGISTER_NEW_STUDENT_ACCOUNT, payload:{newAccount:newAccount}};
+}
+
+function registerNewStudentAccountSuccess(createdAccount) {
+    return { type: LoginConstants.REGISTER_NEW_STUDENT_ACCOUNT_SUCCESS, payload:{createdAccount:createdAccount}};
+}
+
+function registerNewStudentAccountFail(msg) {
+    return { type: LoginConstants.REGISTER_NEW_STUDENT_ACCOUNT_FAIL, payload:{msg:msg}};
+}
+
+
 export const LoginActions = {
-    login, loginSuccess, loginFail
+    login, loginSuccess, loginFail,registerNewStudentAccount,registerNewStudentAccountSuccess,registerNewStudentAccountFail
 }

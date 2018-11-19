@@ -38,6 +38,7 @@
   .login-sec {
     padding: 50px 30px;
     position: relative;
+    height: 500px;
     .copy-text {
       position: absolute;
       width: 80%;
@@ -104,3 +105,8 @@
       max-width: 100%;
     }
   }
+
+.register-form{
+  height: 280px;
+  overflow-y:auto
+}

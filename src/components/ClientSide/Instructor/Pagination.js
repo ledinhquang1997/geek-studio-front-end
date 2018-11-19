@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CourseActions, CategoryActions } from '../../../actions';
+import { CourseActions } from '../../../actions';
 import { forwardToNewPathname } from '../../Common/utilities';
 
 class Pagination extends Component {
