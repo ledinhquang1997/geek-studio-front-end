@@ -13,5 +13,8 @@ export const VariableConstants = {
     EMAIL:"EMAIL",
     IMAGE:"IMAGE",
     ALERT_ON:"ALERT_ON",
-    ALERT_OFF:"ALERT_OFF"
+    ALERT_OFF:"ALERT_OFF",
+    START_LOADING:"START_LOADING",
+    STOP_LOADING:"STOP_LOADING"
+
 }

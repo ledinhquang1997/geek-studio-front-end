@@ -84,13 +84,13 @@ export const currentCoursesByInstructor = (state = currentCoursesByInstructorIni
     }
 }
 
-const CoursesOfStudentInitialState = { data: [], err: false, isLoading:false }
+const CoursesOfStudentInitialState = { data: [], err: false, isLoading: false }
 export const CoursesOfStudent = (state = CoursesOfStudentInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_COURSES_OF_STUDENT:
-            return {...state,isLoading:true}
+            return { ...state, isLoading: true }
         case CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS:
-            return { ...state, data: action.payload.data, isLoading:false}
+            return { ...state, data: action.payload.data, isLoading: false }
         case CourseConstant.GET_COURSES_OF_STUDENT_FAIL:
             return { ...state, data: [], err: true }
         default:
@@ -122,18 +122,18 @@ const UserCourseLessonsInitialState = {
         lessons: []
     },
     err: false,
-    isLoading:false
+    isLoading: false
 
 }
 
 export const UserCourseLessons = (state = UserCourseLessonsInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_USER_COURSE_LESSONS:
-            return {...state,isLoading:true}
+            return { ...state, isLoading: true }
         case CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS:
-            return { ...state, data: action.payload.data, err: false, isLoading:false }
+            return { ...state, data: action.payload.data, err: false, isLoading: false }
         case CourseConstant.GET_USER_COURSE_LESSONS_FAIL:
-            return { ...state, data: {}, err: true}
+            return { ...state, data: {}, err: true }
         case CourseConstant.CHANGE_CURRENT_LESSON:
             return { ...state, data: { ...state.data, currentLesson: action.payload.lessonId } }
         default:
@@ -152,15 +152,15 @@ const StudentCourseSectionListInitialState = {
         sectionProgress: 0,
         sections: []
     },
-    err:false,
-    isLoading:false
+    err: false,
+    isLoading: false
 }
 export const studentCourseSectionList = (state = StudentCourseSectionListInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST:
-            return {...state,isLoading:true}
+            return { ...state, isLoading: true }
         case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS:
-            return { ...state, data: action.payload.data, err: false, isLoading:false }
+            return { ...state, data: action.payload.data, err: false, isLoading: false }
         case CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_FAIL:
             return { ...state, data: {}, err: true }
         case CourseConstant.CHANGE_CURRENT_SECTION:
@@ -176,14 +176,14 @@ const SectionDetailInitialState = {
         ordinalNumber: 0,
         description: "",
         content: ""
-    }, err: false, isLoading:false
+    }, err: false, isLoading: false
 }
 export const sectionDetail = (state = SectionDetailInitialState, action) => {
     switch (action.type) {
         case CourseConstant.GET_SECTION_DETAIL:
-            return {...state, isLoading:true}
+            return { ...state, isLoading: true }
         case CourseConstant.GET_SECTION_DETAIL_SUCCESS:
-            return { ...state, data: action.payload.data, err: false, isLoading:false}
+            return { ...state, data: action.payload.data, err: false, isLoading: false }
         case CourseConstant.GET_SECTION_DETAIL_FAIL:
             return { ...state, data: {}, err: true }
         default:
@@ -191,4 +191,59 @@ export const sectionDetail = (state = SectionDetailInitialState, action) => {
     }
 }
 
+const courseListManagementInitialState = { err: false, data: [], isLoading: false }
+export const courseListManagement = (state = courseListManagementInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_COURSE_LIST_MANAGEMENT:
+            return { ...state, isLoading: true }
+        case CourseConstant.GET_COURSE_LIST_MANAGEMENT_SUCCESS:
+            return { ...state, isLoading: false, data: action.payload.data }
+        case CourseConstant.GET_COURSE_LIST_MANAGEMENT_FAIL:
+            return { ...state, data: [], err: true, isLoading: false }
+        default:
+            return state
+    }
+}
 
+const lessonListManagementInitialState = { err: false, data: [], isLoading: false }
+export const lessonListManagement = (state = lessonListManagementInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_LESSON_LIST_MANAGEMENT:
+            return { ...state, isLoading: true }
+        case CourseConstant.GET_LESSON_LIST_MANAGEMENT_SUCCESS:
+            return { ...state, isLoading: false, data: action.payload.data }
+        case CourseConstant.GET_LESSON_LIST_MANAGEMENT_FAIL:
+            return { ...state, data: [], err: true, isLoading: false }
+        default:
+            return state
+    }
+}
+
+
+const lessonManagementInitialState = { err: false, data: [], isLoading: false }
+export const lessonManagement = (state = lessonManagementInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_LESSON_MANAGEMENT:
+            return { ...state, isLoading: true }
+        case CourseConstant.GET_LESSON_MANAGEMENT_SUCCESS:
+            return { ...state, isLoading: false, data: action.payload.data }
+        case CourseConstant.GET_LESSON_MANAGEMENT_FAIL:
+            return { ...state, data: [], err: true, isLoading: false }
+        default:
+            return state
+    }
+}
+
+const sectionListManagementInitialState = { err: false, data: [], isLoading: false }
+export const sectionListManagement = (state = sectionListManagementInitialState, action) => {
+    switch (action.type) {
+        case CourseConstant.GET_SECTION_LIST_MANAGEMENT:
+            return { ...state, isLoading: true }
+        case CourseConstant.GET_SECTION_LIST_MANAGEMENT_SUCCESS:
+            return { ...state, isLoading: false, data: action.payload.data }
+        case CourseConstant.GET_SECTION_LIST_MANAGEMENT_FAIL:
+            return { ...state, data: [], err: true, isLoading: false }
+        default:
+            return state
+    }
+}

@@ -4,13 +4,14 @@ import { listInstructors, instructorDetail } from './InstructorReducers';
 import {
     highlightCourses, top6CoursesByCategory, currentCoursesByCategory,
     courseDetail, currentCoursesByInstructor, CoursesOfStudent, UserCourseLessons,
-    studentCourseSectionList,sectionDetail,
+    studentCourseSectionList,sectionDetail,courseListManagement,lessonListManagement,
+    lessonManagement, sectionListManagement
             } from './CourseReducers';
-import {listStudents} from './StudentManagementReducer';
+import {listStudents} from './StudentReducer';
 import { listCategories, categorytToDisplay, currentCategoryWithTopics } from './CategoryReducer'
-import { filter,alert } from './SystemReducer';
+import { filter,alert,loading} from './SystemReducer';
 import { login,register } from './LoginReducer';
-
+import {management} from './ManagementReducers';
 const rootReducer = combineReducers({
     instructors: listInstructors,
     highlightCourses: highlightCourses,
@@ -30,7 +31,13 @@ const rootReducer = combineReducers({
     sectionDetail:sectionDetail,
     listStudents:listStudents,
     alert:alert,
-    register:register
+    register:register,
+    management:management,
+    courseListManagement:courseListManagement,
+    loading:loading,
+    lessonListManagement:lessonListManagement,
+    lessonManagement:lessonManagement,
+    sectionListManagement:sectionListManagement
 })
 
 export default rootReducer;

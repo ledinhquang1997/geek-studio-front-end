@@ -22,7 +22,12 @@ function registerNewStudentAccountFail(msg) {
     return { type: LoginConstants.REGISTER_NEW_STUDENT_ACCOUNT_FAIL, payload:{msg:msg}};
 }
 
+function logout() {
+    return { type: LoginConstants.LOG_OUT};
+}
 
 export const LoginActions = {
-    login, loginSuccess, loginFail,registerNewStudentAccount,registerNewStudentAccountSuccess,registerNewStudentAccountFail
+    login, loginSuccess, loginFail,
+    registerNewStudentAccount,registerNewStudentAccountSuccess,registerNewStudentAccountFail,
+    logout
 }

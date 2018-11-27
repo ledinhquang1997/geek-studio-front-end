@@ -23,3 +23,15 @@ export const alert = (state = alertInitialState, action) => {
             return state
     }
 }
+
+const loadingInitialState = {status:false, content:""}
+export const loading = (state = loadingInitialState, action) => {
+    switch (action.type) {
+        case VariableConstants.START_LOADING:
+            return {...state,status:true, content:action.payload.content}
+        case VariableConstants.STOP_LOADING:
+            return {state,status:false}
+        default:
+            return state
+    }
+}

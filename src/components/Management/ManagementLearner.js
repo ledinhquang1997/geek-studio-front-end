@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StudentManagementActions } from '../../actions';
+import { StudentActions } from '../../actions';
 
 class ManagementLearner extends Component {
 
@@ -46,7 +46,7 @@ class ManagementLearner extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getListStudents: () => {
-            dispatch(StudentManagementActions.getListStudents())
+            dispatch(StudentActions.getListStudents())
         }
     }
 }

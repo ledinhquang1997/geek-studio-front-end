@@ -349,9 +349,9 @@
     display: none; } }
 
 .sidenav {
-  height: 100%;
+  height: 100vw;
   width: 200px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: #f8f9fa;
@@ -449,6 +449,23 @@
   width: 100%;
   height: 40px;
   background: rgba(155, 171, 179, 0.1); }
+
+.image-review__container {
+  width: 300px;
+  margin: auto; }
+
+.section-card__description {
+  width: 100%;
+  height: 21px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis; }
+
+.dropzone {
+  width: 100%;
+  height: auto;
+  border: 3px dotted rgba(137, 216, 255, 0.9);
+  background: rgba(137, 216, 255, 0.1); }
 
 .instructor-jumbotron {
   height: 120px;
@@ -707,7 +724,7 @@
   /* Stay in place */
   z-index: 1;
   /* Sit on top */
-  padding-top: 100px;
+  padding-top: 200px;
   /* Location of the box */
   left: 0;
   top: 0;
@@ -724,11 +741,11 @@
 
 .modal-content {
   position: relative;
-  background-color: #fefefe;
+  background-color: #fefefe60;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 50%;
+  width: 30%;
   height: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
@@ -736,9 +753,14 @@
   animation-name: animatetop;
   animation-duration: 0.4s; }
 
+.spinningSgv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
 .modal-header {
   padding: 2px 16px;
-  background: linear-gradient(to right, #135058, #F1F2B5);
   color: white; }
 
 .modal-body {

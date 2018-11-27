@@ -13,7 +13,7 @@ function getListStudentsFail() {
     return { type: StudentConstants.GET_LIST_STUDENTS_FAIL}
 }
 
-export const StudentManagementActions = {
+export const StudentActions = {
     getListStudents,
     getListStudentsSuccess,
     getListStudentsFail

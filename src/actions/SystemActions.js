@@ -16,6 +16,15 @@ function alertOff() {
     return { type: VariableConstants.ALERT_OFF}
 }
 
+function startLoading(content) {
+    return { type: VariableConstants.START_LOADING, payload:{content:content}}
+}
+
+function stopLoading() {
+    return { type: VariableConstants.STOP_LOADING}
+}
+
 export const SystemActions = {
-    changeFilterToBestSeller,changeFilterToRating,alertOn,alertOff
+    changeFilterToBestSeller,changeFilterToRating,alertOn,alertOff,
+    startLoading,stopLoading
 }

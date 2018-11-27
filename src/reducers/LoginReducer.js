@@ -11,7 +11,8 @@ export const login = (state = loginInitialState, action) => {
             return { ...state, msg: action.payload.msg, isLoading: false }
         case VariableConstants.ALERT_OFF:
             return { ...state, msg: "" }
-
+        case LoginConstants.LOG_OUT:
+            return { ...state, loggedin:false }
         default:
             return state
     }

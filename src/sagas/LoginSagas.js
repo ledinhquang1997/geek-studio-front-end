@@ -29,14 +29,6 @@ export function* login(action) {
     }
 } 
 
-export function* goToHomePage(action) {
-    try {
-        // yield forwardToNewPathname("/");
-    } catch (err) {
-
-    }
-}
-
 export function* register(action) {
     try {
         yield console.log(action);

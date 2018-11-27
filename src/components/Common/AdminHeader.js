@@ -3,9 +3,9 @@ import lottie from 'lottie-web';
 import animation from "../../assets/animations/lego_loader.json";
 import { connect } from 'react-redux';
 import cookies from 'react-cookies';
-import { VariableConstants } from '../../constants';
-import { Link } from 'react-router-dom';
-import { CategoryActions, CourseActions } from '../../actions';
+import { VariableConstants, ManagementConstants } from '../../constants';
+import { Link, Redirect } from 'react-router-dom';
+import { CategoryActions, CourseActions, ManagementActions } from '../../actions';
 import { slide as Menu } from 'react-burger-menu'
 
 
@@ -13,7 +13,8 @@ class AdminHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenMenu: false
+            isOpenMenu: false,
+            isRedirect: false
         }
     }
 
@@ -39,15 +40,15 @@ class AdminHeader extends Component {
     }
 
     componentDidMount() {
-        if (this.headerAnimationRefs) {
-            lottie.loadAnimation({
-                container: this.headerAnimationRefs, // the dom element that will contain the animation
-                renderer: "svg",
-                loop: true,
-                autoplay: true,
-                animationData: animation
-            });
-        }
+        // if (this.headerAnimationRefs) {
+        //     lottie.loadAnimation({
+        //         container: this.headerAnimationRefs, // the dom element that will contain the animation
+        //         renderer: "svg",
+        //         loop: true,
+        //         autoplay: true,
+        //         animationData: animation
+        //     });
+        // }
     }
 
 
@@ -60,7 +61,18 @@ class AdminHeader extends Component {
         this.props.getCurrentCoursesByCategory(categoryId, VariableConstants.POPULAR, 0);
     }
 
-
+    onSideNavItemClick = (event) => {
+        const name = event.target.name;
+        switch (name) {
+            case ManagementConstants.LEARNER:
+                this.props.changeManagementSection(ManagementConstants.LEARNER, ManagementConstants.LEARNER_MANAGEMENT);
+                break;
+            case ManagementConstants.COURSE:
+                this.props.changeManagementSection(ManagementConstants.COURSE, ManagementConstants.COURSE_MANAGEMENT);
+                break;
+            default:
+        }
+    }
 
     ///////////////////////////////////
     ///////////////////////////////////
@@ -98,26 +110,30 @@ class AdminHeader extends Component {
             {this.renderSideMenuItems()}
         </Menu>
     }
+    renderRedirect = (url) => {
+        <Redirect to={url} />
+    }
     render() {
         console.log(this.state.isOpenMenu);
+        const roles = cookies.load(VariableConstants.ROLES);
         return (
             <React.Fragment>
+
                 <header>
-                    <nav className="navbar navbar-light bg-light nav__gradient high__zindex nav__shadow">
+                    <nav className="navbar navbar-light bg-light nav__gradient high__zindex nav__shadow navbar-sticky">
                         <Link to="/"><div className="navbar-brand"><img src={require('../../assets/images-system/logo-geek.png')} style={{ width: "30px" }} alt="" /></div></Link>
                         <p className="lead admin-header__dashboardtitle">Geek Dashboard</p>
-                        <p className="lead admin-header__title">LEARNER EDIT</p>
+                        <p className="lead admin-header__title">{this.props.management.managementAction}</p>
 
                     </nav>
                 </header>
                 <div className="sidenav">
-                    <a href="" className="lead sidenav-active"><i class="fas fa-chalkboard-teacher"></i> Learner </a>
-                    <a href="" className="lead"><i class="fas fa-th"></i> Category </a>
-                    <a href="" className="lead"><i class="fas fa-book-reader"></i> Course</a>
-                    <a href="" className="lead"><i class="fas fa-book-open"></i> Lesson</a>
-
+                    {roles.includes("ROLE_ADMIN") && <Link to={"/management/user"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.LEARNER ? "lead sidenav-active" : "lead"} name={ManagementConstants.LEARNER}><i class="fas fa-chalkboard-teacher"></i> Learner </a></Link>}
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.CATEGORY ? "lead sidenav-active" : "lead"} name={ManagementConstants.CATEGORY}><i class="fas fa-th"></i> Category </a></Link>
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.COURSE ? "lead sidenav-active" : "lead"} name={ManagementConstants.COURSE}><i class="fas fa-book-reader"></i> Course</a></Link>
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.LESSON ? "lead sidenav-active" : "lead"} name={ManagementConstants.LESSON}><i class="fas fa-book-open"></i> Lesson</a></Link>
                 </div>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }
@@ -126,6 +142,7 @@ const mapStateToProps = (state, ownProps) => {
         categories: state.categories,
         courses: state.currentCoursesByCategory,
         currentCategoryWithTopics: state.currentCategoryWithTopics.data,
+        management: state.management
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -137,7 +154,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getCurrentCoursesByCategory: (category, filter, page) => {
             dispatch(CourseActions.getCurrentCoursesByCategory(category, filter, page))
-        }
+        },
+        changeManagementSection: (managementType, managementAction) => {
+            dispatch(ManagementActions.changeManagementSection(managementType, managementAction))
+        },
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHeader)

@@ -1,215 +1,156 @@
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
 
-const CLOUDINARY_UPLOAD_PRESET = 'quangpreset';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/quanglibrary/image/upload';
+import 'react-quill/dist/quill.snow.css';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { CourseActions, SystemActions } from '../../actions';
+import Section from '../Common/Section';
+
 
 class ManagementLessonEdit extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            uploadedFileCloudinaryUrl: ''
+            uploadedFileCloudinaryUrl: '',
+            lesson: {
+                id: "",
+                name: "",
+                description: "",
+
+            },
+
+            redirect: false,
+            url: ''
         };
+
     }
 
-    handleImageUpload(file) {
-        console.log(file);
-
-        // let upload = request.post(CLOUDINARY_UPLOAD_URL)
-        //     .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-        //     .field('file', file);
-
-        // upload.end((err, response) => {
-        //     if (err) {
-        //         console.error(err);
-        //     }
-
-        //     if (response.body.secure_url !== '') {
-        //         this.setState({
-        //             uploadedFileCloudinaryUrl: response.body.secure_url
-        //         });
-        //     }
-        // });
-        let formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-        axios({
-            url: CLOUDINARY_UPLOAD_URL,
-            method: "POST",
-            data: formData
-        }).then(data => {
-            if (data.data.secure_url !== '') {
-                this.setState({
-                    uploadedFileCloudinaryUrl: data.data.secure_url
-                });
-            }
-            console.log(data);
-        }, err => { console.error(err); });
-    }
-
-    deleteImg = () => {
-        let formData = new FormData();
-        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-        formData.append("token", "20a4e80f8952ecb09f2601fea1b48d7b5ac3798587f471a33331e387994fdf42a8e5feeab27bfc7a966636fb71bc0d6f7ecdacadd2d7dd4f0e53dee5d5f6b8eadffc8b503091002d43227468b4bee95ad2387499de3e33f1e8c0074cce670d26d11c46a8c3b16a2fcd740b33eb8f0ed9fbd87ae8bd2c9fcf7d5ff25e5bce92cf");
-        formData.append('api_key', '812224886185293');
-        formData.append('api_secret', 'aMYbGrNsbVE0aqRS5RspjBxsCuY');
-
-        axios({
-            url: "https://api.cloudinary.com/v1_1/quanglibrary/delete_by_token",
-            method: "post",
-            data: formData
-        }).then(data => {
-            console.log(data);
-        }, err => { console.error(err); });
-    }
-
-    onImageDrop = (files) => {
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            uploadedFile: files[0]
+            lesson: nextProps.lessonManagement.data
         });
-
-        this.handleImageUpload(files[0]);
     }
+
+
+    componentWillMount() {
+        this.props.getLessonManagement(this.props.match.params.lessonId);
+        this.props.getSectionListManagement(this.props.match.params.lessonId);
+    }
+
+    handleRedirect = (url) => {
+        this.setState({
+            redirect: true,
+            url: url
+        });
+    }
+
+    handleChange = (event) => {
+        const target = event.target;
+        const name = target.name;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        this.setState({
+            lesson: {
+                ...this.state.lesson,
+                [name]: value
+            }
+        })
+    }
+
+    renderSections = () => {
+        return this.props.sectionListManagement.data.map((section, index) => {
+            return <Section key={section.id} id={section.id} ordinalNumber={section.ordinalNumber} lastUpdate={section.lastUpdate} description={section.description} />
+        })
+    }
+
+    renderRedirect = () => {
+        <Redirect to={this.state.url}></Redirect>
+    }
+
     render() {
 
-
+        console.log(this.state);
         return (
-            <div className="management">
-                <div className="container mt-3">
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="exampleFormControlInput1">Course Id</label>
-                            <input className="form-control" type="text" value={"asdf3425345sdf"} readOnly />
+            <React.Fragment>
+                {this.state.redirect && this.renderRedirect()}
+                <div className="management">
+                    <div className="studypage-navbar mb-1 rounded d-flex justify-content-between">
+                        <div className="d-flex align-items-center">
+                            <i class="fas fa-arrow-alt-circle-left fa-2x ml-3"></i>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleFormControlInput1">Name</label>
-                            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Course name..." />
+                        <h2 className="text-center">Docker Course</h2>
+                        <div className="d-flex align-items-center">
+                            {/* <i class="fas fa-arrow-alt-circle-right fa-2x"></i> */}
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleFormControlTextarea1">Description</label>
-                            <textarea className="form-control" id="exampleFormControlTextarea1" rows={3} defaultValue={""} />
-                        </div>
-                    </form>
-                </div>
-
-                <Dropzone
-                    multiple={false}
-                    accept="image/*"
-                    onDrop={this.onImageDrop}>
-                    <p>Drop an image or click to select a file to upload.</p>
-                </Dropzone>
-                <button className="btn btn-primary" onClick={this.deleteImg}>Delete</button>
-                {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                    <div>
-                        <p>{this.state.uploadedFile.name}</p>
-                        <img src={this.state.uploadedFileCloudinaryUrl} alt={"drop zone"}/>
-                        <a>{this.state.uploadedFileCloudinaryUrl} </a>
-                    </div>}
-                <CloudinaryContext cloudName="quanglibrary">
-                    <Image publicId="lisa_ghvqcw">
-                        <Transformation height="150" width="150" crop="fill" effect="sepia" radius="20" />
-                    </Image>
-                </CloudinaryContext>
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
+                    </div>
+                    <div className="container mt-3">
+                        {this.props.lessonManagement.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>
+                            :
+                            <form>
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlInput1">Lesson Id</label>
+                                    <input className="form-control" type="text" value={this.state.lesson.id} readOnly />
                                 </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlInput1">Name</label>
+                                    <input type="text" name="name" onChange={this.handleChange} className="form-control" value={this.state.lesson.name} placeholder="Course name" />
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlTextarea1">Description</label>
+                                    <textarea className="form-control" onChange={this.handleChange} name="description" value={this.state.lesson.description} rows={3} defaultValue={""} placeholder="Description" />
                                 </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
+                                <div className="d-flex justify-content-end">
+                                    <button className="btn btn-lg btn-success" style={{ width: "100px" }}>SAVE</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
-                                </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
-                                </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
-                                </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-3">
-                            <div className="section-card rounded">
-                                <div className="section-card__header lead text-black">0e216002-9f83-458a-91e0-e2de81daa155</div>
-                                <div className="section-card__content">
-                                    <h4 className="text-center">Docker introduction</h4>
-                                    <p className="text-center">21/10/2018</p>
-                                </div>
-                                <div className="card-footer section-card__footer d-flex justify-content-between">
-                                    <i className="fas fa-pen fa-lg"></i>
-                                    <i className="far fa-trash-alt fa-lg "></i>
-                                    <i className="fas fa-plus fa-lg text-center"></i>
-                                </div>
-                            </div>
-                        </div>
-
+                            </form>}
                     </div>
 
+                    <h2 className="text-center mb-4">Sections</h2>
+                    <div className="container">
+                        {this.props.sectionListManagement.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>
+                            :
+                            <React.Fragment>
+                                <div className="row">
+                                    {this.renderSections()}
+                                    < div className="col-3 d-flex align-items-center">
+                                        <div className="section-card rounded">
+                                            <div className="section-card__content d-flex justify-content-center pt-2">
+                                                <i className="fas fa-plus fa-3x"></i>
+                                            </div>
+                                            <p className="text-center">Add new section</p>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </React.Fragment>
+                        }
+
+                    </div>
                 </div>
-            </div>
-
+            </React.Fragment >
         );
     }
 }
 
-export default ManagementLessonEdit;
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        lessonManagement: state.lessonManagement,
+        sectionListManagement: state.sectionListManagement
+    }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getLessonManagement: (lessonId) => {
+            dispatch(CourseActions.getLessonManagement(lessonId))
+        },
+        getSectionListManagement: (lessonId) => {
+            dispatch(CourseActions.getSectionListManagement(lessonId))
+
+        },
+        startLoading: (content) => {
+            dispatch(SystemActions.startLoading(content))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ManagementLessonEdit)

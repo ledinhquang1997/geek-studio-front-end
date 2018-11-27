@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
 import { Link, Redirect } from 'react-router-dom';
-import { CategoryActions, CourseActions } from '../../actions';
+import { CategoryActions, CourseActions, LoginActions } from '../../actions';
 import { slide as Menu } from 'react-burger-menu'
 
 
@@ -14,7 +14,7 @@ class HomeHeader extends Component {
         super(props);
         this.state = {
             isOpenMenu: false,
-            redirectToLogIn:false
+            redirectToLogIn: false
         }
     }
 
@@ -40,8 +40,9 @@ class HomeHeader extends Component {
         cookies.remove(VariableConstants.ROLES, { path: "/" });
         cookies.remove(VariableConstants.EMAIL, { path: "/" });
         cookies.remove(VariableConstants.IMAGE, { path: "/" });
+        this.props.logout();
         this.setState({
-            redirectToLogIn:true
+            redirectToLogIn: true
         });
     }
     handleStateChange = (state) => {
@@ -95,16 +96,15 @@ class HomeHeader extends Component {
                         <hr className="vertical-hr" />
                     </React.Fragment> : ""}
 
-                {roles.includes("ROLE_ADMIN")
-                    ?
-                    <React.Fragment>
-                        <Link to="/management">
-                            <li className="nav-item mr-1">
-                                <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; Management</a>
-                            </li>
-                        </Link>
-                        <hr className="vertical-hr" />
-                    </React.Fragment> : ""}
+
+                <React.Fragment>
+                    <Link to="/management">
+                        <li className="nav-item mr-1">
+                            <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; Management</a>
+                        </li>
+                    </Link>
+                    <hr className="vertical-hr" />
+                </React.Fragment>
                 <li className="nav-item mr-1">
                     <div className="dropdown">
                         <div className="nav-link d-flex align-items-center dropbtn"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.USERNAME)}</div>
@@ -145,7 +145,7 @@ class HomeHeader extends Component {
         return (
             <React.Fragment>
                 {this.renderSideMenu()}
-                {this.state.redirectToLogIn && <Redirect to={"/login"}/>}
+                {this.state.redirectToLogIn && <Redirect to={"/"} />}
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light nav__gradient high__zindex nav__shadow">
 
@@ -198,6 +198,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getCurrentCoursesByCategory: (category, filter, page) => {
             dispatch(CourseActions.getCurrentCoursesByCategory(category, filter, page))
+        },
+        logout: () => {
+            dispatch(LoginActions.logout())
         }
     }
 }

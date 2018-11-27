@@ -98,7 +98,7 @@ export function* getStudentCourseSectionListByLesson(action) {
 
         const data = yield call(CourseServices.getUserCourseSectionListByLesson, lessonId);
 
-        yield put(CourseActions.getStudentCourseSectionListByLessonSuccess(data,lessonId));
+        yield put(CourseActions.getStudentCourseSectionListByLessonSuccess(data, lessonId));
 
     } catch (err) {
         yield put(CourseActions.getStudentCourseSectionListByLessonFail())
@@ -136,4 +136,43 @@ export function* getStudentCourseSectionListByLessonSuccess(action) {
         yield put(CourseActions.getSectionDetailSuccess(sectionDetail))
         yield put(CourseActions.changeCurrentSection(data.sections[0].id))
     }
+}
+
+export function* getCourseListManagement(action) {
+    try {
+        const data = yield call(CourseServices.getCourseListManagement);
+        yield put(CourseActions.getCourseListManagementSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getCourseListManagementFail())
+    }
+
+}
+
+export function* getLessonListManagement(action) {
+    try {
+        const data = yield call(CourseServices.getLessonListManagement, action.payload.courseId);
+        yield put(CourseActions.getLessonListManagementSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getLessonListManagementFail())
+    }
+
+}
+export function* getLessonManagement(action) {
+    try {
+        const data = yield call(CourseServices.getLessonManagement, action.payload.lessonId);
+        yield put(CourseActions.getLessonManagementSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getLessonManagementFail(err))
+    }
+
+}
+
+export function* getSectionListManagement(action) {
+    try {
+        const data = yield call(CourseServices.getSectionListManagement, action.payload.lessonId);
+        yield put(CourseActions.getSectionListManagementSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getSectionListManagementFail(err))
+    }
+
 }

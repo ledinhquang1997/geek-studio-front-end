@@ -4,3 +4,4 @@ export * from './CourseConstants';
 export * from './CategoryConstants';
 export * from './LoginConstants';
 export * from './StudentConstants';
+export * from './ManagementConstants';

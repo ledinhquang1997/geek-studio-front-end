@@ -1,4 +1,4 @@
-import { CourseConstant } from '../constants'
+import { CourseConstant, VariableConstants } from '../constants'
 //BEST SELLER
 function getBestSellerCourses() {
     return { type: CourseConstant.GET_BEST_SELLER_COURSE }
@@ -68,79 +68,132 @@ function getCourseDetail(courseId) {
 }
 
 function getCourseDetailSuccess(data) {
-    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: { data:data} }
+    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: { data: data } }
 }
 
 function getCourseDetailFail(error) {
-    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: {error:error} }
+    return { type: CourseConstant.GET_COURSE_DETAIL_SUCCESS, payload: { error: error } }
 }
-function getCoursesByInstructor(username,page){
-    return {type:CourseConstant.GET_COURSES_BY_INSTRUCTOR,payload:{username:username,page:page}}
+function getCoursesByInstructor(username, page) {
+    return { type: CourseConstant.GET_COURSES_BY_INSTRUCTOR, payload: { username: username, page: page } }
 }
-function getCoursesByInstructorSuccess(data){
-    return {type:CourseConstant.GET_COURSES_BY_INSTRUCTOR_SUCCESS,payload:{data:data}}
+function getCoursesByInstructorSuccess(data) {
+    return { type: CourseConstant.GET_COURSES_BY_INSTRUCTOR_SUCCESS, payload: { data: data } }
 }
-function getCoursesByInstructorFail(){
-    return {type:CourseConstant.GET_COURSES_BY_INSTRUCTOR_FAIL}
-}
-
-function getCoursesOfStudent(username){
-    return {type:CourseConstant.GET_COURSES_OF_STUDENT, payload:{username:username}}
+function getCoursesByInstructorFail() {
+    return { type: CourseConstant.GET_COURSES_BY_INSTRUCTOR_FAIL }
 }
 
-function getCoursesOfStudentSuccess(data){
-    return {type:CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS,payload:{data:data}}
+function getCoursesOfStudent(username) {
+    return { type: CourseConstant.GET_COURSES_OF_STUDENT, payload: { username: username } }
 }
 
-function getCoursesOfStudentFail(){
-    return {type:CourseConstant.GET_COURSES_OF_STUDENT_FAIL}
+function getCoursesOfStudentSuccess(data) {
+    return { type: CourseConstant.GET_COURSES_OF_STUDENT_SUCCESS, payload: { data: data } }
 }
 
-
-function getUserCourseLessons(courseId){
-    return {type:CourseConstant.GET_USER_COURSE_LESSONS, payload:{courseId:courseId}}
-}
-
-function getUserCourseLessonsSuccess(data){
-    return {type:CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS, payload:{data:data}}
-}
-
-function getUserCourseLessonsFail(){
-    return {type:CourseConstant.GET_USER_COURSE_LESSONS_FAIL}
-}
-
-function getStudentCourseSectionListByLesson(lessonId){
-    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST, payload:{lessonId:lessonId}}
-}
-
-function getStudentCourseSectionListByLessonSuccess(data,urlLesson){
-    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS, payload:{data:data, urlLesson:urlLesson}}
-}
-function getStudentCourseSectionListByLessonFail(){
-    return {type:CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_FAIL}
-}
-
-function getSectionDetail(sectionId){
-    return {type:CourseConstant.GET_SECTION_DETAIL, payload:{sectionId:sectionId}}
+function getCoursesOfStudentFail() {
+    return { type: CourseConstant.GET_COURSES_OF_STUDENT_FAIL }
 }
 
 
-function getSectionDetailSuccess(data){
-    return {type:CourseConstant.GET_SECTION_DETAIL_SUCCESS, payload:{data:data}}
+function getUserCourseLessons(courseId) {
+    return { type: CourseConstant.GET_USER_COURSE_LESSONS, payload: { courseId: courseId } }
+}
+
+function getUserCourseLessonsSuccess(data) {
+    return { type: CourseConstant.GET_USER_COURSE_LESSONS_SUCCESS, payload: { data: data } }
+}
+
+function getUserCourseLessonsFail() {
+    return { type: CourseConstant.GET_USER_COURSE_LESSONS_FAIL }
+}
+
+function getStudentCourseSectionListByLesson(lessonId) {
+    return { type: CourseConstant.GET_STUDENT_COURSE_SECTION_LIST, payload: { lessonId: lessonId } }
+}
+
+function getStudentCourseSectionListByLessonSuccess(data, urlLesson) {
+    return { type: CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_SUCCESS, payload: { data: data, urlLesson: urlLesson } }
+}
+function getStudentCourseSectionListByLessonFail() {
+    return { type: CourseConstant.GET_STUDENT_COURSE_SECTION_LIST_FAIL }
+}
+
+function getSectionDetail(sectionId) {
+    return { type: CourseConstant.GET_SECTION_DETAIL, payload: { sectionId: sectionId } }
 }
 
 
-function getSectionDetailFail(){
-    return {type:CourseConstant.GET_SECTION_DETAIL_FAIL}
+function getSectionDetailSuccess(data) {
+    return { type: CourseConstant.GET_SECTION_DETAIL_SUCCESS, payload: { data: data } }
 }
 
-function changeCurrentSection(sectionId){
-    return {type:CourseConstant.CHANGE_CURRENT_SECTION, payload :{sectionId:sectionId}}
+
+function getSectionDetailFail() {
+    return { type: CourseConstant.GET_SECTION_DETAIL_FAIL }
 }
 
-function changeCurrentLesson(lessonId){
-    return {type:CourseConstant.CHANGE_CURRENT_LESSON, payload :{lessonId:lessonId}}
+function changeCurrentSection(sectionId) {
+    return { type: CourseConstant.CHANGE_CURRENT_SECTION, payload: { sectionId: sectionId } }
 }
+
+function changeCurrentLesson(lessonId) {
+    return { type: CourseConstant.CHANGE_CURRENT_LESSON, payload: { lessonId: lessonId } }
+}
+
+function getCourseListManagement() {
+    return { type: CourseConstant.GET_COURSE_LIST_MANAGEMENT }
+}
+
+function getCourseListManagementSuccess(data) {
+    return { type: CourseConstant.GET_COURSE_LIST_MANAGEMENT_SUCCESS, payload: { data: data } }
+}
+
+function getCourseListManagementFail(data) {
+    return { type: CourseConstant.GET_COURSE_LIST_MANAGEMENT_FAIL }
+}
+
+function getLessonListManagement(courseId) {
+    return { type: CourseConstant.GET_LESSON_LIST_MANAGEMENT, payload: { courseId: courseId } }
+}
+
+function getLessonListManagementSuccess(data) {
+    return { type: CourseConstant.GET_LESSON_LIST_MANAGEMENT_SUCCESS, payload: { data: data } }
+}
+
+function getLessonListManagementFail(err) {
+    return { type: CourseConstant.GET_LESSON_LIST_MANAGEMENT_FAIL, payload: { err: err } }
+}
+
+
+function getLessonManagement(lessonId) {
+    return { type: CourseConstant.GET_LESSON_MANAGEMENT, payload: { lessonId: lessonId } }
+}
+
+function getLessonManagementSuccess(data) {
+    return { type: CourseConstant.GET_LESSON_MANAGEMENT_SUCCESS, payload: { data: data } }
+}
+
+
+function getLessonManagementFail(err) {
+    return { type: CourseConstant.GET_LESSON_MANAGEMENT_FAIL, payload: { err: err } }
+}
+
+
+function getSectionListManagement(lessonId) {
+    return { type: CourseConstant.GET_SECTION_LIST_MANAGEMENT, payload: { lessonId: lessonId } }
+}
+
+function getSectionListManagementSuccess(data) {
+    return { type: CourseConstant.GET_SECTION_LIST_MANAGEMENT_SUCCESS, payload: { data: data } }
+}
+
+function getSectionListManagementFail(err) {
+    return { type: CourseConstant.GET_SECTION_LIST_MANAGEMENT_FAIL, payload: { err: err } }
+}
+
+
 export const CourseActions = {
     getBestSellerCourses,
     getBestSellerSuccess,
@@ -183,5 +236,21 @@ export const CourseActions = {
     getSectionDetailFail,
 
     changeCurrentSection,
-    changeCurrentLesson
+    changeCurrentLesson,
+
+    getCourseListManagement,
+    getCourseListManagementSuccess,
+    getCourseListManagementFail,
+
+    getLessonListManagement,
+    getLessonListManagementSuccess,
+    getLessonListManagementFail,
+
+    getLessonManagement,
+    getLessonManagementSuccess,
+    getLessonManagementFail,
+
+    getSectionListManagement,
+    getSectionListManagementSuccess,
+    getSectionListManagementFail
 }
