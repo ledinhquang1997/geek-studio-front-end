@@ -5,7 +5,8 @@ import {
     getCoursesByInstructor, getCoursesOfStudent, getUserCourseLessons,
     getStudentCourseSectionListByLesson,getSectionDetail,changeProgress,
     getStudentCourseSectionListByLessonSuccess,getCourseListManagement,
-    getLessonListManagement,getLessonManagement,getSectionListManagement
+    getLessonListManagement,getLessonManagement,getSectionListManagement,
+    getSectionUpdate
 } from './CourseSagas';
 import { takeEvery } from 'redux-saga/effects'
 import { InstructorConstants, CourseConstant, CategoryConstants, LoginConstants, StudentConstants } from '../constants';
@@ -38,4 +39,5 @@ export default function* rootSaga() {
     yield takeEvery(CourseConstant.GET_LESSON_LIST_MANAGEMENT,getLessonListManagement)
     yield takeEvery(CourseConstant.GET_LESSON_MANAGEMENT,getLessonManagement)
     yield takeEvery(CourseConstant.GET_SECTION_LIST_MANAGEMENT,getSectionListManagement)
+    yield takeEvery(CourseConstant.GET_SECTION_UPDATE,getSectionUpdate)
 }

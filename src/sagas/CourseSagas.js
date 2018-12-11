@@ -176,3 +176,14 @@ export function* getSectionListManagement(action) {
     }
 
 }
+
+
+export function* getSectionUpdate(action) {
+    try {
+        const data = yield call(CourseServices.getSectionUpdate, action.payload.sectionId);
+        yield put(CourseActions.getSectionUpdateSuccess(data));
+    } catch (err) {
+        yield put(CourseActions.getSectionUpdateFail(err))
+    }
+
+}

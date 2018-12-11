@@ -47,14 +47,18 @@ class StudyPage extends Component {
                             <div className="studypage-navbar rounded d-flex align-items-center justify-content-center">
                                 <h3 className="text-center lead studypage-navbar__item">{this.props.studentCourseSectionList.data.name}</h3>
                             </div>
-                            <div className="studypage-content rounded">
-                                {this.props.sectionDetail.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/ring.svg")} alt={"spinner"} /></div> : renderHTML(this.props.sectionDetail.data.content)}
+                            {/* <div className="studypage-content rounded"> */}
+                                {this.props.sectionDetail.isLoading ? 
+                                <div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/ring.svg")} alt={"spinner"} /></div> : 
+                                
+                                renderHTML(this.props.sectionDetail.data.content)}
 
-                                <video width={"100%"} controls>
-                                    <source src="https://res.cloudinary.com/quanglibrary/video/upload/v1540483897/samples/elephants.mp4" />
+                                {this.props.sectionDetail.data.video && !this.props.sectionDetail.isLoading && <video className="mt-5" width={"100%"} controls>
+                                    <source src={this.props.sectionDetail.data.video} />
                                     Your browser does not support HTML5 video.
-                                </video>
-                            </div>
+                                </video>}
+
+                            {/* </div> */}
 
                         </div>
                     </div>

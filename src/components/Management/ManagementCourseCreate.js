@@ -4,8 +4,8 @@ import 'react-quill/dist/quill.snow.css';
 import ImageUploader from 'react-images-upload';
 import { connect } from 'react-redux';
 import { ImageService, CourseServices } from '../../services';
-import { SystemActions } from '../../actions';
-import { VariableConstants } from '../../constants';
+import { SystemActions, ManagementActions } from '../../actions';
+import { VariableConstants, ManagementConstants } from '../../constants';
 
 class ManagementCourseCreate extends Component {
     constructor(props) {
@@ -29,6 +29,11 @@ class ManagementCourseCreate extends Component {
             isLoading: false
         };
     }
+    
+    componentWillMount() {
+        this.props.changeManagementSection(ManagementConstants.COURSE,ManagementConstants.CREATE_COURSE)
+    }
+    
     handleChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -138,7 +143,7 @@ class ManagementCourseCreate extends Component {
             this.props.alertOn("warning", "Description attribute requires at most 250 characters!");
             canCreate = false;
         }
-        else if (newCourse.categoryId.trim().length ===0) {
+        else if (newCourse.categoryId.trim().length === 0) {
             this.props.alertOn("warning", "Choose a category");
             canCreate = false;
         }
@@ -189,9 +194,14 @@ class ManagementCourseCreate extends Component {
         console.log(this.state)
         return (
             <div className="management">
-            <div className="studypage-navbar mb-1 rounded">
-                        <h2 className="text-center">Docker Course</h2>
+                <div className="studypage-navbar mb-1 rounded d-flex justify-content-between">
+                    <div className="d-flex align-items-center">
+                        <i class="fas fa-arrow-alt-circle-left fa-2x ml-3"></i>&nbsp;Back
                     </div>
+                    <div className="d-flex align-items-center">
+                        {/* <i class="fas fa-arrow-alt-circle-right fa-2x"></i> */}
+                    </div>
+                </div>
                 <div className="container mt-3">
                     <form>
                         <div className="form-group">
@@ -209,7 +219,7 @@ class ManagementCourseCreate extends Component {
                         <div className="form-group">
                             <label htmlFor="exampleFormControlTextarea1">Category</label>
                             <select onChange={this.handleChange} name="categoryId" className="form-control">
-                            <option disabled selected value> Select a category of course </option>
+                                <option disabled selected value> Select a category of course </option>
                                 {this.renderOptions()}
                             </select>
                         </div>
@@ -301,6 +311,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        changeManagementSection: (managementType, managementAction) => {
+            dispatch(ManagementActions.changeManagementSection(managementType, managementAction))
+        },
+
         alertOn: (type, content) => {
             dispatch(SystemActions.alertOn(type, content))
         },

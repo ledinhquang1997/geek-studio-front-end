@@ -4,8 +4,8 @@
   .stepper{
     padding: 10px;
     margin: auto;
-    @include shadow;
-    min-height: 100vh;
+    @include shadow2;
+    min-height: 100%;
   }
   .step {
     & :hover{

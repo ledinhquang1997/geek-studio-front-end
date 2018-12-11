@@ -209,6 +209,51 @@ function createCourse(newCourse) {
   })
 }
 
+function updateLesson(lesson) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/lesson/`,
+      method: "PUT",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      },
+      data:lesson
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+function getSectionUpdate(sectionId) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/section/${sectionId}`,
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      }
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+function updateSection(section) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/section/`,
+      method: "PUT",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      },
+      data:section
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+
 export const CourseServices = {
   getBestSellerCourses,
   getTop6CoursesByCategoryId,
@@ -225,5 +270,8 @@ export const CourseServices = {
   getLessonListManagement,
   createCourse,
   getLessonManagement,
-  getSectionListManagement
+  getSectionListManagement,
+  updateLesson,
+  getSectionUpdate,
+  updateSection
 }

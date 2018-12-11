@@ -194,6 +194,15 @@ function getSectionListManagementFail(err) {
 }
 
 
+function getSectionUpdate(sectionId){
+    return { type: CourseConstant.GET_SECTION_UPDATE, payload: { sectionId: sectionId }}
+}
+function getSectionUpdateSuccess(data){
+    return { type: CourseConstant.GET_SECTION_UPDATE_SUCCESS, payload: { data: data }}
+}
+function getSectionUpdateFail(){
+    return { type: CourseConstant.GET_SECTION_UPDATE_FAIL}
+}
 export const CourseActions = {
     getBestSellerCourses,
     getBestSellerSuccess,
@@ -252,5 +261,9 @@ export const CourseActions = {
 
     getSectionListManagement,
     getSectionListManagementSuccess,
-    getSectionListManagementFail
+    getSectionListManagementFail,
+
+    getSectionUpdate,
+    getSectionUpdateSuccess,
+    getSectionUpdateFail
 }

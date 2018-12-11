@@ -101,6 +101,11 @@
   height: 20px;
   width: 2px; }
 
+.home-header__button:hover {
+  -webkit-box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75); }
+
 .best-course {
   width: 100%;
   background: white;
@@ -637,7 +642,8 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
   margin-bottom: 20px;
   line-height: 50px;
-  vertical-align: middle; }
+  vertical-align: middle;
+  background: rgba(205, 202, 247, 0.233); }
 
 .studypage-navbar__item {
   font-weight: 500; }
@@ -655,10 +661,10 @@
 .stepper {
   padding: 10px;
   margin: auto;
-  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
-  min-height: 100vh; }
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  min-height: 100%; }
 
 .step {
   position: relative;
@@ -787,6 +793,43 @@
   to {
     top: 0;
     opacity: 1; } }
+
+.section-prview__modal {
+  display: block;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */ }
+
+.section-prview__modal-content {
+  position: relative;
+  background-color: #fefefefd;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  height: 90%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  overflow: auto; }
 
 .jumbotron__background {
   background-image: url("../../assets/images-system/back.jpg");

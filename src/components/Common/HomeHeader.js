@@ -121,12 +121,14 @@ class HomeHeader extends Component {
             <React.Fragment>
                 <Link to={"/login"}>
                     <li className="nav-item mr-1">
-                        <a className="nav-link d-flex align-items-center btn btn-sm btn-outline-danger"><i className="material-icons">vpn_key</i>&nbsp; Log in</a>
+                        <a className="nav-link d-flex align-items-center btn btn-sm home-header__button"><i className="material-icons">vpn_key</i>&nbsp; Log in</a>
                     </li>
                 </Link>
-                <li className="nav-item">
-                    <a className="nav-link d-flex align-items-center btn btn-sm btn-outline-info"><i className="material-icons">fiber_new</i>&nbsp; Sign up</a>
-                </li>
+                <Link to={{pathname:"/login/register",param2:"suck"}}>
+                    <li className="nav-item">
+                        <a className="nav-link d-flex align-items-center btn btn-sm home-header__button"><i className="material-icons">fiber_new</i>&nbsp; Sign up</a>
+                    </li>
+                </Link>
             </React.Fragment>
     }
 

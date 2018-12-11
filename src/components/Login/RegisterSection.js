@@ -40,7 +40,7 @@ class RegisterSection extends Component {
         this.props.registerNewStudentAccount(this.state.newAccount);
     }
     render() {
-        console.log(this.state);
+        console.log(">>>>>>>>>>>>>>>>>>>>>",this.props.location.param2);
 
         return (
             <React.Fragment>

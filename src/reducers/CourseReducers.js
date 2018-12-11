@@ -186,6 +186,13 @@ export const sectionDetail = (state = SectionDetailInitialState, action) => {
             return { ...state, data: action.payload.data, err: false, isLoading: false }
         case CourseConstant.GET_SECTION_DETAIL_FAIL:
             return { ...state, data: {}, err: true }
+            case CourseConstant.GET_SECTION_UPDATE:
+            return { ...state, isLoading: true }
+        case CourseConstant.GET_SECTION_UPDATE_SUCCESS:
+            return { ...state, data: action.payload.data, err: false, isLoading: false }
+        case CourseConstant.GET_SECTION_UPDATE_FAIL:
+            return { ...state, data: {}, err: true }
+
         default:
             return state
     }

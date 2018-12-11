@@ -46,8 +46,8 @@ class ManagementCourse extends Component {
             <React.Fragment>
                 {this.state.isRedirect && this.renderRedirect()}
                 <div className="studypage-navbar mb-1 rounded">
-                        <h2 className="text-center">Docker Course</h2>
-                    </div>
+                    <h4 className="text-right"></h4>
+                </div>
                 <div className="management">
                     {this.props.courseListManagement.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>
                         :
@@ -66,6 +66,8 @@ class ManagementCourse extends Component {
                                 {this.renderListStudents()}
                             </tbody>
                         </table>}
+                    {!this.props.courseListManagement.isLoading && this.props.courseListManagement.data.length === 0 && <p className="text-center lead">There is no course in the database. Please add new course!</p>}
+
                 </div>
             </React.Fragment>
         );
