@@ -12,25 +12,35 @@ export const filter = (state = filterInitialState, action) => {
     }
 }
 
-const alertInitialState = {status:false, type:"", content:""}
+const alertInitialState = { status: false, type: "", content: "" }
 export const alert = (state = alertInitialState, action) => {
     switch (action.type) {
         case VariableConstants.ALERT_ON:
-            return {...state,status:true, type:action.payload.type, content:action.payload.content}
+            return { ...state, status: true, type: action.payload.type, content: action.payload.content }
         case VariableConstants.ALERT_OFF:
-            return {...state,status:false}
+            return { ...state, status: false }
         default:
             return state
     }
 }
 
-const loadingInitialState = {status:false, content:""}
+const loadingInitialState = { status: false, content: "" }
 export const loading = (state = loadingInitialState, action) => {
     switch (action.type) {
         case VariableConstants.START_LOADING:
-            return {...state,status:true, content:action.payload.content}
+            return { ...state, status: true, content: action.payload.content }
         case VariableConstants.STOP_LOADING:
-            return {state,status:false}
+            return { state, status: false }
+        default:
+            return state
+    }
+}
+
+const cartInitialState = { quantity: 0 }
+export const cart = (state = cartInitialState, action) => {
+    switch (action.type) {
+        case VariableConstants.CHANGE_CART_NUMBER:
+            return { ...state, quantity: action.payload.number }
         default:
             return state
     }

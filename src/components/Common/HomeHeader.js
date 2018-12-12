@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
 import { Link, Redirect } from 'react-router-dom';
-import { CategoryActions, CourseActions, LoginActions } from '../../actions';
+import { CategoryActions, CourseActions, LoginActions, SystemActions } from '../../actions';
 import { slide as Menu } from 'react-burger-menu'
 
 
@@ -19,7 +19,8 @@ class HomeHeader extends Component {
     }
 
     componentWillMount() {
-        this.props.getAllCategories()
+        this.props.getAllCategories();
+        this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
     }
     componentDidMount() {
         if (this.headerAnimationRefs) {
@@ -143,7 +144,8 @@ class HomeHeader extends Component {
         </Menu>
     }
     render() {
-        console.log(cookies.load(VariableConstants.ROLES));
+        console.log(localStorage.cart);
+        
         return (
             <React.Fragment>
                 {this.renderSideMenu()}
@@ -173,7 +175,9 @@ class HomeHeader extends Component {
                         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <ul className="navbar-nav d-flex align-items-center">
                                 <li className="nav-item mr-1">
-                                    <a className="nav-link d-flex align-items-center"><i className="fas fa-shopping-cart fa-lg"></i></a>
+                                <Link to={"/cart"}>
+                                    <a className="nav-link d-flex align-items-center"><span className="cart-badge">{this.props.cart.quantity}</span> <i className="fas fa-shopping-cart fa-lg" style={{cursor:"pointer"}}></i></a>
+                                    </Link>
                                 </li>
                                 {this.renderAccountNavLinks()}
                             </ul>
@@ -189,6 +193,7 @@ const mapStateToProps = (state, ownProps) => {
         categories: state.categories,
         courses: state.currentCoursesByCategory,
         currentCategoryWithTopics: state.currentCategoryWithTopics.data,
+        cart:state.cart
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -203,6 +208,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         logout: () => {
             dispatch(LoginActions.logout())
+        },
+        changeCartQuantity:(number)=>{
+            dispatch(SystemActions.changeCartNumber(number))
         }
     }
 }

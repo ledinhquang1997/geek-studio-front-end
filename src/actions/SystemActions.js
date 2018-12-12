@@ -24,7 +24,11 @@ function stopLoading() {
     return { type: VariableConstants.STOP_LOADING}
 }
 
+function changeCartNumber(number) {
+    return { type: VariableConstants.CHANGE_CART_NUMBER, payload:{number:number}}
+}
+
 export const SystemActions = {
     changeFilterToBestSeller,changeFilterToRating,alertOn,alertOff,
-    startLoading,stopLoading
+    startLoading,stopLoading,changeCartNumber
 }

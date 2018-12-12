@@ -128,10 +128,12 @@ class AdminHeader extends Component {
                     </nav>
                 </header>
                 <div className="sidenav">
+                    <Link to={"/management/dashboard"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.DASHBOARD ? "lead sidenav-active" : "lead"} name={ManagementConstants.DASHBOARD}> Dashboard </a></Link>
+
                     {roles.includes("ROLE_ADMIN") && <Link to={"/management/user"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.LEARNER ? "lead sidenav-active" : "lead"} name={ManagementConstants.LEARNER}><i class="fas fa-chalkboard-teacher"></i> Learner </a></Link>}
-                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.CATEGORY ? "lead sidenav-active" : "lead"} name={ManagementConstants.CATEGORY}><i class="fas fa-th"></i> Category </a></Link>
-                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.COURSE ? "lead sidenav-active" : "lead"} name={ManagementConstants.COURSE}><i class="fas fa-book-reader"></i> Course</a></Link>
-                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.LESSON ? "lead sidenav-active" : "lead"} name={ManagementConstants.LESSON}><i class="fas fa-book-open"></i> Lesson</a></Link>
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.CATEGORY ? "lead sidenav-active" : "lead"} name={ManagementConstants.CATEGORY}><i className="fas fa-th"></i> Category </a></Link>
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.COURSE ? "lead sidenav-active" : "lead"} name={ManagementConstants.COURSE}><i className="fas fa-book-reader"></i> Course</a></Link>
+                    <Link to={"/management/course"}><a href="" onClick={this.onSideNavItemClick} className={this.props.management.managementType === ManagementConstants.LESSON ? "lead sidenav-active" : "lead"} name={ManagementConstants.LESSON}><i className="fas fa-book-open"></i> Lesson</a></Link>
                 </div>
             </React.Fragment >
         );

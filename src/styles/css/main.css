@@ -106,6 +106,17 @@
   -moz-box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 0px 46px -5px rgba(0, 0, 0, 0.75); }
 
+.cart-badge {
+  position: relative;
+  top: -15px;
+  left: 32px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background: crimson;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem; }
+
 .best-course {
   width: 100%;
   background: white;
@@ -900,21 +911,6 @@ a {
     -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
     text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px; }
 
-h1 {
-  font-size: 48px; }
-
-h2 {
-  font-size: 36px; }
-
-h3 {
-  font-size: 24px; }
-
-h4 {
-  font-size: 18px; }
-
-h5 {
-  font-size: 14px; }
-
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto Slab', serif;
   font-weight: 700;
@@ -1323,3 +1319,36 @@ h1, h2, h3, h4, h5, h6 {
 
 .page-content {
   margin-top: 75px; }
+
+.panel-title {
+  margin-top: 30px;
+  width: 100%;
+  background: rgba(243, 241, 241, 0.562);
+  height: auto;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75); }
+
+.panel-summary {
+  margin-top: 30px;
+  width: 95%;
+  background: rgba(0, 0, 0, 0.836);
+  height: auto;
+  box-sizing: border-box;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75); }
+
+.cart-title {
+  padding-top: 15px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  text-align: center !important;
+  color: #0d236b; }
+
+.strong {
+  font-weight: 700;
+  color: #690404; }

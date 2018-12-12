@@ -9,7 +9,7 @@ import {
             } from './CourseReducers';
 import {listStudents} from './StudentReducer';
 import { listCategories, categorytToDisplay, currentCategoryWithTopics } from './CategoryReducer'
-import { filter,alert,loading} from './SystemReducer';
+import { filter,alert,loading,cart} from './SystemReducer';
 import { login,register } from './LoginReducer';
 import {management} from './ManagementReducers';
 const rootReducer = combineReducers({
@@ -37,7 +37,8 @@ const rootReducer = combineReducers({
     loading:loading,
     lessonListManagement:lessonListManagement,
     lessonManagement:lessonManagement,
-    sectionListManagement:sectionListManagement
+    sectionListManagement:sectionListManagement,
+    cart:cart
 })
 
 export default rootReducer;

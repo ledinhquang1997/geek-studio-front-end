@@ -1,0 +1,34 @@
+@import './base.scss';
+
+.panel-title{
+    margin-top:30px;
+    width: 100%;
+    background: rgba(243, 241, 241, 0.562);
+    height: auto;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    @include shadow2
+}
+
+.panel-summary{
+    margin-top:30px;
+    width: 95%;
+    background: rgba(0, 0, 0, 0.836);
+    height: auto;
+    box-sizing: border-box;
+    @include shadow
+}
+
+.cart-title{
+    padding-top: 15px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    text-align: center!important;
+    color: rgb(13, 35, 107)
+}
+.strong{
+    font-weight: 700;
+    color: rgb(105, 4, 4)
+}
+

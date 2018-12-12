@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import renderHTML from 'react-render-html';
 import ReactDOM from 'react-dom'
 import { connect } from "react-redux";
-import { CourseActions } from '../../../actions';
+import { CourseActions, SystemActions } from '../../../actions';
 
 class CourseDetailPage extends Component {
     componentDidMount() {
@@ -16,6 +16,40 @@ class CourseDetailPage extends Component {
     }
     componentDidUpdate(prevProps, prevState) {
         ReactDOM.findDOMNode(this).scrollTop = 0
+    }
+
+    handleAddtoCart = (course) => {
+        // localStorage.removeItem("cart");
+
+        if (localStorage.getItem("cart") === null) {
+            var cart = [];
+            cart.push({ course:course, quantity: 1 });
+            console.log(">>>>>>>>>>>>>>>>>>>>>>", cart);
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
+            this.props.alertOn("success", "Add course " + course.name + " successfully")
+        }
+        // if (typeof (localStorage.getItem("cart")) !== 'array') {
+        //     var cart = [];
+        //     cart.push({ id: id, quantity: 1 });
+        //     localStorage.setItem("cart", JSON.stringify(cart));
+        // }
+        else {
+            var cart = JSON.parse(localStorage.getItem("cart"))
+            if (cart.filter(item => item.course.id === course.id).length>0) {
+                this.props.alertOn("warning", "Course " + course.name + "is already added in the cart!")
+                return
+            }
+            cart.push({ course:course, quantity: 1 })
+            console.log(">>>>>>>>>>>>>>>>>>>>>>", cart);
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
+
+            this.props.alertOn("success", "Add course " + course.name + " successfully")
+        }
+
     }
 
     renderInstructorNames = (instructorsList = []) => {
@@ -85,6 +119,7 @@ class CourseDetailPage extends Component {
 
     renderInstructors = () => {
         const { data } = this.props.courseDetail
+
         if (data) {
             if (data.instructors) {
                 return data.instructors.map((instructor, index) => {
@@ -108,7 +143,7 @@ class CourseDetailPage extends Component {
     }
     render() {
         const { data } = this.props.courseDetail
-
+        console.log(localStorage);
         return (
             <React.Fragment>
                 <div className="jumbotron jumbotron-fluid course-detail__jumbotron">
@@ -133,7 +168,7 @@ class CourseDetailPage extends Component {
                             <div className="course-detail__card rounded">
                                 <img className="img-fluid p-2" style={{ height: '240px', width: '100%' }} src={this.renderImage()} alt="" />
                                 <h2 className="text-left ml-5">${data.cost}</h2>
-                                <button className="btn btn-success btn-lg course-detail__card--button">Add to cart</button>
+                                <button className="btn btn-success btn-lg course-detail__card--button" onClick={() => this.handleAddtoCart(data)}>Add to cart</button>
                                 <button className="btn btn-outline-secondary btn-lg course-detail__card--button">Buy now</button>
                                 <p className="text-center text-warning">Buy now to get discount!</p>
                                 <div className="h-25"></div>
@@ -184,12 +219,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getCourseDetail: (courseId) => {
             dispatch(CourseActions.getCourseDetail(courseId))
+        },
+        alertOn: (type, content) => {
+            dispatch(SystemActions.alertOn(type, content))
+        },
+        changeCartQuantity:(number)=>{
+            dispatch(SystemActions.changeCartNumber(number))
         }
     }
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        courseDetail: state.courseDetail
+        courseDetail: state.courseDetail,
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CourseDetailPage)

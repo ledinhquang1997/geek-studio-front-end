@@ -14,6 +14,7 @@ import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
 import ManagementLessonCreate from './ManagementLessonCreate';
 import ManagementCourseEdit from './ManagementCourseEdit';
+import Dashboard from './Dashboard';
 class Management extends Component {
     render() {
         const roles = cookies.load(VariableConstants.ROLES);
@@ -23,6 +24,7 @@ class Management extends Component {
                 {this.props.loading.status && <LoadingSpin />}
                 <AdminHeader />
                 <div style={{ marginTop: 72 }}>
+                    <Route exact path="/management/dashboard" component={Dashboard} />
                     <Route exact path="/management/section/edit/:sectionId" component={ManagementSectionEdit} />
                     <Route exact path="/management/lesson/edit/:lessonId" component={ManagementLessonEdit} />
                     <Route exact path="/management/lesson/all/:courseId" component={ManagementLesson} />
