@@ -12,6 +12,8 @@ import ManagementLesson from './ManagementLesson';
 import ManagementSectionEdit from './ManagementSectionEdit';
 import cookies from 'react-cookies';
 import { VariableConstants } from '../../constants';
+import ManagementLessonCreate from './ManagementLessonCreate';
+import ManagementCourseEdit from './ManagementCourseEdit';
 class Management extends Component {
     render() {
         const roles = cookies.load(VariableConstants.ROLES);
@@ -23,9 +25,11 @@ class Management extends Component {
                 <div style={{ marginTop: 72 }}>
                     <Route exact path="/management/section/edit/:sectionId" component={ManagementSectionEdit} />
                     <Route exact path="/management/lesson/edit/:lessonId" component={ManagementLessonEdit} />
-                    <Route exact path="/management/lesson/:courseId" component={ManagementLesson} />
+                    <Route exact path="/management/lesson/all/:courseId" component={ManagementLesson} />
+                    <Route exact path="/management/lesson/create" component={ManagementLessonCreate} />
                     <Route exact path="/management/user" component={ManagementLearner} />
                     <Route exact path="/management/course/create" component={ManagementCourseCreate} />
+                    <Route exact path="/management/course/edit/:courseId" component={ManagementCourseEdit} />
                     <Route exact path="/management/course" component={ManagementCourse} />
                     {roles.includes("ROLE_ADMIN") ? <Route exact path="/management" component={ManagementLearner} />
                         : <Route exact path="/management" component={ManagementCourse} />

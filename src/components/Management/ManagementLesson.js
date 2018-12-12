@@ -25,7 +25,7 @@ class ManagementLesson extends Component {
         });
     }
 
-    renderListStudents = () => {
+    renderListLesson = () => {
         return this.props.lessonListManagement.data.map((lesson) =>
             <tr>
                 <td>{lesson.id}</td>
@@ -37,7 +37,7 @@ class ManagementLesson extends Component {
             </tr>)
     }
     renderRedirect = () => {
-        return <Redirect to={this.state.url} />
+        return <Redirect to={{pathname:this.state.url, courseId:this.props.match.params.courseId}} />
     }
 
 
@@ -58,11 +58,11 @@ class ManagementLesson extends Component {
                                     <th scope="col" className="lead" style={{ width: "250px" }}>Name</th>
                                     <th scope="col" className="lead" style={{ width: "150px" }}>Date Created</th>
                                     <th scope="col" className="lead" style={{ width: "150px" }}>Last Update</th>
-                                    <th scope="col" className="lead text-center" style={{ width: "200px" }}><i style={{ cursor: "pointer" }} onClick={() => this.onCUDClickHandler("/management/course/create")} className="fas fa-plus fa-lg text-center"></i></th>
+                                    <th scope="col" className="lead text-center" style={{ width: "200px" }}><i style={{ cursor: "pointer" }} onClick={() => this.onCUDClickHandler("/management/lesson/create")} className="fas fa-plus fa-lg text-center"></i></th>
                                 </tr>
                             </thead>
                             <tbody className="management-tbody">
-                                {this.renderListStudents()}
+                                {this.renderListLesson()}
                             </tbody>
                         </table>}
                         {!this.props.lessonListManagement.isLoading && this.props.lessonListManagement.data.length === 0 && <p className="text-center lead">There is no course in the database. Please add new course!</p>}

@@ -253,6 +253,63 @@ function updateSection(section) {
   })
 }
 
+function createLesson(newLesson) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/lesson/`,
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      },
+      data:newLesson
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+function createSection(newSection) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/section/`,
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      },
+      data:newSection
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+function updateCourse(course) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/course/update`,
+      method: "PUT",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      },
+      data:course
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
+
+function search(name) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `course/search/${name}`,
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+      }
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.message) });
+  })
+}
 
 export const CourseServices = {
   getBestSellerCourses,
@@ -273,5 +330,9 @@ export const CourseServices = {
   getSectionListManagement,
   updateLesson,
   getSectionUpdate,
-  updateSection
+  updateSection,
+  createLesson,
+  createSection,
+  updateCourse,
+  search
 }

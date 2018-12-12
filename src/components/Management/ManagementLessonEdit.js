@@ -22,7 +22,9 @@ class ManagementLessonEdit extends Component {
                 description: "",
 
             },
-
+            newSection: {
+                description: ''
+            },
             redirect: false,
             url: ''
         };
@@ -31,7 +33,10 @@ class ManagementLessonEdit extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            lesson: nextProps.lessonManagement.data
+            lesson: nextProps.lessonManagement.data,
+            newSection: {
+                ...this.state.newSection, lessonId: nextProps.lessonManagement.data.id
+            }
         });
     }
 
@@ -58,7 +63,8 @@ class ManagementLessonEdit extends Component {
                 ...this.state.lesson,
                 [name]: value
             },
-            preview: false
+            preview: false,
+            create: false
         })
     }
 
@@ -93,8 +99,40 @@ class ManagementLessonEdit extends Component {
             })
         }
     }
+
+    handleBack = (url) => {
+        this.setState({
+            redirect: true,
+            url: url
+        });
+    }
+
+    handleCreateSection = () => {
+        if (this.state.newSection.description.trim().length < 3) {
+            this.props.alertOn("warning", "Description requires at least 3 characters");
+        }
+        else if (!this.state.newSection.lessonId) {
+            this.props.alertOn("warning", "Description requires lesson id");
+        }
+        else {
+            this.props.startLoading("Processing ...")
+            CourseServices.createSection(this.state.newSection).then(data => {
+                this.props.alertOn("success", "Update lesson" + data.name + "successfully")
+                this.props.stopLoading();
+                this.setState({
+                    redirect: true,
+                    url: '/management/section/edit/' + data.id
+                });
+            },
+                err => {
+                    this.props.alertOn("warning", err)
+                    this.props.stopLoading();
+                })
+        }
+    }
+
     onEditClick = (sectionId) => {
-        this.props.history.push({ pathname: "/management/section/edit/" + sectionId, lessonId: this.state.lesson.id})
+        this.props.history.push({ pathname: "/management/section/edit/" + sectionId, lessonId: this.state.lesson.id })
     }
     renderSections = () => {
         return this.props.sectionListManagement.data.map((section, index) => {
@@ -104,7 +142,7 @@ class ManagementLessonEdit extends Component {
     }
 
     renderRedirect = () => {
-        <Redirect to={this.state.url}></Redirect>
+        return <Redirect to={this.state.url}></Redirect>
     }
 
     renderPreview = () => {
@@ -130,20 +168,37 @@ class ManagementLessonEdit extends Component {
                 <i style={{ color: "white", cursor: "pointer " }} onClick={() => this.setState({ preview: false })} className="far fa-window-close fa-2x"></i>
             </div>
         </div>
+    }
+    renderModal = () => {
+        return <div className="section-create__modal">
+            <div className="section-create__modal-content rounded">
+                <div className="container mt-4">
+                    <div className="form-group">
+                        <label>Description</label>
+                        <input className="form-control" type="text" value={this.state.newSection.description} onChange={(e) => this.setState({ newSection: { ...this.state.newSection, description: e.target.value } })} />
+                    </div>
+                    <button className="btn btn-success d-block m-auto btn-lg" onClick={this.handleCreateSection}>Create</button>
+                </div>
 
-
+            </div>
+            <div style={{ width: '80%', margin: 'auto', display: 'flex', justifyContent: "center" }}>
+                <i style={{ color: "white", cursor: "pointer " }} onClick={() => this.setState({ create: false })} className="far fa-window-close fa-2x"></i>
+            </div>
+        </div>
     }
     render() {
 
         console.log(this.state);
         return (
             <React.Fragment>
+                {this.state.create && this.renderModal()}
                 {this.state.preview && this.renderPreview()}
                 {this.state.redirect && this.renderRedirect()}
                 <div className="management">
                     <div className="studypage-navbar mb-1 rounded d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                            <i class="fas fa-arrow-alt-circle-left fa-2x ml-3"></i>
+                            <i className="fas fa-arrow-alt-circle-left fa-2x ml-3" onClick={() => this.handleBack("/management/lesson/all/" + this.props.lessonManagement.data.courseId)}></i>&nbsp;
+                            <p className="lead mb-0"> { this.props.lessonManagement.data.courseName}</p>
                         </div>
                         <div className="d-flex align-items-center">
                             {/* <i class="fas fa-arrow-alt-circle-right fa-2x"></i> */}
@@ -178,7 +233,7 @@ class ManagementLessonEdit extends Component {
                             <React.Fragment>
                                 <div className="row">
                                     {this.renderSections()}
-                                    < div className="col-3 d-flex align-items-center">
+                                    < div className="col-3 d-flex align-items-center" onClick={() => this.setState({ create: true })}>
                                         <div className="section-card rounded">
                                             <div className="section-card__content d-flex justify-content-center pt-2">
                                                 <i className="fas fa-plus fa-3x"></i>
