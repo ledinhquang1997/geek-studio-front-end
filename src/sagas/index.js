@@ -40,4 +40,5 @@ export default function* rootSaga() {
     yield takeEvery(CourseConstant.GET_LESSON_MANAGEMENT,getLessonManagement)
     yield takeEvery(CourseConstant.GET_SECTION_LIST_MANAGEMENT,getSectionListManagement)
     yield takeEvery(CourseConstant.GET_SECTION_UPDATE,getSectionUpdate)
+
 }

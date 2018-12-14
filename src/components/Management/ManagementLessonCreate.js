@@ -30,7 +30,7 @@ class ManagementLessonCreate extends Component {
             return
         }
         else if (this.state.lesson.description.trim().length < 4) {
-            this.props.alertOn("warning", "Name attribute requires at least 4 characters!");
+            this.props.alertOn("warning", "Description attribute requires at least 4 characters!");
             return
         }
         else if (!this.state.lesson.courseId) {

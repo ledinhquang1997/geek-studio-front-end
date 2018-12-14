@@ -572,3 +572,11 @@
     margin-top:75px;
   }
   
+  .buttonIcon{
+    transition: transform .2s;
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+      color: rgb(196, 86, 36)
+    }
+  }

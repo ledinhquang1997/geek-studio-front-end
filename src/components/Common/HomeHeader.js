@@ -20,7 +20,15 @@ class HomeHeader extends Component {
 
     componentWillMount() {
         this.props.getAllCategories();
-        this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
+        if (localStorage.getItem("cart") === null) {
+            var cart = [];
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
+        }
+        else {
+            this.props.changeCartQuantity(JSON.parse(localStorage.getItem("cart")).length);
+        }
+
     }
     componentDidMount() {
         if (this.headerAnimationRefs) {
@@ -97,15 +105,15 @@ class HomeHeader extends Component {
                         <hr className="vertical-hr" />
                     </React.Fragment> : ""}
 
-
-                <React.Fragment>
-                    <Link to="/management">
-                        <li className="nav-item mr-1">
-                            <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; Management</a>
-                        </li>
-                    </Link>
-                    <hr className="vertical-hr" />
-                </React.Fragment>
+                {(roles.includes("ROLE_ADMIN") || roles.includes("ROLE_INSTRUCTOR")) &&
+                    <React.Fragment>
+                        <Link to="/management">
+                            <li className="nav-item mr-1">
+                                <a className="nav-link d-flex align-items-center"><i className="fas fa-bookmark fa-lg"></i> &nbsp; Management</a>
+                            </li>
+                        </Link>
+                        <hr className="vertical-hr" />
+                    </React.Fragment>}
                 <li className="nav-item mr-1">
                     <div className="dropdown">
                         <div className="nav-link d-flex align-items-center dropbtn"><i className="fas fa-user-circle fa-lg"></i> &nbsp; {cookies.load(VariableConstants.USERNAME)}</div>
@@ -125,7 +133,7 @@ class HomeHeader extends Component {
                         <a className="nav-link d-flex align-items-center btn btn-sm home-header__button"><i className="material-icons">vpn_key</i>&nbsp; Log in</a>
                     </li>
                 </Link>
-                <Link to={{pathname:"/login/register",param2:"suck"}}>
+                <Link to={{ pathname: "/login/register", param2: "suck" }}>
                     <li className="nav-item">
                         <a className="nav-link d-flex align-items-center btn btn-sm home-header__button"><i className="material-icons">fiber_new</i>&nbsp; Sign up</a>
                     </li>
@@ -145,7 +153,7 @@ class HomeHeader extends Component {
     }
     render() {
         console.log(localStorage.cart);
-        
+
         return (
             <React.Fragment>
                 {this.renderSideMenu()}
@@ -175,8 +183,8 @@ class HomeHeader extends Component {
                         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <ul className="navbar-nav d-flex align-items-center">
                                 <li className="nav-item mr-1">
-                                <Link to={"/cart"}>
-                                    <a className="nav-link d-flex align-items-center"><span className="cart-badge">{this.props.cart.quantity}</span> <i className="fas fa-shopping-cart fa-lg" style={{cursor:"pointer"}}></i></a>
+                                    <Link to={"/cart"}>
+                                        <a className="nav-link d-flex align-items-center"><span className="cart-badge">{this.props.cart.quantity}</span> <i className="fas fa-shopping-cart fa-lg" style={{ cursor: "pointer" }}></i></a>
                                     </Link>
                                 </li>
                                 {this.renderAccountNavLinks()}
@@ -193,7 +201,7 @@ const mapStateToProps = (state, ownProps) => {
         categories: state.categories,
         courses: state.currentCoursesByCategory,
         currentCategoryWithTopics: state.currentCategoryWithTopics.data,
-        cart:state.cart
+        cart: state.cart
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -209,7 +217,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         logout: () => {
             dispatch(LoginActions.logout())
         },
-        changeCartQuantity:(number)=>{
+        changeCartQuantity: (number) => {
             dispatch(SystemActions.changeCartNumber(number))
         }
     }

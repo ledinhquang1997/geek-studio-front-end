@@ -472,7 +472,7 @@
 
 .section-card__description {
   width: 100%;
-  height: 21px;
+  height: auto;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis; }
@@ -868,6 +868,31 @@
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
+  animation-duration: 0.4s;
+  overflow: auto; }
+
+@keyframes animateScale {
+  from {
+    width: 0px;
+    height: 0px;
+    opacity: 0; }
+  to {
+    width: 30%;
+    height: auto;
+    opacity: 1; } }
+
+.confirm__modal-content {
+  position: relative;
+  background-color: #fefefefd;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 30%;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animateScale;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animateScale;
   animation-duration: 0.4s;
   overflow: auto; }
 
@@ -1319,6 +1344,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .page-content {
   margin-top: 75px; }
+
+.buttonIcon {
+  transition: transform .2s; }
+  .buttonIcon:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    color: #c45624; }
 
 .panel-title {
   margin-top: 30px;

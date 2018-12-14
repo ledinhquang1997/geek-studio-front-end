@@ -7,6 +7,7 @@ import { ManagementConstants } from '../../constants';
 import Editor from '../Common/Editor';
 import { CourseServices } from '../../services/CourseServices';
 
+
 const CLOUDINARY_UPLOAD_PRESET = 'quangpreset';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/quanglibrary/video/upload';
 class ManagementSectionEdit extends Component {
@@ -18,6 +19,7 @@ class ManagementSectionEdit extends Component {
                 description: "",
                 content: ""
             },
+            renderSpin: false
 
         }
     }
@@ -27,9 +29,10 @@ class ManagementSectionEdit extends Component {
         this.props.getSectionUpdate(this.props.match.params.sectionId);
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            section: nextProps.sectionDetail.data
-        });
+        if (nextProps.loading.status !== true)
+            this.setState({
+                section: nextProps.sectionDetail.data
+            });
     }
 
     handleChange = (event) => {
@@ -92,8 +95,8 @@ class ManagementSectionEdit extends Component {
         }, err => { console.error(err); });
     }
 
-    handleUpdateSection = () => {
-
+    handleUpdateSection = (event) => {
+        event.preventDefault();
         if (this.state.section.description.trim().length < 3) {
             this.props.alertOn("warning", "Description requires at least 3 characters");
         }
@@ -124,7 +127,10 @@ class ManagementSectionEdit extends Component {
                     headers: { "X-Requested-With": "XMLHttpRequest" },
                     data: formData
                 }).then(data => {
-                    const section = {...this.state.section, video:{url:data.data.url, deleteToken:data.data.delete_token}}   
+
+                    const section = { ...this.state.section, video: { url: data.data.url, deleteToken: data.data.delete_token } }
+                    console.log(section);
+
                     CourseServices.updateSection(section).then(data => {
                         this.props.alertOn('success', 'Update section ' + data.id + ' successfully');
                         this.props.stopLoading();
@@ -163,6 +169,7 @@ class ManagementSectionEdit extends Component {
 
         // this.handleImageUpload(files[0]);
     }
+   
     renderVideo = () => {
         if (this.state.uploadedFile) {
             return (
@@ -179,60 +186,65 @@ class ManagementSectionEdit extends Component {
     render() {
         console.log(this.state)
         return (
-            <div className="management">
-                <div className="container mt-3">
-                    <div className="studypage-navbar rounded">
-                        <i className="fas fa-arrow-alt-circle-left fa-2x ml-3" style={{ float: "left", marginTop: "5px" }} onClick={this.handleBack}></i>
-                        <h2 className="text-center m-4">Edit</h2>
-                    </div>
-                    {this.props.sectionDetail.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>
-                        :
-                        <React.Fragment>
-                            <div className="form-group">
-                                <label>Id</label>
-                                <input className="form-control" type="text" readOnly value={this.state.section.id} />
-                            </div>
+            <React.Fragment>
+                <div className="management">
+                    <div className="container mt-3">
+                        <div className="studypage-navbar rounded">
+                            <i className="fas fa-arrow-alt-circle-left fa-2x ml-3" style={{ float: "left", marginTop: "5px" }} onClick={this.handleBack}></i>
+                            <h2 className="text-center m-4">Edit</h2>
+                        </div>
+                        {this.props.sectionDetail.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>
+                            :
+                            <React.Fragment>
+                                <div className="form-group">
+                                    <label>Id</label>
+                                    <input className="form-control" type="text" readOnly value={this.state.section.id} />
+                                </div>
 
-                            <div className="form-group">
-                                <label>Description</label>
-                                <input className="form-control" onChange={this.handleChange} value={this.state.section.description} name="description" type="text" />
-                            </div>
-                            {/* <ReactQuill style={{ height: "500px", marginBottom: "100px" }}  name="content" onChange={this.handleContentChange} value={this.state.section.content} modules={getModule()} /> */}
-                            <Editor handleContentChange={this.handleContentChange} content={this.state.section.content} />
-                            <div className="container">
-                                {this.renderVideo()}
-                                <Dropzone
-                                    className="dropzone rounded"
-                                    multiple={false}
-                                    accept="image/*,.mp4"
-                                    onDrop={this.onImageDrop}>
-                                    <p className="lead text-center">Drop a video or click to select a file to upload.</p>
-                                    <div className="d-flex justify-content-center">
-                                        <img style={{ height: "100px", margin: "auto", width: "100px", opacity: "0.5" }} src={require("../../assets/images-system/drop.png")} />
-                                    </div>
-                                    {this.state.uploadedFile && <p className="text-center lead">{this.state.uploadedFile.name}</p>}
+                                <div className="form-group">
+                                    <label>Description</label>
+                                    <input className="form-control" onChange={this.handleChange} value={this.state.section.description} name="description" type="text" />
+                                </div>
+                                {/* <ReactQuill style={{ height: "500px", marginBottom: "100px" }}  name="content" onChange={this.handleContentChange} value={this.state.section.content} modules={getModule()} /> */}
+                                <Editor handleContentChange={this.handleContentChange} content={this.state.section.content} />
+                                <div className="container">
+                                    {this.renderVideo()}
+                                    <Dropzone
+                                        className="dropzone rounded"
+                                        multiple={false}
+                                        accept="image/*,.mp4"
+                                        onDrop={this.onImageDrop}>
+                                        <p className="lead text-center">Drop a video or click to select a file to upload.</p>
+                                        <div className="d-flex justify-content-center">
+                                            <img style={{ height: "100px", margin: "auto", width: "100px", opacity: "0.5" }} src={require("../../assets/images-system/drop.png")} />
+                                        </div>
+                                        {this.state.uploadedFile && <p className="text-center lead">{this.state.uploadedFile.name}</p>}
 
-                                </Dropzone>
+                                    </Dropzone>
 
-                                <button className="btn btn-primary btn-lg mt-4 mb-5" style={{ width: '300px', display: 'block', margin: 'auto' }} onClick={this.handleUpdateSection}>Update</button>
-                                {/* <button className="btn btn-success" onClick={this.handleImageUpload}></button> */}
-                                {/* {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                                    <button className="btn btn-primary btn-lg mt-4 mb-5" style={{ width: '300px', display: 'block', margin: 'auto' }} onClick={this.handleUpdateSection}>Update</button>
+                                    {/* <button className="btn btn-success" onClick={this.handleImageUpload}></button> */}
+                                    {/* {this.state.uploadedFileCloudinaryUrl === '' ? null :
                             <div>
                                 <p>{this.state.uploadedFile.name}</p>
                                 <a>{this.state.uploadedFileCloudinaryUrl} </a>
                             </div>} */}
 
-                            </div>
-                        </React.Fragment>}
-                </div>
-            </div >
+                                </div>
+                            </React.Fragment>}
+                    </div>
+                </div >
+            </React.Fragment>
+
         );
     }
 }
 
+
 const mapStateToProps = (state, ownProps) => {
     return {
-        sectionDetail: state.sectionDetail
+        sectionDetail: state.sectionDetail,
+        loading: state.loading
     }
 }
 

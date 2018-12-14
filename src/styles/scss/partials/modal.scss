@@ -113,3 +113,38 @@
     animation-duration: 0.4s;
     overflow:auto
 }
+
+// .section-create__modal {
+//     display: block; /* Hidden by default */
+//     position: fixed; /* Stay in place */
+//     z-index: 1; /* Sit on top */
+//     padding-top: 200px; /* Location of the box */
+//     left: 0;
+//     top: 0;
+//     width: 100%; /* Full width */
+//     height: 100%; /* Full height */
+//     overflow: auto; /* Enable scroll if needed */
+//     background-color: rgb(0,0,0); /* Fallback color */
+//     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+// }
+
+@keyframes animateScale {
+    from {width:0px; height: 0px; opacity:0}
+    to {width:30%; height: auto; opacity:1}
+}
+
+.confirm__modal-content {
+    position: relative;
+    background-color: #fefefefd;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 30%;
+    height: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animateScale;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animateScale;
+    animation-duration: 0.4s;
+    overflow:auto
+}

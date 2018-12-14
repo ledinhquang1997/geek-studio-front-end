@@ -26,7 +26,10 @@ class ManagementLessonEdit extends Component {
                 description: ''
             },
             redirect: false,
-            url: ''
+            url: '',
+            confirm:false,
+            sectionToDelete:'',
+            idToDelete:''
         };
 
     }
@@ -67,7 +70,27 @@ class ManagementLessonEdit extends Component {
             create: false
         })
     }
-
+    handleDelete = () => {
+        CourseServices.deleteSection(this.state.idToDelete).then(
+            data => {
+                this.props.alertOn("success", "Deleted section " + this.state.idToDelete);
+                this.props.getSectionListManagement(this.props.match.params.lessonId);
+                this.setState({
+                    confirm: false
+                });
+            },
+            err => {
+                this.props.alertOn("danger", "Error: " + err)
+            }
+        )
+    }
+    onDeleteClick=(id,name)=>{
+        this.setState({
+            confirm:true,
+            idToDelete:id,
+            sectionToDelete:name
+        });
+    }
     onPreviewClick = (id) => {
         this.props.getSectionDetail(id);
         this.setState({
@@ -137,7 +160,7 @@ class ManagementLessonEdit extends Component {
     renderSections = () => {
         return this.props.sectionListManagement.data.map((section, index) => {
             return <Section key={section.id} id={section.id} ordinalNumber={section.ordinalNumber} lastUpdate={section.lastUpdate}
-                description={section.description} onEditClick={this.onEditClick} onPreviewClick={() => this.onPreviewClick(section.id)} />
+                description={section.description} onEditClick={this.onEditClick} onPreviewClick={() => this.onPreviewClick(section.id)} handleDelete={this.onDeleteClick} />
         })
     }
 
@@ -186,11 +209,37 @@ class ManagementLessonEdit extends Component {
             </div>
         </div>
     }
+    
+    renderModalConfirm = () => {
+        return <div className="section-create__modal">
+            <div className="confirm__modal-content rounded">
+                <div style={{ width: '97%', margin: 'auto', display: 'flex', justifyContent: "flex-end" }}>
+                    <i style={{ color: "black", cursor: "pointer " }} className="far fa-window-close fa-2x" onClick={() => this.setState({ confirm: false })}></i>
+                </div>
+                <div className="container mt-4">
+                    <p className="text-center mb-0 lead">You are attempting to <strong>delete</strong> section <br /><strong><i>{this.state.sectionToDelete}</i></strong></p>
+                    <h4 className="text-center mb-0">Continue?</h4>
+                    <div className="row mt-3 mb-4">
+                        <div className="col-6">
+                            <button className="btn btn-danger btn-lg" style={{ width: '70%', display: 'block', margin: 'auto' }} onClick={this.handleDelete}>YES</button>
+                        </div>
+                        <div className="col-6">
+                            <button className="btn btn-warning btn-lg" style={{ width: '70%', display: 'block', margin: 'auto' }} onClick={() => this.setState({ confirm: false })}>NO</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
     render() {
 
         console.log(this.state);
         return (
             <React.Fragment>
+                {this.state.confirm && this.renderModalConfirm()}
                 {this.state.create && this.renderModal()}
                 {this.state.preview && this.renderPreview()}
                 {this.state.redirect && this.renderRedirect()}

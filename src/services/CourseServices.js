@@ -8,7 +8,7 @@ function getBestSellerCourses() {
       url: VariableConstants.URL + `course/bestsellers`,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -18,7 +18,7 @@ function getTopRatingCourses() {
       url: VariableConstants.URL + `course/toprating`,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -28,7 +28,7 @@ function getTop6CoursesByCategoryId(id) {
       url: VariableConstants.URL + "course/top-by-category/" + id,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -38,7 +38,7 @@ function getCoursesByCategoryFilterPage(category, filter, page) {
       url: VariableConstants.URL + `course/by-category-filter-page/${category}/${filter}/${page}`,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -48,7 +48,7 @@ function getCourseDetail(courseId) {
       url: VariableConstants.URL + `course/${courseId}`,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -60,7 +60,7 @@ function getCoursesByInstructor(username, page) {
       url: VariableConstants.URL + `instructors/${username}/${page}`,
       method: "GET",
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 //////////////Require Aurhentication///////////////
@@ -75,7 +75,7 @@ function getCoursesOfStudent(username) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -89,7 +89,7 @@ function getUserCourseLessons(courseId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -103,7 +103,7 @@ function getUserCourseSectionListByLesson(lessonId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -117,7 +117,7 @@ function getSectionDetail(sectionId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -132,7 +132,7 @@ function changeCourseProgress(progress) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -147,7 +147,7 @@ function getCourseListManagement() {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -161,7 +161,7 @@ function getLessonListManagement(courseId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -175,7 +175,7 @@ function getSectionListManagement(lessonId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -190,7 +190,7 @@ function getLessonManagement(courseId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -205,7 +205,7 @@ function createCourse(newCourse) {
       },
       data:newCourse
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -220,7 +220,7 @@ function updateLesson(lesson) {
       },
       data:lesson
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -234,14 +234,14 @@ function getSectionUpdate(sectionId) {
         'Authorization': cookies.load(VariableConstants.TOKEN)
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
 function updateSection(section) {
   return new Promise((resolve, reject) => {
     axios({
-      url: VariableConstants.URL + `management/section/`,
+      url: VariableConstants.URL + `management/section/update`,
       method: "PUT",
       headers: {
         'Content-type': 'application/json',
@@ -249,7 +249,7 @@ function updateSection(section) {
       },
       data:section
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -264,7 +264,7 @@ function createLesson(newLesson) {
       },
       data:newLesson
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -279,7 +279,7 @@ function createSection(newSection) {
       },
       data:newSection
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -294,7 +294,7 @@ function updateCourse(course) {
       },
       data:course
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
 
@@ -307,9 +307,68 @@ function search(name) {
         'Content-type': 'application/json',
       }
     }).then(r => { resolve(r.data) },
-      r => { reject(r.message) });
+    r => { reject(r.response.data.message) });
   })
 }
+
+
+function deleteCourse(courseId) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/course/delete/${courseId}`,
+      method: "DELETE",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+
+      }
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.response.data.message) });
+  })
+}
+
+function deleteLesson(lessonId) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/lesson/delete/${lessonId}`,
+      method: "DELETE",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      }
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.response.data.message) });
+  })
+}
+
+function deleteSection(sectionId) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/section/delete/${sectionId}`,
+      method: "DELETE",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      }
+    }).then(r => { resolve(r.data) },
+      r => { reject(r.response.data.message) });
+  })
+}
+
+function addCourse(courseId) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/student/addCourse/${courseId}`,
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      }
+    }).then(r => { resolve(r.data) },
+    r => { reject(r.response.data.message) });
+  })
+}
+
 
 export const CourseServices = {
   getBestSellerCourses,
@@ -334,5 +393,9 @@ export const CourseServices = {
   createLesson,
   createSection,
   updateCourse,
-  search
+  search,
+  deleteCourse,
+  deleteLesson,
+  deleteSection,
+  addCourse
 }

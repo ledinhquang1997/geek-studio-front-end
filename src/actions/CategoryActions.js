@@ -25,8 +25,8 @@ function displayMarketing() {
     return { type: CategoryConstants.MARKETING}
 }
 
-function changeDisplayCategory(name){
-    return {type:CategoryConstants.CHANGE_CATEGORY_TO_DIPLAY, payload:name}
+function changeDisplayCategory(name,id){
+    return {type:CategoryConstants.CHANGE_CATEGORY_TO_DIPLAY, payload:{categoryName:name, categoryId:id}}
 }
 
 function getCurrentCategoryWithTopics(categoryId){

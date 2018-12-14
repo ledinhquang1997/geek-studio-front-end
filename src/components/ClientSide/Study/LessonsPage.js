@@ -32,11 +32,11 @@ class Lessons extends Component {
 
     renderLessons = () => {
         const lessons = this.props.userCourseLessons.data.lessons;
-        return lessons.map((lesson) => {
+        return lessons.map((lesson,index) => {
             const isActive = this.props.userCourseLessons.data.currentLesson===lesson.id?"active":"";
             return <a onClick={(event)=>this.handleLessonClick(event,lesson.id)} key={lesson.id} href="" className={"list-group-item list-group-item-action flex-column align-items-start "+isActive}>
                 <div className="d-flex w-100 justify-content-between">
-                    <h4 className="mb-1">{lesson.ordinalNumber}. {lesson.name}</h4>
+                    <h4 className="mb-1">{index+1}. {lesson.name}</h4>
                     <i className="far fa-check-circle fa-lg align-self-center"></i>
                 </div>
                 <p className="mb-1">{lesson.description}</p>
@@ -51,7 +51,7 @@ class Lessons extends Component {
     render() {
         const { data } = this.props.userCourseLessons
         return (
-            <React.Fragment>
+            <div style={{minHeight:'100vh'}}>
                 {this.renderRedirect()}
                 <div className="studypage__jumbotron">
                     <div className="studypage__container">
@@ -78,7 +78,7 @@ class Lessons extends Component {
                     {this.props.userCourseLessons.isLoading?<img src={require("../../../assets/images-system/ring.svg")} alt={data.name}/>:this.renderLessons()}
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

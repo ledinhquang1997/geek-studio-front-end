@@ -3,6 +3,7 @@ import renderHTML from 'react-render-html';
 import ReactDOM from 'react-dom'
 import { connect } from "react-redux";
 import { CourseActions, SystemActions } from '../../../actions';
+import { CourseServices } from '../../../services';
 
 class CourseDetailPage extends Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ class CourseDetailPage extends Component {
 
         if (localStorage.getItem("cart") === null) {
             var cart = [];
-            cart.push({ course:course, quantity: 1 });
+            cart.push({ course: course, quantity: 1 });
             console.log(">>>>>>>>>>>>>>>>>>>>>>", cart);
 
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -37,11 +38,11 @@ class CourseDetailPage extends Component {
         // }
         else {
             var cart = JSON.parse(localStorage.getItem("cart"))
-            if (cart.filter(item => item.course.id === course.id).length>0) {
+            if (cart.filter(item => item.course.id === course.id).length > 0) {
                 this.props.alertOn("warning", "Course " + course.name + "is already added in the cart!")
                 return
             }
-            cart.push({ course:course, quantity: 1 })
+            cart.push({ course: course, quantity: 1 })
             console.log(">>>>>>>>>>>>>>>>>>>>>>", cart);
 
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -51,7 +52,16 @@ class CourseDetailPage extends Component {
         }
 
     }
-
+    handleByCourse = () => {
+        CourseServices.addCourse(this.props.match.params.id).then(
+            data => {
+                this.props.alertOn("success","Buy course "+this.props.courseDetail.data.name+" successfully! Check your profile");
+            },
+            err => {
+                this.props.alertOn("danger","Error: "+err)
+            }
+        )
+    }
     renderInstructorNames = (instructorsList = []) => {
         var instructors = "";
         instructorsList.forEach((value, index) => {
@@ -169,7 +179,7 @@ class CourseDetailPage extends Component {
                                 <img className="img-fluid p-2" style={{ height: '240px', width: '100%' }} src={this.renderImage()} alt="" />
                                 <h2 className="text-left ml-5">${data.cost}</h2>
                                 <button className="btn btn-success btn-lg course-detail__card--button" onClick={() => this.handleAddtoCart(data)}>Add to cart</button>
-                                <button className="btn btn-outline-secondary btn-lg course-detail__card--button">Buy now</button>
+                                <button className="btn btn-outline-secondary btn-lg course-detail__card--button" onClick={this.handleByCourse}>Buy now</button>
                                 <p className="text-center text-warning">Buy now to get discount!</p>
                                 <div className="h-25"></div>
                             </div>
@@ -223,7 +233,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         alertOn: (type, content) => {
             dispatch(SystemActions.alertOn(type, content))
         },
-        changeCartQuantity:(number)=>{
+        changeCartQuantity: (number) => {
             dispatch(SystemActions.changeCartNumber(number))
         }
     }

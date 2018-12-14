@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Course from '../../Common/Course';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Category from '../../Common/Category';
 import { CategoryActions, CourseActions } from '../../../actions';
 class CategoriesSection extends Component {
     constructor(props) {
         super(props);
         this.myRef = React.createRef();
+        this.state={
+            redirect:false,
+            url:''
+        }
     }
 
     componentDidMount() {
-        if(this.props.categories.length===0)
-        this.props.getAllCategories();
+        // if(this.props.categories.length===0)
+        // this.props.getAllCategories();
     }
     onCategoryClick = (id, name) => {
         this.props.getTop6CoursesByCategoryId(id);
@@ -42,46 +47,58 @@ class CategoriesSection extends Component {
             )
         })
     }
+    goToCategoryPage = (event) => {
+        event.preventDefault();
+        this.setState({
+            redirect: true,
+            url: "/courses/" + this.props.categoryToDisplay.categoryId
+        });
+    }
+
+    renderRedirect = () => {
+        return <Redirect to={this.state.url} />
+    }
     render() {
         console.log(this.props.categoryToDisplay);
 
         return (
-
-            <div className="courses">
-                <div className="jumbotron jumbotron-fluid jumbotron jumbotron_middle">
-                    <div className="container">
-                        <h2 className="section-title">EXPLORE COURSES</h2>
-                        <p className="lead">Learning never be easier with <img src={require('../../../assets/images-system/logo-geek.png')} alt="" style={{ width: "40px" }} /></p>
-                        <hr className="my-2" />
-                    </div>
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            {this.renderCategories()}
+            <React.Fragment>
+                {this.state.redirect && this.renderRedirect()}
+                <div className="courses">
+                    <div className="jumbotron jumbotron-fluid jumbotron jumbotron_middle">
+                        <div className="container">
+                            <h2 className="section-title">EXPLORE COURSES</h2>
+                            <p className="lead">Learning never be easier with <img src={require('../../../assets/images-system/logo-geek.png')} alt="" style={{ width: "40px" }} /></p>
+                            <hr className="my-2" />
                         </div>
-                    </div>
-                </div>
-                <div className="section_background parallax-window" data-parallax="scroll" data-speed="0.8" />
-                <div className="container" ref={this.myRef}>
-                    {this.props.categoryToDisplay!==""?<div className="row">
-                        <div className="col">
-                            <div className="section_title_container text-center">
-                                <h2 className="section_title">{this.props.categoryToDisplay+" courses"} </h2>
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                {this.renderCategories()}
                             </div>
                         </div>
-                    </div>:""}
-                    <div className="row courses_row d-flex justify-content-center">
-                        {this.renderCoursesByCategory()}
                     </div>
-                    {this.props.categoryToDisplay ?
-                        <div className="row">
+                    <div className="section_background parallax-window" data-parallax="scroll" data-speed="0.8" />
+                    <div className="container" ref={this.myRef}>
+                        {this.props.categoryToDisplay.categoryName !== "" ? <div className="row">
                             <div className="col">
-                                <div className="courses_button trans_200"><a href="">view all courses</a></div>
+                                <div className="section_title_container text-center">
+                                    <h2 className="section_title">{this.props.categoryToDisplay.categoryName + " courses"} </h2>
+                                </div>
                             </div>
                         </div> : ""}
+                        <div className="row courses_row d-flex justify-content-center">
+                            {this.renderCoursesByCategory()}
+                        </div>
+                        {this.props.categoryToDisplay ?
+                            <div className="row">
+                                <div className="col">
+                                    <div className="courses_button trans_200"><a onClick={this.goToCategoryPage} href="">view all courses</a></div>
+                                </div>
+                            </div> : ""}
                         <hr className="my-3" />
+                    </div>
                 </div>
-            </div>
-
+            </React.Fragment>
         );
     }
 }

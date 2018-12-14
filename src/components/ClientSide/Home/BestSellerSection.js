@@ -20,7 +20,7 @@ class BestSellerSection extends Component {
     }
 
     componentDidMount() {
-        if(this.props.highlightCourses.courses.length===0)
+        // if(this.props.highlightCourses.courses.length===0)
         this.props.getBestSellers();
     }
     componentDidUpdate(prevProps, prevState) {

@@ -29,7 +29,7 @@ class UserProfilePage extends Component {
 
     render() {
         return (
-            <div style={{height:"100%"}}>
+            <div style={{minHeight:"100vh"}}>
                 <div className="sidenav">
                     <a href="" className="lead sidenav-active mt-3"><i class="fas fa-chalkboard-teacher"></i> Courses</a>
                     <a href="" className="lead"><i class="fas fa-th"></i> Account </a>

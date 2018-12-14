@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "geek-studio-ab400"
+    "default": "geek-studio-ab400",
+    "n": "geek-studio-220605",
+    "y": "geek-studio-220605",
+    "geekstudio": "geek-studio-ab400"
   }
 }

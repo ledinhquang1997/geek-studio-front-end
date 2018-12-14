@@ -14,11 +14,11 @@ export const listCategories = (state = categoriesListInitialState, action) => {
     }
 }
 
-const categoryToDisplayInitialState = "";
+const categoryToDisplayInitialState = {categoryName:'', categoryId:''};
 export const categorytToDisplay = (state = categoryToDisplayInitialState, action) => {
     switch (action.type) {
         case CategoryConstants.CHANGE_CATEGORY_TO_DIPLAY:
-            return action.payload
+            return {...state,categoryName:action.payload.categoryName, categoryId:action.payload.categoryId}
         default:
             return state
     }

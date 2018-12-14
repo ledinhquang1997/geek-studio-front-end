@@ -43,7 +43,7 @@ class StudyPage extends Component {
                                 {this.props.studentCourseSectionList.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../../assets/images-system/bar.svg")} alt={"spinner"} /></div> : this.renderSections()}
                             </div>
                         </div>
-                        <div className="col-10">
+                        <div className="col-10" style={{minHeight:'100vh'}}>
                             <div className="studypage-navbar rounded d-flex align-items-center justify-content-center">
                                 <h3 className="text-center lead studypage-navbar__item">{this.props.studentCourseSectionList.data.name}</h3>
                             </div>
