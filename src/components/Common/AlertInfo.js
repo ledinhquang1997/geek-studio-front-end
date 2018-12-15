@@ -11,7 +11,7 @@ class AlertInfo extends Component {
         return (
                 <AlertContainer position="bottom-left">
                     {this.props.alert.status &&
-                        <Alert type={this.props.alert.type} showIcon={true} onDismiss={this.handleDismiss} timeout={2000} headline="">{this.props.alert.content}</Alert>
+                        <Alert type={this.props.alert.type} showIcon={true} onDismiss={this.handleDismiss} timeout={5000} headline="">{this.props.alert.content}</Alert>
                     }
                 </AlertContainer>
         );

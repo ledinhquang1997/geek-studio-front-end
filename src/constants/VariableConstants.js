@@ -1,6 +1,6 @@
 export const VariableConstants = {
-    URL:"http://localhost:8080/",
-    // URL:"//35.240.148.209:8080/",
+    // URL:"https://localhost:8443/",
+    URL:"https://35.240.148.209:8443/",
     LOCAL_IMAGE_SYSTEM_URL:"../../assets/images-system/",
     LOCAL_IMAGE_URL:"../assets/images-system/",
     BEST_SELLER:"BEST_SELLER",

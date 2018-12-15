@@ -34,16 +34,17 @@ class ManagementCourseEdit extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(">>>>>>>>>>>>>>>>>>>>>",nextProps);
-        var categoryId= "";
-        if(nextProps.courseDetail.data){
-            if(nextProps.courseDetail.data.category){
-                categoryId=nextProps.courseDetail.data.category.id;
+        console.log(">>>>>>>>>>>>>>>>>>>>>", nextProps);
+        var categoryId = "";
+        if (nextProps.courseDetail.data) {
+            if (nextProps.courseDetail.data.category) {
+                categoryId = nextProps.courseDetail.data.category.id;
             }
         }
-        this.setState({
-            course: { ...nextProps.courseDetail.data, categoryId: categoryId }
-        });
+        if (nextProps.loading.status !== true)
+            this.setState({
+                course: { ...nextProps.courseDetail.data, categoryId: categoryId }
+            });
     }
 
 
@@ -123,14 +124,14 @@ class ManagementCourseEdit extends Component {
 
         let index = 0;
         for (index; index < course.contentSummary.length; index++) {
-            if (course.contentSummary[index].trim().length <= 10) {
+            if (course.contentSummary[index].trim().length <= 3) {
                 break;
             }
         }
 
         let indexRequirements = 0;
         for (indexRequirements; indexRequirements < course.requirements.length; indexRequirements++) {
-            if (course.requirements[indexRequirements].trim().length <= 10) {
+            if (course.requirements[indexRequirements].trim().length <= 3) {
                 break;
             }
         }
@@ -166,32 +167,56 @@ class ManagementCourseEdit extends Component {
             canCreate = false;
         }
 
-        else if (!this.state.picture) {
-            canCreate = false;
-            this.props.alertOn("warning", "Picture is required!");
-        }
+        // else if (!this.state.picture) {
+        //     canCreate = false;
+        //     this.props.alertOn("warning", "Picture is required!");
+        // }
 
         else if (index !== course.contentSummary.length) {
-            this.props.alertOn("warning", "Content summary attribute requires at least 10 characters!");
+            this.props.alertOn("warning", "Content summary attribute requires at least 3 characters!");
             canCreate = false;
         }
 
         else if (indexRequirements !== course.requirements.length) {
-            this.props.alertOn("warning", "Requirements attribute requires at least 10 characters!");
+            this.props.alertOn("warning", "Requirements attribute requires at least 3 characters!");
             canCreate = false;
         }
 
         else {
             this.props.startLoading("Processing ...")
-            ImageService.uploadImage(this.state.picture).then(data => {
-                const course = {
-                    ...this.state.course, image: {
-                        url: data.secure_url,
-                        deleteToken: data.delete_token
+            if (this.state.picture) {
+                ImageService.uploadImage(this.state.picture).then(data => {
+                    const course = {
+                        ...this.state.course, image: {
+                            url: data.secure_url,
+                            deleteToken: data.delete_token
+                        }
                     }
+                    CourseServices.updateCourse(course).then(data => {
+                        console.log(">>>>>>>>>>>>>>>>>>>>>> Update", data);
+                        this.props.alertOn("success", "Update course" + data.name + "successfully")
+                        this.props.stopLoading();
+                        // this.setState({
+                        //     isRedirect: true,
+                        //     url: '/management/lesson/all/' + data.id
+                        // });
+                    }, err => {
+                        this.props.alertOn("warning", err)
+                        this.props.stopLoading();
+
+                    })
+
+                }, err => {
+                    this.props.alertOn("danger", err)
+                    this.props.stopLoading();
+                })
+            }
+            else {
+                const course = {
+                    ...this.state.course, image: null
                 }
                 CourseServices.updateCourse(course).then(data => {
-                    console.log(">>>>>>>>>>>>>>>>>>>>>> Update",data);
+                    console.log(">>>>>>>>>>>>>>>>>>>>>> Update", data);
                     this.props.alertOn("success", "Update course" + data.name + "successfully")
                     this.props.stopLoading();
                     // this.setState({
@@ -203,16 +228,13 @@ class ManagementCourseEdit extends Component {
                     this.props.stopLoading();
 
                 })
+            }
 
-            }, err => {
-                this.props.alertOn("danger", err)
-                this.props.stopLoading();
-            })
         }
     }
 
     renderOptions = () => {
-        return this.props.categories.map((category, index) => <option key={category.id} value={category.id}>{category.name}</option>)
+        return this.props.categories.map((category, index) => <option key={category.id} selected={this.state.course.categoryId === category.id} value={category.id}>{category.name}</option>)
     }
 
     renderRedirect = () => {
@@ -221,7 +243,7 @@ class ManagementCourseEdit extends Component {
         }
     }
     render() {
-        console.log(this.state.course.contentSummary)
+        console.log(this.state)
         return (
             <React.Fragment>
                 {this.renderRedirect()}
@@ -340,7 +362,8 @@ function getModule() {
 const mapStateToProps = (state, ownProps) => {
     return {
         categories: state.categories,
-        courseDetail: state.courseDetail
+        courseDetail: state.courseDetail,
+        loading: state.loading
 
     }
 }

@@ -27,20 +27,21 @@ class ManagementLessonEdit extends Component {
             },
             redirect: false,
             url: '',
-            confirm:false,
-            sectionToDelete:'',
-            idToDelete:''
+            confirm: false,
+            sectionToDelete: '',
+            idToDelete: ''
         };
 
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lesson: nextProps.lessonManagement.data,
-            newSection: {
-                ...this.state.newSection, lessonId: nextProps.lessonManagement.data.id
-            }
-        });
+        if (nextProps.loading.status !== true)
+            this.setState({
+                lesson: nextProps.lessonManagement.data,
+                newSection: {
+                    ...this.state.newSection, lessonId: nextProps.lessonManagement.data.id
+                }
+            });
     }
 
 
@@ -84,11 +85,11 @@ class ManagementLessonEdit extends Component {
             }
         )
     }
-    onDeleteClick=(id,name)=>{
+    onDeleteClick = (id, name) => {
         this.setState({
-            confirm:true,
-            idToDelete:id,
-            sectionToDelete:name
+            confirm: true,
+            idToDelete: id,
+            sectionToDelete: name
         });
     }
     onPreviewClick = (id) => {
@@ -209,7 +210,7 @@ class ManagementLessonEdit extends Component {
             </div>
         </div>
     }
-    
+
     renderModalConfirm = () => {
         return <div className="section-create__modal">
             <div className="confirm__modal-content rounded">
@@ -247,7 +248,7 @@ class ManagementLessonEdit extends Component {
                     <div className="studypage-navbar mb-1 rounded d-flex justify-content-between">
                         <div className="d-flex align-items-center">
                             <i className="fas fa-arrow-alt-circle-left fa-2x ml-3" onClick={() => this.handleBack("/management/lesson/all/" + this.props.lessonManagement.data.courseId)}></i>&nbsp;
-                            <p className="lead mb-0"> { this.props.lessonManagement.data.courseName}</p>
+                            <p className="lead mb-0"> {this.props.lessonManagement.data.courseName}</p>
                         </div>
                         <div className="d-flex align-items-center">
                             {/* <i class="fas fa-arrow-alt-circle-right fa-2x"></i> */}
@@ -306,7 +307,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         lessonManagement: state.lessonManagement,
         sectionListManagement: state.sectionListManagement,
-        sectionDetail: state.sectionDetail
+        sectionDetail: state.sectionDetail,
+        loading: state.loading
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
