@@ -23,12 +23,13 @@ class LoginSection extends Component {
         })
     }
     handleLogin = (event) => {
-        event.preventDefault();
+        if (event)
+            event.preventDefault();
         this.props.login(this.state.username, this.state.password);
     }
 
     handleKeyUp = (event) => {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             this.handleLogin();
         }
     }
@@ -58,11 +59,11 @@ class LoginSection extends Component {
                     <form className="login-form">
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1" className="text-uppercase">Username</label>
-                            <input type="text" className="form-control" name="username" onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
+                            <input type="text" className="form-control" name="username" onChange={this.handleChange} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1" className="text-uppercase">Password</label>
-                            <input type="password" className="form-control" name="password" onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
+                            <input type="password" className="form-control" name="password" onChange={this.handleChange} onKeyPress={this.handleKeyUp} />
                         </div>
                         <div className="form-check">
                             {/* <label className="form-check-label">
@@ -75,7 +76,7 @@ class LoginSection extends Component {
 
                     </form>
                     <div className="h6">Back to <a onClick={this.backToHome} href="">Home</a></div>
-                    <div className="copy-text h6">You do not have account? <a onClick={this.moveToRegister} href="">Sign up</a></div>
+                    <div className="copy-text h6">You do not have account? <a onClick={(event) => this.moveToRegister(event)} href="">Sign up</a></div>
                 </div>
             </React.Fragment>
         );
