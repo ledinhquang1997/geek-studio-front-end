@@ -166,7 +166,7 @@ class ManagementLessonEdit extends Component {
     }
 
     renderRedirect = () => {
-        return <Redirect to={this.state.url}></Redirect>
+        return <Redirect to={{ pathname: this.state.url, lessonId: this.state.lesson.id }}></Redirect>
     }
 
     renderPreview = () => {
@@ -174,7 +174,7 @@ class ManagementLessonEdit extends Component {
             {/* Modal content */}
             <div className="section-prview__modal-content">
                 {this.props.sectionDetail.isLoading ?
-                    <img className="spinningSgv" src={require("../../assets/images-system/ring.svg")} />
+                    <img className="spinningSgv" src={require("../../assets/images-system/ring.svg")} alt='...'/>
                     :
                     <React.Fragment>
 

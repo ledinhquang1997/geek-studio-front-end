@@ -6,7 +6,7 @@ class LoadingSpin extends Component {
             <div className="modal">
                 {/* Modal content */}
                 <div className="modal-content">
-                    <img className="spinningSgv" src={require("../../assets/images-system/ring.svg")} />
+                    <img className="spinningSgv" src={require("../../assets/images-system/ring.svg")} alt="..."/>
                 </div>
             </div>
         );

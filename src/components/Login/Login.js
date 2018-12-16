@@ -17,7 +17,7 @@ class Login extends Component {
                             <div className="modal-header">
                                 <h3 className="text-center lead text-white">Logging in...</h3>
                             </div>
-                            <img src={require("../../assets/images-system/ring.svg")} />
+                            <img src={require("../../assets/images-system/ring.svg")} alt="..."/>
                         </div>
                     </div>}
 

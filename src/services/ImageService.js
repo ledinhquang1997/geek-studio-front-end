@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { VariableConstants } from '../constants';
 const CLOUDINARY_UPLOAD_PRESET = 'quangpreset';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/quanglibrary/image/upload';
 function uploadImage(file) {

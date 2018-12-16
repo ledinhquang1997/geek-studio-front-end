@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { CourseActions, ManagementActions, SystemActions } from '../../actions';
 import { ManagementConstants } from '../../constants';
 import { CourseServices } from '../../services/CourseServices';
@@ -35,7 +35,7 @@ class ManagementCourse extends Component {
                 this.props.alertOn("success", "Deleted course " + this.state.idToDelete);
                 this.props.getCourseListManagement();
                 this.setState({
-                    confirm:false
+                    confirm: false
                 });
             },
             err => {
@@ -92,7 +92,6 @@ class ManagementCourse extends Component {
                 {this.state.isRedirect && this.renderRedirect()}
                 {this.state.confirm && this.renderModal()}
                 <div className="studypage-navbar mb-1 rounded">
-                    <h4 className="text-right"></h4>
                 </div>
                 <div className="management">
                     {this.props.courseListManagement.isLoading ? <div className="d-flex justify-content-center"><img src={require("../../assets/images-system/ring.svg")} alt={"spinner"} /></div>

@@ -12,9 +12,7 @@ class UserProfilePage extends Component {
       }
     componentWillMount() {
         if (this.props.coursesOfStudent.err) forwardToNewPathname("/404.html");
-        if (this.props.coursesOfStudent.data.length === 0) {
             this.props.getCoursesOfStudent(cookies.load(VariableConstants.USERNAME));
-        }
     }
 
     renderUserCourses=()=>{

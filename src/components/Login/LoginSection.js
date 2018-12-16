@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {LoginActions, SystemActions} from '../../actions';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { LoginActions, SystemActions } from '../../actions';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class LoginSection extends Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class LoginSection extends Component {
         this.state = {
             username: "",
             password: "",
-            isRedirect:false
+            isRedirect: false,
+            backHome: false
         }
     }
 
@@ -38,13 +39,20 @@ class LoginSection extends Component {
             isRedirect: true
         });
     }
-
+    backToHome = (event) => {
+        event.preventDefault();
+        this.setState({
+            backHome: true
+        });
+    }
     render() {
         return (
             <React.Fragment>
-                {this.props.loginData.msg!=="" && this.props.alertOn("warning",this.props.loginData.msg)}
+                {this.props.loginData.msg !== "" && this.props.alertOn("warning", this.props.loginData.msg)}
                 {this.props.loginData.loggedin && <Redirect to={"/"}></Redirect>}
                 {this.state.isRedirect && <Redirect to={"/login/register"}></Redirect>}
+                {this.state.backHome && <Redirect to={"/"}></Redirect>}
+
                 <div className="col-md-5 login-sec">
                     <h2 className="text-center">Login Now</h2>
                     <form className="login-form">
@@ -57,15 +65,16 @@ class LoginSection extends Component {
                             <input type="password" className="form-control" name="password" onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
                         </div>
                         <div className="form-check">
-                            <label className="form-check-label">
+                            {/* <label className="form-check-label">
                                 <input type="checkbox" className="form-check-input" />
                                 <small>Remember Me</small>
-                            </label>
+                            </label> */}
                             <button type="submit" className="btn btn-login float-right" onClick={this.handleLogin}>Submit</button>
                         </div>
                         <div className="mt-4"><p className="lead text-center text-danger">{this.props.loginData.msg}</p></div>
 
                     </form>
+                    <div className="h6">Back to <a onClick={this.backToHome} href="">Home</a></div>
                     <div className="copy-text h6">You do not have account? <a onClick={this.moveToRegister} href="">Sign up</a></div>
                 </div>
             </React.Fragment>
@@ -78,7 +87,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         login: (username, password) => {
             dispatch(LoginActions.login(username, password))
         },
-        alertOn: (type, content)=>{
+        alertOn: (type, content) => {
             dispatch(SystemActions.alertOn(type, content))
 
         }

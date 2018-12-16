@@ -11,6 +11,8 @@ import StudyPage from './Study/StudyPage';
 import Lessons from './Study/LessonsPage';
 import AlertInfo from '../Common/AlertInfo';
 import CartPage from './Cart.js/CartPage';
+import { PrivateRoute } from '../Common/private-route';
+import { VariableConstants } from '../../constants';
 
 
 class ClientSide extends Component {
@@ -21,11 +23,11 @@ class ClientSide extends Component {
                 <HomeHeader />
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/cart" component={CartPage} />
-                <Route exact path="/lesson/:lessonId" component={StudyPage} />
-                <Route exact path="/study/:courseId" component={Lessons} />
+                <PrivateRoute requiredRoles={[VariableConstants.ROLE_LEARNER]} exact path="/lesson/:lessonId" component={StudyPage} />
+                <PrivateRoute requiredRoles={[VariableConstants.ROLE_LEARNER]} exact path="/study/:courseId" component={Lessons} />
                 <Route exact path="/courses/:name" component={CoursesPage} />
                 <Route exact path="/course/:id" component={CourseDetailPage} />
-                <Route exact path="/profile" component={UserProfilePage} />
+                <PrivateRoute requiredRoles={[VariableConstants.ROLE_LEARNER]} exact path="/profile" component={UserProfilePage} />
                 <Route exact path="/instructor/:username" component={InstructorPage} />
                 <Footer />
             </div>

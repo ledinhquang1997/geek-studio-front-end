@@ -369,6 +369,19 @@ function addCourse(courseId) {
   })
 }
 
+function getCourseStatistic() {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: VariableConstants.URL + `management/course/statistic`,
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': cookies.load(VariableConstants.TOKEN)
+      }
+    }).then(r => { resolve(r.data) },
+    r => { reject(r.response.data.message) });
+  })
+}
 
 export const CourseServices = {
   getBestSellerCourses,
@@ -397,5 +410,6 @@ export const CourseServices = {
   deleteCourse,
   deleteLesson,
   deleteSection,
-  addCourse
+  addCourse,
+  getCourseStatistic
 }

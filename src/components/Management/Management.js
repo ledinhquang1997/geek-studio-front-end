@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AdminHeader from '../Common/AdminHeader';
 import ManagementLessonEdit from './ManagementLessonEdit';
 import ManagementLearner from './ManagementLearner';
-import { Route } from 'react-router-dom';
 import ManagementCourse from './ManagementCourse';
 import ManagementCourseCreate from './ManagementCourseCreate';
 import AlertInfo from '../Common/AlertInfo';
@@ -15,6 +14,7 @@ import { VariableConstants } from '../../constants';
 import ManagementLessonCreate from './ManagementLessonCreate';
 import ManagementCourseEdit from './ManagementCourseEdit';
 import Dashboard from './Dashboard';
+import { PrivateRoute } from '../Common/private-route';
 class Management extends Component {
     render() {
         const roles = cookies.load(VariableConstants.ROLES);
@@ -24,17 +24,17 @@ class Management extends Component {
                 {this.props.loading.status && <LoadingSpin />}
                 <AdminHeader />
                 <div style={{ marginTop: 72 }}>
-                    <Route exact path="/management/dashboard" component={Dashboard} />
-                    <Route exact path="/management/section/edit/:sectionId" component={ManagementSectionEdit} />
-                    <Route exact path="/management/lesson/edit/:lessonId" component={ManagementLessonEdit} />
-                    <Route exact path="/management/lesson/all/:courseId" component={ManagementLesson} />
-                    <Route exact path="/management/lesson/create" component={ManagementLessonCreate} />
-                    <Route exact path="/management/user" component={ManagementLearner} />
-                    <Route exact path="/management/course/create" component={ManagementCourseCreate} />
-                    <Route exact path="/management/course/edit/:courseId" component={ManagementCourseEdit} />
-                    <Route exact path="/management/course" component={ManagementCourse} />
-                    {roles.includes("ROLE_ADMIN") ? <Route exact path="/management" component={ManagementLearner} />
-                        : <Route exact path="/management" component={ManagementCourse} />
+                    <PrivateRoute exact path="/management/dashboard" component={Dashboard} requiredRoles={[VariableConstants.ROLE_ADMIN]} />
+                    <PrivateRoute exact path="/management/section/edit/:sectionId" requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementSectionEdit} />
+                    <PrivateRoute exact path="/management/lesson/edit/:lessonId"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementLessonEdit} />
+                    <PrivateRoute exact path="/management/lesson/all/:courseId"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementLesson} />
+                    <PrivateRoute exact path="/management/lesson/create"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementLessonCreate} />
+                    <PrivateRoute exact path="/management/user"  requiredRoles={[VariableConstants.ROLE_ADMIN]} component={ManagementLearner} />
+                    <PrivateRoute exact path="/management/course/create"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementCourseCreate} />
+                    <PrivateRoute exact path="/management/course/edit/:courseId"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementCourseEdit} />
+                    <PrivateRoute exact path="/management/course"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementCourse} />
+                    {roles.includes("ROLE_ADMIN") ? <PrivateRoute  requiredRoles={[VariableConstants.ROLE_ADMIN]} exact path="/management" component={Dashboard} />
+                        : <PrivateRoute exact path="/management"  requiredRoles={[VariableConstants.ROLE_ADMIN,VariableConstants.ROLE_INSTRUCTOR]} component={ManagementCourse} />
                     }
                 </div>
             </div>

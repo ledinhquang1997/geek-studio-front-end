@@ -136,35 +136,27 @@ class ManagementCourseEdit extends Component {
             }
         }
 
-        let canCreate = true;
 
         if (course.name.trim().length <= 4) {
             this.props.alertOn("warning", "Name attribute requires at least 4 characters!");
-            canCreate = false;
         }
         else if (course.name.trim().length > 100) {
             this.props.alertOn("warning", "Name attribute requires at most 100 characters!");
-            canCreate = false;
         }
         else if (course.description.trim().length <= 4) {
             this.props.alertOn("warning", "Description attribute requires at least 4 characters!");
-            canCreate = false;
         }
         else if (course.description.trim().length > 250) {
             this.props.alertOn("warning", "Description attribute requires at most 250 characters!");
-            canCreate = false;
         }
         else if (course.cost <= 0) {
             this.props.alertOn("warning", "Cost has to be greater than 0");
-            canCreate = false;
         }
         else if (course.description.trim().length > 250) {
             this.props.alertOn("warning", "Description attribute requires at most 250 characters!");
-            canCreate = false;
         }
         else if (course.categoryId.trim().length === 0) {
             this.props.alertOn("warning", "Choose a category");
-            canCreate = false;
         }
 
         // else if (!this.state.picture) {
@@ -174,12 +166,10 @@ class ManagementCourseEdit extends Component {
 
         else if (index !== course.contentSummary.length) {
             this.props.alertOn("warning", "Content summary attribute requires at least 3 characters!");
-            canCreate = false;
         }
 
         else if (indexRequirements !== course.requirements.length) {
             this.props.alertOn("warning", "Requirements attribute requires at least 3 characters!");
-            canCreate = false;
         }
 
         else {
@@ -320,10 +310,10 @@ class ManagementCourseEdit extends Component {
                                     </div>
                                     <div className="image-review__container col-7">
                                         {this.state.picture ?
-                                            <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={URL.createObjectURL(this.state.picture)} />
+                                            <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={URL.createObjectURL(this.state.picture)} alt='...'/>
                                             :
                                             this.state.course.image ?
-                                                <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={this.state.course.image} /> : ""
+                                                <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={this.state.course.image}  alt='...'/> : ""
 
                                         }
                                     </div>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '../../assets/canvasjs.react';
-import { ManagementActions } from '../../actions';
-import {connect} from 'react-redux';
+import { ManagementActions, SystemActions } from '../../actions';
+import { connect } from 'react-redux';
 import { ManagementConstants } from '../../constants';
+import { CourseServices, CategoryServices } from '../../services';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const options = {
@@ -24,75 +25,112 @@ const options = {
         }
     ]
 }
-const optionBarChart = {
-    animationEnabled: true,
 
-    title: {
-        text: "Number of students with course"
-    },
-    axisX: {
-        interval: 1
-    },
-    axisY2: {
-        interlacedColor: "rgba(1,77,101,.2)",
-        gridColor: "rgba(1,77,101,.1)",
-        title: "Number of Students"
-    },
-    data: [{
-        type: "bar",
-        name: "companies",
-        axisYType: "secondary",
-        color: "#014D65",
-        dataPoints: [
-            { y: 3, label: "Master Electron" },
-            { y: 7, label: "C# Core" },
-            { y: 5, label: "Conquer Node JS" },
-            { y: 9, label: "CSS wonderful" },
-            { y: 7, label: "HTML is not programming lang" },
-            { y: 7, label: "Java Core" },
-            { y: 9, label: "Vue JS in real word" },
-            { y: 8, label: "Website with PHP" },
-            { y: 11, label: "TypeScript course" },
-            { y: 15, label: "Marketing Leader" },
-            { y: 12, label: "Market Leader" },
-            { y: 15, label: "Docker - magic tool" },
-            { y: 25, label: "Linux" },
-            { y: 28, label: "ReactJS is easy" },
-           
-        ]
-    }]
-}
-const optionPieChart = {
-    animationEnabled: true,
 
-    title: {
-        text: "Interest of students devided into categories"
-    },
-    legend: {
-        maxWidth: 350,
-        itemWidth: 120
-    },
-    data: [
-        {
-            type: "pie",
-            showInLegend: true,
-            legendText: "{indexLabel}",
-            dataPoints: [
-                { y: 323, indexLabel: "Programming" },
-                { y: 203, indexLabel: "Engineering" },
-                { y: 127, indexLabel: "Bussiness" },
-                { y: 345, indexLabel: "Marketing" },
-
-            ]
-        }
-    ]
-}
 class Dashboard extends Component {
-    
-    componentWillMount() {
-        this.props.changeManagementSection(ManagementConstants.DASHBOARD,ManagementConstants.DASHBOARD)
+    constructor(props) {
+        super(props);
+        this.state = {
+            optionPieChart: {
+                animationEnabled: true,
+
+                title: {
+                    text: "Interest of students devided into categories"
+                },
+                legend: {
+                    maxWidth: 350,
+                    itemWidth: 120
+                },
+                data: [
+                    {
+                        type: "pie",
+                        showInLegend: true,
+                        legendText: "{category}",
+                        dataPoints: [
+                            { y: 0, category: "Programming" },
+                            { y: 0, category: "Engineering" },
+                            { y: 1, category: "Bussiness" },
+                            { y: 2, category: "Marketing" },
+
+                        ]
+                    }
+                ]
+            },
+            optionBarChart: {
+                animationEnabled: true,
+
+                title: {
+                    text: "Number of students with course"
+                },
+                axisX: {
+                    interval: 1
+                },
+                axisY2: {
+                    interlacedColor: "rgba(1,77,101,.2)",
+                    gridColor: "rgba(1,77,101,.1)",
+                    title: "Number of Students"
+                },
+                data: [{
+                    type: "bar",
+                    name: "students",
+                    axisYType: "secondary",
+                    color: "#014D65",
+                    dataPoints: [
+                        { y: 3, label: "Master Electron" },
+                        { y: 7, label: "C# Core" },
+                        { y: 5, label: "Conquer Node JS" },
+                        { y: 9, label: "CSS wonderful" },
+                        { y: 7, label: "HTML is not programming lang" },
+                        { y: 7, label: "Java Core" },
+                        { y: 9, label: "Vue JS in real word" },
+                        { y: 8, label: "Website with PHP" },
+                        { y: 11, label: "TypeScript course" },
+                        { y: 15, label: "Marketing Leader" },
+                        { y: 12, label: "Market Leader" },
+                        { y: 15, label: "Docker - magic tool" },
+                        { y: 25, label: "Linux" },
+                        { y: 28, label: "ReactJS is easy" },
+
+                    ]
+                }]
+            }
+        };
+        this.getCategoryStatistic();
+        this.getCourseStatistic();
     }
-    
+
+
+    componentWillMount() {
+        this.props.changeManagementSection(ManagementConstants.DASHBOARD, ManagementConstants.DASHBOARD)
+    }
+    getCategoryStatistic = () => {
+        CategoryServices.getCategoryStatistics().then(
+            data => {
+                var dataList = [...this.state.optionPieChart.data];
+                dataList[0].dataPoints = data;
+                this.setState({
+                    optionPieChart: { ...this.state.optionPieChart, data: dataList }
+                });
+            },
+            err => {
+                this.props.alertOn("warning", "Cannot get data. Error: " + err)
+            }
+        )
+    }
+    getCourseStatistic = () => {
+        CourseServices.getCourseStatistic().then(
+            data => {
+                var dataList = [...this.state.optionBarChart.data];
+                dataList[0].dataPoints = data;
+                this.setState({
+                    optionBarChart: { ...this.state.optionBarChart, data: dataList }
+                });
+            },
+            err => {
+                this.props.alertOn("warning", "Cannot get data. Error: " + err)
+            }
+        )
+    }
     render() {
         return (
             <div className="management">
@@ -100,7 +138,7 @@ class Dashboard extends Component {
                     <div className="row">
                         <div className="col-6">
                             <div style={{ width: '90%', margin: 'auto' }}>
-                                <CanvasJSChart options={optionPieChart}
+                                <CanvasJSChart options={this.state.optionPieChart}
                                 /* onRef = {ref => this.chart = ref} */
                                 />
                             </div>
@@ -112,10 +150,10 @@ class Dashboard extends Component {
                                 />
                             </div>
                         </div>
-                        <hr/>
+                        <hr />
                         <div className="col-12">
-                            <div style={{ width: '90%', margin: 'auto', marginTop:'50px',marginBottom:'50px' }}>
-                                <CanvasJSChart options={optionBarChart}
+                            <div style={{ width: '90%', margin: 'auto', marginTop: '50px', marginBottom: '50px' }}>
+                                <CanvasJSChart options={this.state.optionBarChart}
                                 /* onRef = {ref => this.chart = ref} */
                                 />
                             </div>
@@ -136,6 +174,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         changeManagementSection: (managementType, managementAction) => {
             dispatch(ManagementActions.changeManagementSection(managementType, managementAction))
+        },
+        alertOn: (type, content) => {
+            dispatch(SystemActions.alertOn(type, content))
         },
     }
 }

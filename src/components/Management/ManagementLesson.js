@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { StudentActions, CourseActions, ManagementActions, SystemActions } from '../../actions';
+import {CourseActions, ManagementActions, SystemActions } from '../../actions';
 import { ManagementConstants } from '../../constants';
 import { CourseServices } from '../../services/CourseServices';
 

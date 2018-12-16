@@ -1,14 +1,15 @@
 
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { deleteCookies, getCookies } from './utilities';
+import cookies from 'react-cookies';
+import { VariableConstants } from "../../constants";
 
 export const PrivateRoute = ({ component: Component, requiredRoles, ...rest }) => (
   <Route {...rest} render={props => (
     isAuthenticated(requiredRoles) ? (
       <Component {...props} />) : (
         <Redirect to={{
-          pathname: '/login',
+          pathname: '/',
           state: { from: props.location }
         }} />
       )
@@ -17,14 +18,14 @@ export const PrivateRoute = ({ component: Component, requiredRoles, ...rest }) =
 
 function isAuthenticated(requiredRoles) {
   //get user 
-  let cookies = getCookies();
-  if (!cookies.token || !cookies.roles || !cookies.info) {
-    deleteCookies();
-    return false;
-  }
-  const { roles } = cookies;
+  // let cookies = getCookies();
+  // if (!cookies.roles || !cookies.username) {
+  //   deleteCookies();
+  //   return false;
+  // }
+  const roles = cookies.load(VariableConstants.ROLES);
   for (let i = 0; i < roles.length; i++) {
-    if (roles[i] === requiredRoles) {
+    if (requiredRoles.includes(roles[i])) {
       return true;
     }
   }

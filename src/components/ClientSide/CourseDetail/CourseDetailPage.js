@@ -37,7 +37,7 @@ class CourseDetailPage extends Component {
         //     localStorage.setItem("cart", JSON.stringify(cart));
         // }
         else {
-            var cart = JSON.parse(localStorage.getItem("cart"))
+            cart = JSON.parse(localStorage.getItem("cart"))
             if (cart.filter(item => item.course.id === course.id).length > 0) {
                 this.props.alertOn("warning", "Course " + course.name + "is already added in the cart!")
                 return

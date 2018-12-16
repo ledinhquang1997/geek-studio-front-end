@@ -119,50 +119,39 @@ class ManagementCourseCreate extends Component {
             }
         }
 
-        let canCreate = true;
 
         if (newCourse.name.trim().length <= 4) {
             this.props.alertOn("warning", "Name attribute requires at least 4 characters!");
-            canCreate = false;
         }
         else if (newCourse.name.trim().length > 100) {
             this.props.alertOn("warning", "Name attribute requires at most 100 characters!");
-            canCreate = false;
         }
         else if (newCourse.description.trim().length <= 4) {
             this.props.alertOn("warning", "Description attribute requires at least 4 characters!");
-            canCreate = false;
         }
         else if (newCourse.description.trim().length > 250) {
             this.props.alertOn("warning", "Description attribute requires at most 250 characters!");
-            canCreate = false;
         }
         else if (newCourse.cost <= 0) {
             this.props.alertOn("warning", "Cost has to be greater than 0");
-            canCreate = false;
         }
         else if (newCourse.description.trim().length > 250) {
             this.props.alertOn("warning", "Description attribute requires at most 250 characters!");
-            canCreate = false;
         }
         else if (newCourse.categoryId.trim().length === 0) {
             this.props.alertOn("warning", "Choose a category");
-            canCreate = false;
         }
 
         else if (!this.state.picture) {
-            canCreate = false;
             this.props.alertOn("warning", "Picture is required!");
         }
 
         else if (index !== newCourse.contentSummary.length) {
             this.props.alertOn("warning", "Content summary attribute requires at least 10 characters!");
-            canCreate = false;
         }
 
         else if (indexRequirements !== newCourse.requirements.length) {
             this.props.alertOn("warning", "Requirements attribute requires at least 10 characters!");
-            canCreate = false;
         }
 
         else {
@@ -283,7 +272,7 @@ class ManagementCourseCreate extends Component {
                                     <div className="image-review__container col-7">
                                         {this.state.picture &&
                                             <React.Fragment>
-                                                <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={URL.createObjectURL(this.state.picture)} />
+                                                <img className="img-thumbnail rounded" style={{ maxWidth: '300px', maxHeight: '200px' }} src={URL.createObjectURL(this.state.picture)} alt='...' />
                                                 <button className="btn btn-danger">Delete</button>
                                             </React.Fragment>}
                                     </div>

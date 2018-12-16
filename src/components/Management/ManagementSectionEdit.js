@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -55,7 +55,10 @@ class ManagementSectionEdit extends Component {
     }
 
     handleBack = () => {
-        this.props.history.push({ pathname: "/management/lesson/edit/" + this.props.location.lessonId })
+        if (this.props.location.lessonId)
+            this.props.history.push({ pathname: "/management/lesson/edit/" + this.props.location.lessonId })
+        else
+            this.props.history.push({ pathname: "/management/course" })
     }
     handleImageUpload = (files) => {
 
@@ -169,7 +172,7 @@ class ManagementSectionEdit extends Component {
 
         // this.handleImageUpload(files[0]);
     }
-   
+
     renderVideo = () => {
         if (this.state.uploadedFile) {
             return (
@@ -216,7 +219,7 @@ class ManagementSectionEdit extends Component {
                                         onDrop={this.onImageDrop}>
                                         <p className="lead text-center">Drop a video or click to select a file to upload.</p>
                                         <div className="d-flex justify-content-center">
-                                            <img style={{ height: "100px", margin: "auto", width: "100px", opacity: "0.5" }} src={require("../../assets/images-system/drop.png")} />
+                                            <img style={{ height: "100px", margin: "auto", width: "100px", opacity: "0.5" }} src={require("../../assets/images-system/drop.png")} alt="..."/>
                                         </div>
                                         {this.state.uploadedFile && <p className="text-center lead">{this.state.uploadedFile.name}</p>}
 

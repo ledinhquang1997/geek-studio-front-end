@@ -1,4 +1,4 @@
-import { CourseConstant, VariableConstants } from '../constants'
+import { CourseConstant } from '../constants'
 //BEST SELLER
 function getBestSellerCourses() {
     return { type: CourseConstant.GET_BEST_SELLER_COURSE }
